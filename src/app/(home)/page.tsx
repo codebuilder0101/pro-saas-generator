@@ -1,6 +1,7 @@
 import Navbar from "@/app/(home)/_components/Navbar";
 import HowItWorksSection from "@/app/(home)/_components/HowItWorksSection";
 import HeroSection from "@/app/(home)/_components/HeroSection";
+import PricingSection from "@/components/Pricing";
 
 export default function Home() {
   // const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -10,7 +11,7 @@ export default function Home() {
     <div className="min-h-screen bg-white">
       <Navbar />
       <main>
-      <HeroSection />
+        <HeroSection />
 
 
         {/* <section id="solution" className="py-20 bg-gray-100">
@@ -109,39 +110,9 @@ export default function Home() {
 
         <HowItWorksSection />
 
-        {/* <section id="pricing" className="bg-gray-100 py-20">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 className="text-4xl font-extrabold text-gray-900">Pricing Plans</h2>
-            <p className="mt-4 text-lg text-gray-600">
-              Simple and transparent pricing to suit your needs.
-            </p>
-            <div className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-8">
-              <div className="bg-white border border-gray-200 rounded-lg shadow-md p-8">
-                <h3 className="text-2xl font-bold text-gray-900">Starter</h3>
-                <p className="mt-4 text-gray-600">Ideal for individuals launching their first Micro-SaaS.</p>
-                <p className="mt-6 text-4xl font-extrabold text-gray-900">$19/month</p>
-                <ul className="mt-6 space-y-4 text-gray-600">
-                  <li>✔ Access to core features</li>
-                  <li>✔ 1 project</li>
-                  <li>✔ Community support</li>
-                </ul>
-                <button className="mt-6 bg-indigo-600 text-white py-2 px-4 rounded hover:bg-indigo-700">Choose Starter</button>
-              </div>
-
-              <div className="bg-white border border-gray-200 rounded-lg shadow-md p-8">
-                <h3 className="text-2xl font-bold text-gray-900">Pro</h3>
-                <p className="mt-4 text-gray-600">Perfect for teams scaling their Micro-SaaS business.</p>
-                <p className="mt-6 text-4xl font-extrabold text-gray-900">$49/month</p>
-                <ul className="mt-6 space-y-4 text-gray-600">
-                  <li>✔ Everything in Starter</li>
-                  <li>✔ Unlimited projects</li>
-                  <li>✔ Priority support</li>
-                </ul>
-                <button className="mt-6 bg-indigo-600 text-white py-2 px-4 rounded hover:bg-indigo-700">Choose Pro</button>
-              </div>
-            </div>
-          </div>
-        </section> */}
+        <section id="pricing" className="bg-gray-100 py-20">
+          <PricingSection />
+        </section>
 
         {/* <section id="features" className="py-20 bg-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

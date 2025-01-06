@@ -1,14 +1,13 @@
 import localFont from 'next/font/local'
 
-import "./globals.css";
+import "@/styles/globals.css";
 
 const myFont = localFont({ src: '../../public/Satoshi.ttf' })
 
-export default function RootLayout({
-  children,
-}: Readonly<{
+type Props = {
   children: React.ReactNode;
-}>) {
+}
+export default function RootLayout({ children }: Props) {
   return (
     <html lang="en">
       <body className={myFont.className}>

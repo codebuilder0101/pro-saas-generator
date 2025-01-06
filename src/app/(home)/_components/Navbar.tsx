@@ -18,10 +18,6 @@ export default function Navbar() {
                         width={32}
                         height={0}
                     />
-
-                    <h1 className="text-2xl font-thin text-indigo-600 flex-shrink-0">
-                        Sassy
-                    </h1>
                 </div>
 
                 <nav className="hidden md:flex absolute left-1/2 transform -translate-x-1/2 items-center space-x-6">

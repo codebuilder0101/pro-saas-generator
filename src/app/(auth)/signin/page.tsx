@@ -1,9 +1,11 @@
 import OAuth from "@/app/(auth)/_components/OAuth";
+import BackToLandingPage from "../_components/BackToLandingPage";
 
 export default function SignIn() {
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100 px-4 sm:px-6 lg:px-8">
       <div className="w-full max-w-md p-8 space-y-6 bg-white rounded-lg shadow-lg">
+        <BackToLandingPage />
         <h2 className="text-2xl font-semibold text-center text-gray-900">Login</h2>
         <p className="text-center text-sm text-gray-600">Enter your email to begin</p>
 

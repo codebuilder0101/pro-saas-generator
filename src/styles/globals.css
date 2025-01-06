@@ -27,10 +27,27 @@ body {
     transform: translateX(-100%);
   }
 }
-
+/* TODO: Need Refactor */
 .animate-slide {
   display: flex;
   flex-wrap: nowrap;
   animation: scroll 30s linear infinite;
   will-change: transform;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }
