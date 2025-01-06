@@ -19,7 +19,7 @@ export default function Navbar() {
                         height={0}
                     />
 
-                    <h1 className="text-2xl font-bold text-indigo-600 flex-shrink-0">
+                    <h1 className="text-2xl font-thin text-indigo-600 flex-shrink-0">
                         Sassy
                     </h1>
                 </div>

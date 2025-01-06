@@ -5,11 +5,11 @@ export default function HeroSection() {
         <div className="py-28 max-w-7xl mx-auto px-8 sm:px-16 lg:px-28">
             <div className="flex flex-col lg:flex-row items-center lg:items-center">
                 {/* Texto */}
-                <div className="lg:w-2/3">
-                    <h1 className="text-6xl font-extrabold text-gray-900">
+                <div className="text-center lg:text-left lg:w-2/3">
+                    <h1 className="text-3xl md:text-5xl font-bold leading-tight text-gray-900">
                         Welcome to <br />Micro-SaaS Creator
                     </h1>
-                    <p className="mt-4 text-lg text-gray-600">
+                    <p className="mt-4 text-lg md:text-xl text-gray-600">
                         Empower your vision with tools to build Micro-SaaS solutions effortlessly.
                     </p>
                     <a href="/dashboard">
