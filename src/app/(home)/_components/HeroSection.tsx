@@ -2,7 +2,7 @@ import Image from 'next/image';
 
 export default function HeroSection() {
     return (
-        <div className="py-28 max-w-7xl mx-auto px-12 sm:px-16 lg:px-28">
+        <div className="py-28 max-w-7xl mx-auto px-8 sm:px-16 lg:px-28">
             <div className="flex flex-col lg:flex-row items-center lg:items-center">
                 {/* Texto */}
                 <div className="lg:w-2/3">
@@ -20,7 +20,7 @@ export default function HeroSection() {
                 </div>
 
                 {/* Imagem */}
-                <div className="lg:ml-auto lg:w-1/3">
+                <div className="lg:ml-auto lg:w-1/3 mt-16 md:mt-0">
                     <Image
                         src="/home-img-1.svg"
                         alt="Micro-SaaS Illustration"
