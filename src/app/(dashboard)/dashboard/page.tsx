@@ -13,7 +13,7 @@ const tabs: Tab[] = [
   { name: "Feature 3", href: "/feature3" },
 ];
 
-export default function Dashboard({ children }: { children: React.ReactNode }) {
+export default function Dashboard() {
   const [activeTab, setActiveTab] = useState(tabs[0].href);
 
   return (
@@ -60,11 +60,6 @@ export default function Dashboard({ children }: { children: React.ReactNode }) {
             </ul>
           </nav>
         </div>
-
-        {/* Content */}
-        <main className="flex-1 p-6 bg-gray-50">
-          {children}
-        </main>
       </div>
     </div>
   );
