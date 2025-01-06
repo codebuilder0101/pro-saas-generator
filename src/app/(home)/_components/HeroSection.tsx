@@ -5,7 +5,9 @@ export default function HeroSection() {
             <p className="mt-4 text-lg text-gray-600">
                 Empower your vision with tools to build Micro-SaaS solutions effortlessly.
             </p>
-            <button className="mt-6 bg-indigo-600 text-white py-3 px-6 rounded-lg hover:bg-indigo-700">Get Started</button>
+            <a href="/dashboard">
+                <button className="mt-6 bg-indigo-600 text-white py-3 px-6 rounded-lg hover:bg-indigo-700">Get Started</button>
+            </a>
         </div>
     );
 }
