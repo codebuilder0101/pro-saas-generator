@@ -2,8 +2,8 @@ import Image from 'next/image';
 
 export default function HeroSection() {
     return (
-        <div className="py-28 max-w-7xl mx-auto px-8 sm:px-16 lg:px-28">
-            <div className="flex flex-col lg:flex-row items-center lg:items-center">
+        <div className="py-12 md:py-28 max-w-7xl mx-auto px-2 sm:px-16 lg:px-28">
+            <div className="flex flex-col md:flex-row items-center md:items-center">
                 {/* Texto */}
                 <div className="text-center lg:text-left lg:w-2/3">
                     <h1 className="text-3xl md:text-5xl font-bold leading-tight text-gray-900">
