@@ -20,7 +20,7 @@ export default function HeroSection() {
                 </div>
 
                 {/* Imagem */}
-                <div className="lg:ml-auto lg:w-1/3 mt-16 md:mt-0">
+                <div className="lg:ml-auto lg:w-1/3 mt-12 md:mt-0">
                     <Image
                         src="/home-img-1.svg"
                         alt="Micro-SaaS Illustration"
