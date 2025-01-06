@@ -1,4 +1,8 @@
+import localFont from 'next/font/local'
+
 import "./globals.css";
+
+const myFont = localFont({ src: '../../public/Satoshi.ttf' })
 
 export default function RootLayout({
   children,
@@ -7,7 +11,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>
+      <body className={myFont.className}>
         {children}
       </body>
     </html>

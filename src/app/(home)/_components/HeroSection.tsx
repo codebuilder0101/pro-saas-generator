@@ -13,7 +13,7 @@ export default function HeroSection() {
                         Empower your vision with tools to build Micro-SaaS solutions effortlessly.
                     </p>
                     <a href="/dashboard">
-                        <button className="mt-6 bg-indigo-600 text-white py-3 px-6 rounded-lg hover:bg-indigo-700">
+                        <button className="mt-6 bg-indigo-600 text-white py-3 px-6 rounded-lg hover:bg-indigo-700 w-64">
                             Get Started
                         </button>
                     </a>

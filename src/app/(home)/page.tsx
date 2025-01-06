@@ -7,7 +7,7 @@ export default function Home() {
   // const [currentSlide, setCurrentSlide] = useState(0);
 
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className="min-h-screen bg-white">
       <Navbar />
       <main>
       <HeroSection />

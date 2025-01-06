@@ -42,6 +42,7 @@ export default function SignUp() {
             </button>
           </div>
         </form>
+        <div className="text-center text-sm text-gray-600">or</div>
         <OAuth />
         <div className="mt-4 text-center text-sm text-gray-600">
           Already have an account?{' '}
