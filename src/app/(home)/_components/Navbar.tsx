@@ -41,7 +41,7 @@ export default function Navbar() {
                         Sign In
                     </a>
                     <a
-                        href="/signup"
+                        href="/signin"
                         className="py-2 px-4 bg-indigo-600 text-white rounded hover:bg-indigo-700"
                     >
                         Use the Platform
@@ -90,7 +90,7 @@ export default function Navbar() {
                             Login
                         </a>
                         <a
-                            href="/signup"
+                            href="/signin"
                             className="py-2 px-4 border border-indigo-600 text-indigo-600 rounded hover:bg-indigo-100"
                         >
                             Sign Up

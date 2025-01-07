@@ -14,17 +14,19 @@ export default function OAuthComponent() {
         }
     ]
     return (
-        <div className="mt-4 flex justify-center space-x-4">
+        <>
             <div className="text-center text-sm text-gray-600">or</div>
 
-            {PROVIDERS_MAP.map(({ provider, logo }) => (
-                <ProviderButton
-                    key={provider}
-                    provider={provider}
-                    logo={logo}
-                />
-            ))}
-        </div>
+            <div className="mt-4 flex justify-center space-x-4">
+                {PROVIDERS_MAP.map(({ provider, logo }) => (
+                    <ProviderButton
+                        key={provider}
+                        provider={provider}
+                        logo={logo}
+                    />
+                ))}
+            </div>
+        </>
     );
 }
 
