@@ -1,8 +1,8 @@
-import OAuth from "@/app/(auth)/_components/OAuth";
 import BackComponent from "@/app/(auth)/_components/Back";
-import InputComponent from "@/components/ui/Input";
-import ButtonComponent from "@/components/ui/Button";
+import OAuth from "@/app/(auth)/_components/OAuth";
 import ToggleScreenComponent from "@/app/(auth)/_components/ToggleScreen";
+import ButtonComponent from "@/components/ui/Button";
+import InputComponent from "@/components/ui/Input";
 
 export default function SignInPage() {
   return (

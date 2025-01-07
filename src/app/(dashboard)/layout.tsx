@@ -1,8 +1,9 @@
 "use client";
 
 import { useState } from 'react';
-import Notification from './_components/Notification';
+
 import MyAccount from './_components/MyAccount';
+import Notification from './_components/Notification';
 
 type Props = {
     children: React.ReactNode;

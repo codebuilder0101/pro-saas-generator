@@ -1,7 +1,7 @@
 import OAuth from "@/app/(auth)/_components/OAuth";
-import InputComponent from "@/components/ui/Input";
-import ButtonComponent from "@/components/ui/Button";
 import ToggleScreen from "@/app/(auth)/_components/ToggleScreen";
+import ButtonComponent from "@/components/ui/Button";
+import InputComponent from "@/components/ui/Input";
 
 export default function SignUpPage() {
   return (
