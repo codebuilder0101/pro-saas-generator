@@ -1,6 +1,6 @@
 "use client";
 
-import { useRouter } from 'next/navigation'
+import { useRouter } from 'next/navigation';
 
 import { useReducer } from "react";
 
@@ -46,17 +46,15 @@ function reducer(state: typeof initialState, action: Action) {
 
 export default function SignInPage() {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const router = useRouter()
+  const router = useRouter();
 
-  async function handleRegister() {
+  async function handleSubmit() {
     try {
       dispatch({ type: "SET_LOADING", payload: true });
       dispatch({ type: "SET_ERRORS", payload: { email: "", password: "", general: "" } });
 
       const isValidEmail = RegexValidation.validateEmail(state.inputValue.email);
       const isPasswordValid = state.inputValue.password.length >= 6;
-
- 
 
       if (!isValidEmail || !isPasswordValid) {
         dispatch({
@@ -73,7 +71,7 @@ export default function SignInPage() {
 
       console.log("Response", response?.id);
       if (response?.id) {
-        router.push("/dashboard")
+        router.push("/dashboard");
       } else {
         dispatch({ type: "SET_ERRORS", payload: { general: "Invalid email or password." } });
       }
@@ -88,55 +86,60 @@ export default function SignInPage() {
   }
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100 px-4 sm:px-6 lg:px-8">
-      <div className="w-full max-w-md p-8 space-y-6 bg-white rounded-lg shadow-lg">
-        <BackLinkComponent href='/' label='Back To Home' />
-        <h2 className="text-2xl font-semibold text-center text-gray-900">Sign In</h2>
-        <p className="text-center text-sm text-gray-600">Enter your details to use an account</p>
-        <form className="mt-8 space-y-6">
-          <div>
-            <InputComponent
-              type="email"
-              name="email"
-              label="Email"
-              placeholder=""
-              value={state.inputValue.email}
-              onChange={(e) =>
-                dispatch({ type: "SET_INPUT_VALUE", payload: { email: e.target.value } })
-              }
-            />
-            {state.errors.email && (
-              <p className="text-sm text-red-500 mt-1">{state.errors.email}</p>
-            )}
-          </div>
-
-          <div>
-            <InputComponent
-              type="password"
-              name="password"
-              label="Password"
-              placeholder=""
-              value={state.inputValue.password}
-              onChange={(e) =>
-                dispatch({ type: "SET_INPUT_VALUE", payload: { password: e.target.value } })
-              }
-            />
-            {state.errors.password && (
-              <p className="text-sm text-red-500 mt-1">{state.errors.password}</p>
-            )}
-          </div>
-
-          {state.errors.general && (
-            <p className="text-sm text-red-500 text-center mt-1">{state.errors.general}</p>
+    <>
+      <BackLinkComponent href='/' label='Back To Home' />
+      <h2 className="text-2xl font-semibold text-center text-gray-900">Sign In</h2>
+      <p className="text-center text-sm text-gray-600">Enter your details to use an account</p>
+      <form className="mt-8 space-y-6"  onSubmit={(e) => { e.preventDefault(); handleSubmit(); }}>
+        <div>
+          <InputComponent
+            type="email"
+            name="email"
+            label="Email"
+            placeholder=""
+            value={state.inputValue.email}
+            onChange={(e) =>
+              dispatch({ type: "SET_INPUT_VALUE", payload: { email: e.target.value } })
+            }
+          />
+          {state.errors.email && (
+            <p className="text-sm text-red-500 mt-1">{state.errors.email}</p>
           )}
+        </div>
 
-          <ButtonComponent isLoading={state.isLoading} type="button" onClick={handleRegister}>
-            Sign In
-          </ButtonComponent>
-        </form>
-        <OAuth />
-        <ToggleScreenComponent screen="signin" />
-      </div>
-    </div>
+        <div>
+          <InputComponent
+            type="password"
+            name="password"
+            label="Password"
+            placeholder=""
+            value={state.inputValue.password}
+            onChange={(e) =>
+              dispatch({ type: "SET_INPUT_VALUE", payload: { password: e.target.value } })
+            }
+          />
+          {state.errors.password && (
+            <p className="text-sm text-red-500 mt-1">{state.errors.password}</p>
+          )}
+        </div>
+
+        {/* Forgot Password Link */}
+        <div className="text-right mt-0">
+          <a href="/forgot-password" className="text-sm text-blue-600 hover:text-blue-800">
+            Forgot your password?
+          </a>
+        </div>
+
+        {state.errors.general && (
+          <p className="text-sm text-red-500 text-center mt-1">{state.errors.general}</p>
+        )}
+
+        <ButtonComponent isLoading={state.isLoading} type="submit">
+          Sign In
+        </ButtonComponent>
+      </form>
+      <OAuth />
+      <ToggleScreenComponent screen="signin" />
+    </>
   );
 }
