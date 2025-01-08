@@ -2,16 +2,16 @@
 
 import { useReducer } from "react";
 
+import BackLinkComponent from "@/app/(auth)/_components/BackLink";
 import OAuth from "@/app/(auth)/_components/OAuth";
+import PasswordStrengthIndicator from "@/app/(auth)/_components/PasswordStrength";
+import ToggleScreenComponent from "@/app/(auth)/_components/ToggleScreen";
 import ButtonComponent from "@/components/ui/Button";
 import InputComponent from "@/components/ui/Input";
 import { supabase } from "@/lib/supabase/client";
 import AuthService from "@/services/auth";
 import RegexValidation from "@/utils/RegexValidation";
 
-import BackLinkComponent from "../_components/BackLink";
-import ToggleScreenComponent from "../_components/ToggleScreen";
-import PasswordStrengthIndicator from "./_components/PasswordStrength";
 
 const initialState = {
   isLoading: false,

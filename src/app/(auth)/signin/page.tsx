@@ -4,15 +4,15 @@ import { useRouter } from 'next/navigation';
 
 import { useReducer } from "react";
 
+import BackLinkComponent from "@/app/(auth)/_components/BackLink";
 import OAuth from "@/app/(auth)/_components/OAuth";
+import ToggleScreenComponent from "@/app/(auth)/_components/ToggleScreen";
 import ButtonComponent from "@/components/ui/Button";
 import InputComponent from "@/components/ui/Input";
 import { supabase } from '@/lib/supabase/client';
 import AuthService from "@/services/auth";
 import RegexValidation from "@/utils/RegexValidation";
 
-import BackLinkComponent from "../_components/BackLink";
-import ToggleScreenComponent from "../_components/ToggleScreen";
 
 const initialState = {
   isLoading: false,

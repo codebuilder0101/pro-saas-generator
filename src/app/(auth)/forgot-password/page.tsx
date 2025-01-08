@@ -2,13 +2,13 @@
 
 import { useReducer } from "react";
 
+import BackLinkComponent from "@/app/(auth)/_components/BackLink";
 import ButtonComponent from "@/components/ui/Button";
 import InputComponent from "@/components/ui/Input";
 import { supabase } from "@/lib/supabase/client";
 import AuthService from "@/services/auth"
 import RegexValidation from "@/utils/RegexValidation";
 
-import BackLinkComponent from "../_components/BackLink";
 
 const initialState = {
     isLoading: false,
