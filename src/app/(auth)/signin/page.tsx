@@ -44,7 +44,7 @@ function reducer(state: typeof initialState, action: Action) {
   }
 }
 
-export default function SignInPage() {
+export default function SignIn() {
   const [state, dispatch] = useReducer(reducer, initialState);
   const router = useRouter();
 
@@ -70,6 +70,7 @@ export default function SignInPage() {
       const response = await signIn(state.inputValue.email, state.inputValue.password);
 
       console.log("Response", response?.id);
+      
       if (response?.id) {
         router.push("/dashboard");
       } else {

@@ -1,16 +1,18 @@
-import React from 'react';
+'use client';
 
-interface ProfileProps {
-    isOpen: boolean;
-    toggleMenu: () => void;
-}
+import { useState } from 'react';
 
-function MyAccount({ isOpen, toggleMenu }: ProfileProps) {
+import { signOut } from '@/lib/auth';
+
+
+function MyAccount() {
+    const [isOpen, toggleMenu] = useState(false);
+
     return (
         <>
             <div className="relative">
                 <button
-                    onClick={toggleMenu}
+                    onClick={() => toggleMenu(!isOpen)}
                     className="text-gray-700 hover:text-indigo-600 font-medium focus:outline-none"
                 >
                     My Account
@@ -27,7 +29,7 @@ function MyAccount({ isOpen, toggleMenu }: ProfileProps) {
                         <a href="/subscription" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
                             Terms and Privacy
                         </a>
-                        <a href="./" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                        <a className="block px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer" onClick={() => signOut()}>
                             Sign Out
                         </a>
                     </div>

@@ -2,7 +2,7 @@ type ToggleScreenProps = {
     screen: 'signin' | 'signup';
 }
 
-export default function ToggleScreenComponent({ screen }: ToggleScreenProps) {
+export default function ToggleScreen({ screen }: ToggleScreenProps) {
     return (
         <div className="mt-4 text-center text-sm text-gray-600">
             {screen === 'signin' ? (

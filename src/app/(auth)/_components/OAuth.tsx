@@ -1,4 +1,4 @@
-export default function OAuthComponent() {
+export default function OAuth() {
     const PROVIDERS_MAP = [
         {
             provider: 'Google',

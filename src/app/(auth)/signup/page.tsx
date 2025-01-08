@@ -10,6 +10,7 @@ import RegexValidation from "@/utils/RegexValidation";
 
 import BackLinkComponent from "../_components/BackLink";
 import ToggleScreenComponent from "../_components/ToggleScreen";
+import PasswordStrengthIndicator from "./_components/PasswordStrength";
 
 const initialState = {
   isLoading: false,
@@ -53,7 +54,7 @@ function reducer(state: typeof initialState, action: Action) {
   }
 }
 
-export default function SignUpPage() {
+export default function SignUp() {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   async function handleSubmit() {
@@ -115,7 +116,7 @@ export default function SignUpPage() {
         <>
           <h2 className="text-2xl font-semibold text-center text-gray-900">Sign Up</h2>
           <p className="text-center text-sm text-gray-600">Create your account to get started</p>
-          <form className="mt-8 space-y-6"  onSubmit={(e) => { e.preventDefault(); handleSubmit(); }}>
+          <form className="mt-8 space-y-6" onSubmit={(e) => { e.preventDefault(); handleSubmit(); }}>
             <div>
               <InputComponent
                 type="email"
@@ -143,6 +144,7 @@ export default function SignUpPage() {
                   dispatch({ type: "SET_INPUT_VALUE", payload: { password: e.target.value } })
                 }
               />
+              <PasswordStrengthIndicator password={state.inputValue.password} />
               {state.errors.password && (
                 <p className="text-sm text-red-500 mt-1">{state.errors.password}</p>
               )}

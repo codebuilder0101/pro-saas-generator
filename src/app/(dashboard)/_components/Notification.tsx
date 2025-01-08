@@ -1,15 +1,25 @@
+"use client";
 
 import { BellIcon } from '@heroicons/react/24/outline';
+import { useState } from 'react';
 
-interface NotificationProps {
-    unreadCount: number;
-    notificationsOpen: boolean;
-    notifications: { id: number; message: string; description: string; read: boolean }[];
-    toggleNotifications: () => void;
-    markAsRead: (id: number) => void;
-}
 
-function Notification({ unreadCount, notificationsOpen, notifications, toggleNotifications, markAsRead }: NotificationProps) {
+function Notification() {
+    const [notificationsOpen, setNotificationsOpen] = useState(false);
+    const [notifications, setNotifications] = useState([
+        { id: 1, message: 'Notification 1', description: 'Description 1', read: false },
+        { id: 2, message: 'Notification 2', description: 'Description 2', read: false },
+        { id: 3, message: 'Notification 3', description: 'Description 3', read: true },
+    ]);
+
+    const unreadCount = notifications.filter(notification => !notification.read).length;
+
+    const toggleNotifications = () => setNotificationsOpen(!notificationsOpen);
+
+    const markAsRead = (id: number) => {
+        setNotifications(notifications.map(n => n.id === id ? { ...n, read: true } : n));
+    };
+
     return (
         <div className="relative cursor-pointer">
             <BellIcon

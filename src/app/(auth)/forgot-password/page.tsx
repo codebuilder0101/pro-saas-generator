@@ -4,7 +4,7 @@ import { useReducer } from "react";
 
 import ButtonComponent from "@/components/ui/Button";
 import InputComponent from "@/components/ui/Input";
-// import { sendPasswordResetEmail } from "@/lib/auth"
+import { forgotPassword } from "@/lib/auth"
 import RegexValidation from "@/utils/RegexValidation";
 
 import BackLinkComponent from "../_components/BackLink";
@@ -42,7 +42,7 @@ function reducer(state: typeof initialState, action: Action) {
     }
 }
 
-export default function ForgotPasswordPage() {
+export default function ForgotPassword() {
     const [state, dispatch] = useReducer(reducer, initialState);
 
     async function handleSubmit() {
@@ -62,8 +62,9 @@ export default function ForgotPasswordPage() {
                 throw new Error("Validation Error");
             }
 
-            // const response = await sendPasswordResetEmail(state.inputValue.email);
+            const response = await forgotPassword(state.inputValue.email);
 
+            console.log(response);
             if (true) {
                 dispatch({ type: "SET_SUCCESS", payload: true });
             } else {
@@ -81,7 +82,7 @@ export default function ForgotPasswordPage() {
     if (state.isSuccess) {
         return (
             <>
-                <BackLinkComponent href='/login' label='Back To Login' />
+                <BackLinkComponent href='/signin' label='Back To Login' />
                 <h2 className="text-2xl font-semibold text-center text-gray-900">Check Your Inbox</h2>
                 <p className="text-center text-sm text-gray-600">A password reset link has been sent to your email. Please check your inbox.</p>
             </>
