@@ -71,9 +71,6 @@ export default function SignIn() {
       }
 
       const AuthServiceInstance = new AuthService(supabase);
-
-      const response2 = await AuthServiceInstance.getUserSessionId();
-      console.log("Response2", response2);
       
       const response = await AuthServiceInstance.signIn(state.inputValue.email, state.inputValue.password);
       

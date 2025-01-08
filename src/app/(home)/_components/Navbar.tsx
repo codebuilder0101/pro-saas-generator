@@ -2,10 +2,29 @@
 
 import Image from "next/image";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+
+import { supabase } from '@/lib/supabase/client';
+import AuthService from '@/services/auth';
+
 
 export default function Navbar() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [isLogged, setIsLogged] = useState(false);
+
+    useEffect(() => {
+        const getUserSession = async () => {
+            const AuthServiceInstance = new AuthService(supabase);
+            const user = await AuthServiceInstance.getUserSessionId();
+            if (!!user) {
+                setIsLogged(true);
+            } else {
+                setIsLogged(false);
+            }
+
+        };
+        getUserSession();
+    }, []);
 
     return (
         <header className="bg-white shadow">
@@ -34,18 +53,21 @@ export default function Navbar() {
                 </nav>
 
                 <div className="hidden md:flex items-center space-x-4 flex-shrink-0">
-                    <a
-                        href="/signin"
-                        className="py-2 px-4 border border-indigo-600 text-indigo-600 rounded hover:bg-indigo-100"
-                    >
-                        Sign In
-                    </a>
-                    <a
-                        href="/signin"
-                        className="py-2 px-4 bg-indigo-600 text-white rounded hover:bg-indigo-700"
-                    >
-                        Use the Platform
-                    </a>
+                    {!isLogged ? (
+                        <>
+                            <a href="/signin" className="py-2 px-4 border border-indigo-600 text-indigo-600 rounded hover:bg-indigo-100" >
+                                Sign In
+                            </a>
+                            <a href="/signup" className="py-2 px-4 bg-indigo-600 text-white rounded hover:bg-indigo-700">
+                                Try For Free
+                            </a>
+                        </>
+                    ) :
+                        <a href="/dashboard" className="py-2 px-4 bg-indigo-600 text-white rounded hover:bg-indigo-700">
+                            Dashboard
+                        </a>
+                    }
+
                 </div>
 
                 <button

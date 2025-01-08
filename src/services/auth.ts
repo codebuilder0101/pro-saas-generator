@@ -1,4 +1,4 @@
-import { User, VerifyEmailOtpParams } from '@supabase/supabase-js';
+import { EmailOtpType, User } from '@supabase/supabase-js';
 import { SupabaseClient } from '@supabase/supabase-js';
 
 export default class AuthService {
@@ -21,7 +21,10 @@ export default class AuthService {
 
     async signIn(email: string, password: string): Promise<User | null> {
         const { data, error } = await this.supabase.auth.signInWithPassword({ email, password });
-        if (error) throw error;
+        if (error) {
+            this.resendEmail(email);
+            throw error
+        };
         return data.user;
     }
 
@@ -30,7 +33,7 @@ export default class AuthService {
         if (error) throw error;
     }
 
-    async confirmEmail({ token, type }: VerifyEmailOtpParams): Promise<User | null> {
+    async confirmEmail(token: string, type: EmailOtpType): Promise<User | null> {
         const { data, error } = await this.supabase.auth.verifyOtp({ token_hash: token, type });
         if (error) throw error;
         return data.user;
@@ -47,4 +50,14 @@ export default class AuthService {
         if (error) throw error;
         return true;
     }
+
+    async resendEmail(email: string): Promise<boolean> {
+        const { error } = await this.supabase.auth.resend({
+            email,
+            type: 'signup'
+        });
+        if (error) throw error;
+        return true;
+    }
+    
 }

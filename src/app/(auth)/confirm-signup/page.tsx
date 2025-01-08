@@ -42,21 +42,21 @@ export default function ConfirmSignUp() {
     useEffect(() => {
         const queryParams = new URLSearchParams(window.location.search);
         const token = queryParams.get("token");
-        const email = queryParams.get("email");
 
-        if (token && email) {
-            confirmEmailToken(token, email);
+        console.log(token);
+        if (token) {
+            confirmEmailToken(token);
         } else {
             dispatch({ type: "CONFIRMATION_FAILURE", error: "Invalid or missing token." });
         }
     }, []);
 
-    const confirmEmailToken = async (token: string, email: string) => {
+    const confirmEmailToken = async (token: string) => {
         dispatch({ type: "SET_LOADING", isLoading: true });
         const AuthServiceInstance = new AuthService(supabase);
         
         try {
-            const response = await AuthServiceInstance.confirmEmail({ token, type: 'email', email });
+            const response = await AuthServiceInstance.confirmEmail(token, 'signup');
             if (response?.id) {
                 dispatch({ type: "CONFIRMATION_SUCCESS" });
             } else {
