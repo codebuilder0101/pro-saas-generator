@@ -39,10 +39,10 @@ export default class AuthService {
         return data.user;
     }
 
-    async forgotPassword(email: string): Promise<unknown> {
-        const { data, error } = await this.supabase.auth.resetPasswordForEmail(email, { redirectTo: 'http://localhost:3000/new-password' });
+    async forgotPassword(email: string): Promise<boolean> {
+        const { error } = await this.supabase.auth.resetPasswordForEmail(email, { redirectTo: `${process.env.NEXT_PUBLIC_PROJECT_URL}/new-password` });
         if (error) throw error;
-        return data;
+        return true;
     }
 
     async newPassword(password: string): Promise<boolean> {
@@ -59,5 +59,5 @@ export default class AuthService {
         if (error) throw error;
         return true;
     }
-    
+
 }

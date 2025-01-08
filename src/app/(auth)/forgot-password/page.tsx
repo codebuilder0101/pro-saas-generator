@@ -66,8 +66,7 @@ export default function ForgotPassword() {
             const AuthServiceInstance = new AuthService(supabase);
             const response = await AuthServiceInstance.forgotPassword(state.inputValue.email);
 
-            console.log(response);
-            if (true) {
+            if (response) {
                 dispatch({ type: "SET_SUCCESS", payload: true });
             } else {
                 dispatch({ type: "SET_ERRORS", payload: { general: "Something went wrong. Please try again." } });
