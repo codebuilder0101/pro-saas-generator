@@ -29,7 +29,7 @@ export default class AuthService {
     }
 
     async signInProvider(provider: Provider): Promise<boolean> {
-        const { error } = await this.supabase.auth.signInWithOAuth({ provider, options: { redirectTo: `${process.env.NEXT_PUBLIC_PROJECT_URL}/dashboard` } });
+        const { error } = await this.supabase.auth.signInWithOAuth({ provider, options: { redirectTo: `${process.env.NEXT_PUBLIC_PROJECT_URL}/confirm-signup?oauth=${provider}` } });
         if (error) throw error
         return true;
     }
@@ -66,4 +66,11 @@ export default class AuthService {
         return true;
     }
 
+    async validateCode(code: string): Promise<boolean> {
+        const { error } = await this.supabase.auth.getUser(
+            code
+        )
+        if (error) throw error;
+        return true;
+    }
 }
