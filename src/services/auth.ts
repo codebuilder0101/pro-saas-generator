@@ -1,4 +1,4 @@
-import { EmailOtpType, User } from '@supabase/supabase-js';
+import { EmailOtpType, Provider, User } from '@supabase/supabase-js';
 import { SupabaseClient } from '@supabase/supabase-js';
 
 export default class AuthService {
@@ -26,6 +26,12 @@ export default class AuthService {
             throw error
         };
         return data.user;
+    }
+
+    async signInProvider(provider: Provider): Promise<boolean> {
+        const { error } = await this.supabase.auth.signInWithOAuth({ provider, options: { redirectTo: `${process.env.NEXT_PUBLIC_PROJECT_URL}/dashboard` } });
+        if (error) throw error
+        return true;
     }
 
     async signOut(): Promise<void> {

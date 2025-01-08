@@ -105,18 +105,29 @@ export default function Navbar() {
                         </a>
                     </nav>
                     <div className="flex flex-col space-y-4 p-4">
-                        <a
-                            href="/signin"
-                            className="py-2 px-4 bg-indigo-600 text-white rounded hover:bg-indigo-700"
-                        >
-                            Login
-                        </a>
-                        <a
-                            href="/signin"
-                            className="py-2 px-4 border border-indigo-600 text-indigo-600 rounded hover:bg-indigo-100"
-                        >
-                            Sign Up
-                        </a>
+                        {!isLogged ? (
+                            <>
+                                <a
+                                    href="/signin"
+                                    className="py-2 px-4 border border-indigo-600 text-indigo-600 rounded hover:bg-indigo-100"
+                                >
+                                    Sign In
+                                </a>
+                                <a
+                                    href="/signup"
+                                    className="py-2 px-4 bg-indigo-600 text-white rounded hover:bg-indigo-700"
+                                >
+                                    Try For Free
+                                </a>
+                            </>
+                        ) : (
+                            <a
+                                href="/dashboard"
+                                className="py-2 px-4 bg-indigo-600 text-white rounded hover:bg-indigo-700"
+                            >
+                                Dashboard
+                            </a>
+                        )}
                     </div>
                 </div>
             )}
