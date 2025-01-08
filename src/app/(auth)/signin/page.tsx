@@ -7,7 +7,8 @@ import { useReducer } from "react";
 import OAuth from "@/app/(auth)/_components/OAuth";
 import ButtonComponent from "@/components/ui/Button";
 import InputComponent from "@/components/ui/Input";
-import { signIn } from "@/lib/auth";
+import { supabase } from '@/lib/supabase/client';
+import AuthService from "@/services/auth";
 import RegexValidation from "@/utils/RegexValidation";
 
 import BackLinkComponent from "../_components/BackLink";
@@ -49,6 +50,8 @@ export default function SignIn() {
   const router = useRouter();
 
   async function handleSubmit() {
+
+    
     try {
       dispatch({ type: "SET_LOADING", payload: true });
       dispatch({ type: "SET_ERRORS", payload: { email: "", password: "", general: "" } });
@@ -67,9 +70,12 @@ export default function SignIn() {
         throw new Error("Validation Error");
       }
 
-      const response = await signIn(state.inputValue.email, state.inputValue.password);
+      const AuthServiceInstance = new AuthService(supabase);
 
-      console.log("Response", response?.id);
+      const response2 = await AuthServiceInstance.getUserSessionId();
+      console.log("Response2", response2);
+      
+      const response = await AuthServiceInstance.signIn(state.inputValue.email, state.inputValue.password);
       
       if (response?.id) {
         router.push("/dashboard");

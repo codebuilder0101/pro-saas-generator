@@ -1,10 +1,13 @@
 "use client";
 
+import { useSearchParams } from "next/navigation";
+
 import { useReducer, useEffect } from "react";
 
 import ButtonComponent from "@/components/ui/Button";
 import InputComponent from "@/components/ui/Input";
-import { newPassword } from "@/lib/auth";
+import { supabase } from "@/lib/supabase/client";
+import AuthService from "@/services/auth";
 
 import BackLinkComponent from "../_components/BackLink";
 import PasswordStrengthIndicator from "../signup/_components/PasswordStrength";
@@ -54,11 +57,10 @@ function reducer(state: typeof initialState, action: Action) {
 
 export default function NewPassword() {
     const [state, dispatch] = useReducer(reducer, initialState);
+    const searchParams = useSearchParams();
 
     useEffect(() => {
-        const queryParams = new URLSearchParams(window.location.search);
-        const token = queryParams.get("token");
-
+        const token = searchParams.get("code");
         if (!token) {
             dispatch({ type: "SET_TOKEN_ERROR", payload: "Invalid or missing token." });
         } else {
@@ -85,8 +87,10 @@ export default function NewPassword() {
                 throw new Error("Validation Error");
             }
 
-            const response = await newPassword(state.inputValue.password);
+            const AuthServiceInstance = new AuthService(supabase);
 
+            const response = await AuthServiceInstance.newPassword(state.inputValue.password);
+            
             if (response) {
                 dispatch({ type: "SET_PASSWORD_CHANGED", payload: true });
             } else {

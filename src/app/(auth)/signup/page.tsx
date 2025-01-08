@@ -5,7 +5,8 @@ import { useReducer } from "react";
 import OAuth from "@/app/(auth)/_components/OAuth";
 import ButtonComponent from "@/components/ui/Button";
 import InputComponent from "@/components/ui/Input";
-import { signUp } from "@/lib/auth";
+import { supabase } from "@/lib/supabase/client";
+import AuthService from "@/services/auth";
 import RegexValidation from "@/utils/RegexValidation";
 
 import BackLinkComponent from "../_components/BackLink";
@@ -35,7 +36,7 @@ type Action =
   | { type: "SET_INPUT_VALUE"; payload: { email?: string; password?: string; confirmPassword?: string } }
   | { type: "SET_ERRORS"; payload: { email?: string; password?: string; confirmPassword?: string; general?: string; terms?: string } }
   | { type: "SET_TERMS_ACCEPTED"; payload: boolean }
-  | { type: "SET_REGISTRATION_COMPLETE"; payload: boolean }; // Action to set registration as complete
+  | { type: "SET_REGISTRATION_COMPLETE"; payload: boolean };
 
 function reducer(state: typeof initialState, action: Action) {
   switch (action.type) {
@@ -86,7 +87,8 @@ export default function SignUp() {
         throw new Error("Terms not accepted");
       }
 
-      const response = await signUp(state.inputValue.email, state.inputValue.password);
+      const AuthServiceInstance = new AuthService(supabase);
+      const response = await AuthServiceInstance.signUp(state.inputValue.email, state.inputValue.password);
 
       if (response?.id) {
         dispatch({ type: "SET_REGISTRATION_COMPLETE", payload: true });

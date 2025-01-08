@@ -4,7 +4,8 @@ import { useReducer } from "react";
 
 import ButtonComponent from "@/components/ui/Button";
 import InputComponent from "@/components/ui/Input";
-import { forgotPassword } from "@/lib/auth"
+import { supabase } from "@/lib/supabase/client";
+import AuthService from "@/services/auth"
 import RegexValidation from "@/utils/RegexValidation";
 
 import BackLinkComponent from "../_components/BackLink";
@@ -62,7 +63,8 @@ export default function ForgotPassword() {
                 throw new Error("Validation Error");
             }
 
-            const response = await forgotPassword(state.inputValue.email);
+            const AuthServiceInstance = new AuthService(supabase);
+            const response = await AuthServiceInstance.forgotPassword(state.inputValue.email);
 
             console.log(response);
             if (true) {

@@ -24,15 +24,6 @@ export default function Settings() {
                                 readOnly
                                 className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-100 text-gray-700 focus:outline-none sm:text-sm"
                             />
-                            <div className="mt-2 flex items-center space-x-2">
-                                <p className="text-sm text-red-600">Email not confirmed</p>
-                                <a
-                                    href="#"
-                                    className="text-sm text-indigo-600 hover:text-indigo-700 font-medium"
-                                >
-                                    Resend confirmation email
-                                </a>
-                            </div>
                         </div>
                     </div>
 

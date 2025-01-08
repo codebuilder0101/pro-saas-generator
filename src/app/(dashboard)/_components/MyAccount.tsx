@@ -2,8 +2,10 @@
 
 import { useState } from 'react';
 
-import { signOut } from '@/lib/auth';
+import { supabase } from '@/lib/supabase/client';
+import AuthService from '@/services/auth';
 
+const AuthServiceInstance = new AuthService(supabase);
 
 function MyAccount() {
     const [isOpen, toggleMenu] = useState(false);
@@ -26,10 +28,13 @@ function MyAccount() {
                             Subscription
                         </a>
 
-                        <a href="/subscription" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                        <a href="/terms-and-privacy" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
                             Terms and Privacy
                         </a>
-                        <a className="block px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer" onClick={() => signOut()}>
+                        <a className="block px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer" onClick={async () => {
+                            await AuthServiceInstance.signOut()
+                            window.location.reload();
+                        }}>
                             Sign Out
                         </a>
                     </div>

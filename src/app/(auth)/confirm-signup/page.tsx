@@ -3,7 +3,8 @@
 import { useEffect, useReducer } from "react";
 
 import Spinner from "@/components/Spinner";
-import { confirmEmail } from "@/lib/auth";
+import { supabase } from "@/lib/supabase/client";
+import AuthService from "@/services/auth";
 
 import BackLink from "../_components/BackLink";
 
@@ -52,8 +53,10 @@ export default function ConfirmSignUp() {
 
     const confirmEmailToken = async (token: string, email: string) => {
         dispatch({ type: "SET_LOADING", isLoading: true });
+        const AuthServiceInstance = new AuthService(supabase);
+        
         try {
-            const response = await confirmEmail({ token, type: 'email', email });
+            const response = await AuthServiceInstance.confirmEmail({ token, type: 'email', email });
             if (response?.id) {
                 dispatch({ type: "CONFIRMATION_SUCCESS" });
             } else {
