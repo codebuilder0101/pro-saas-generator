@@ -1,10 +1,13 @@
 import React from "react";
 
+import Navbar from "../_components/Navbar";
+
 function TermsAndPrivacy() {
   return (
-    <div className="min-h-screen bg-gray-100 py-12 px-6">
-      <div className="max-w-4xl mx-auto bg-white shadow-md rounded-lg p-8">
-        <h1 className="text-4xl font-bold text-gray-900 mb-6">
+    <div className="min-h-screen bg-gray-100">
+      <Navbar />
+      <div className="mt-12 max-w-4xl mx-auto bg-white shadow-md rounded-lg p-8">
+        <h1 className="text-4xl font-bold text-gray-900 mb-6 text-center">
           Terms and Privacy Policy
         </h1>
         <section className="mb-8">
@@ -44,6 +47,7 @@ function TermsAndPrivacy() {
           </p>
         </section>
       </div>
+      <br />
     </div>
   );
 }

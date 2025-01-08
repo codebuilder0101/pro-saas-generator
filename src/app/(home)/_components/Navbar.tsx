@@ -10,7 +10,7 @@ export default function Navbar() {
     return (
         <header className="bg-white shadow">
             <div className="container mx-auto relative flex items-center justify-between py-4 px-6">
-                <div className="flex items-center space-x-4 cursor-pointer">
+                <a href="./" className="flex items-center space-x-4 cursor-pointer">
                     <Image
                         src="/logo.ico"
                         alt="Micro-SaaS Illustration"
@@ -19,7 +19,7 @@ export default function Navbar() {
                         width={32}
                         height={0}
                     />
-                </div>
+                </a>
 
                 <nav className="hidden md:flex absolute left-1/2 transform -translate-x-1/2 items-center space-x-6">
                     <a href="#pricing" className="text-gray-600 hover:text-indigo-600">
