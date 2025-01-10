@@ -21,16 +21,19 @@ function MyAccount() {
                 </button>
                 {isOpen && (
                     <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg">
-                        <a href="/settings" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                        <a href="/settings" className="font-bold block px-4 py-2 text-gray-700 hover:bg-gray-100">
                             Profile
                         </a>
+                        <hr />
                         <a href="/subscription" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
                             Subscription
                         </a>
+                        <hr />
 
                         <a href="/terms-and-privacy" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
                             Terms and Privacy
                         </a>
+                        <hr />
                         <a className="block px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer" onClick={async () => {
                             await AuthServiceInstance.signOut()
                             window.location.reload();

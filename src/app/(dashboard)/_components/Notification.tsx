@@ -22,13 +22,12 @@ function Notification() {
 
     return (
         <div className="relative cursor-pointer">
-            <BellIcon
-                className="h-6 w-6 text-gray-700 hover:text-indigo-600"
-                onClick={toggleNotifications}
-            />
-            <span className={unreadCount ? "absolute bottom-3 left-3 inline-flex items-center justify-center px-1 py-0.5 text-xs font-bold leading-none text-white bg-red-600 rounded-full" : "hidden"}>
-                {unreadCount}
-            </span>
+            <div onClick={toggleNotifications}>
+                <BellIcon className="h-6 w-6 text-gray-700 hover:text-indigo-600" />
+                <span className="absolute bottom-3 left-3 inline-flex items-center justify-center px-1 py-0.5 text-xs font-bold leading-none text-white bg-red-600 rounded-full">
+                    {unreadCount}
+                </span>
+            </div>
 
             {notificationsOpen && (
                 <div className="absolute right-0 mt-2 w-64 bg-white border border-gray-200 rounded-md shadow-lg p-4">

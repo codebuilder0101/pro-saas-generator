@@ -14,17 +14,6 @@ export async function middleware(request: NextRequest) {
     const AuthServiceInstance = new AuthService(supabase);
 
     const userId = await AuthServiceInstance.getUserSessionId();
-    // const searchCode = url.searchParams.get('code');
-    // if (searchCode) {
-    //   const isValidCode = await AuthServiceInstance.validateCode(searchCode);
-    //   if (!isValidCode) {
-    //     const redirectUrl = new URL('/signin', request.url);
-    //     return NextResponse.redirect(redirectUrl);
-    //   }
-
-    //   const redirectUrl = new URL('/dashboard', request.url);
-    //   return NextResponse.rewrite(redirectUrl);
-    // }
 
     if (!userId) {
       const redirectUrl = new URL('/signin', request.url);
