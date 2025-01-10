@@ -13,7 +13,7 @@ export async function middleware(request: NextRequest) {
     const supabase = await createClient();
     const AuthServiceInstance = new AuthService(supabase);
 
-    const userId = await AuthServiceInstance.getUserSessionId();
+    const userId = await AuthServiceInstance.getUserId();
 
     if (!userId) {
       const redirectUrl = new URL('/signin', request.url);

@@ -8,9 +8,14 @@ export default class AuthService {
         this.supabase = supabase;
     }
 
-    async getUserSessionId(): Promise<string | null> {
+    async getUserId(): Promise<string | null> {
+        const data = await this.getUser();
+        return data?.id || null;
+    }
+
+    async getUser(): Promise<User | null> {
         const { data } = await this.supabase.auth.getUser();
-        return data?.user?.id || null;
+        return data?.user || null;
     }
 
     async signUp(email: string, password: string): Promise<User | null> {

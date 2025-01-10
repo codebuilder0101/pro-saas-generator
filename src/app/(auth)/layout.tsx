@@ -12,7 +12,7 @@ export default async function AuthLayout({ children }: Props) {
     const supabase = await createClient();
     const AuthServiceInstance = new AuthService(supabase);
 
-    const userId = await AuthServiceInstance.getUserSessionId();
+    const userId = await AuthServiceInstance.getUserId();
     if (userId) {
         redirect('/dashboard');
     }

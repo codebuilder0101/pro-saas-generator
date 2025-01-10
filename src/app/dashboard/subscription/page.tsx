@@ -2,7 +2,7 @@ import PricingSection from "@/components/Pricing";
 
 export default function Subscription() {
   return (
-    <div className="bg-white min-h-screen">
+    <div className="bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="bg-white p-6 rounded-lg shadow-md space-y-6">
           <div className="space-y-4">
@@ -21,7 +21,7 @@ export default function Subscription() {
           </div>
         </div>
         <div className="mt-12">
-          <PricingSection />
+          <PricingSection selectedOption="free"/>
         </div>
       </div>
     </div>

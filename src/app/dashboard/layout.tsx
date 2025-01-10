@@ -1,5 +1,5 @@
 import MyAccount from "./_components/MyAccount";
-import Notification from "./_components/Notification";
+// import Notification from "./_components/Notification";
 
 type Props = {
     children: React.ReactNode;
@@ -19,7 +19,7 @@ export default async function DashboardLayout({ children }: Props) {
                             </div>
                             <div className="flex items-center space-x-4">
                                 <MyAccount />
-                                <Notification />
+                                {/* <Notification /> */}
                             </div>
                         </div>
                     </div>

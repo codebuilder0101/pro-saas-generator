@@ -1,6 +1,11 @@
 import localFont from 'next/font/local'
 
+import Toast from '@/components/Toast';
+import { ToastProvider } from '@/context/ToastContext';
+
+
 import "@/styles/globals.css";
+
 
 const myFont = localFont({ src: '../../public/Satoshi.ttf' })
 
@@ -11,7 +16,10 @@ export default function RootLayout({ children }: Props) {
   return (
     <html lang="en">
       <body className={myFont.className}>
-        {children}
+        <ToastProvider>
+          {children}
+          <Toast />
+        </ToastProvider>
       </body>
     </html>
   );

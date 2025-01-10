@@ -8,7 +8,7 @@ export default function Home() {
   // const [currentSlide, setCurrentSlide] = useState(0);
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="bg-white">
       <Navbar />
       <main>
         <HeroSection />
@@ -111,7 +111,7 @@ export default function Home() {
         <HowItWorksSection />
 
         <section id="pricing" className="bg-gray-100 py-20">
-          <PricingSection />
+          <PricingSection selectedOption="preview"/>
         </section>
 
         {/* <section id="features" className="py-20 bg-white">
