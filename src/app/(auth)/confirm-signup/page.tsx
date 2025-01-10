@@ -113,7 +113,7 @@ const ConfirmationMessage = () => (
 
 const ConfirmationOAuthMessage = () => (
     <>
-        <BackLink href='/dashboard' label='Back To Login' />
+        <BackLink href='/dashboard' label='Go To Dashboard' />
         <h2 className="text-2xl font-semibold text-center text-gray-900">OAuth Successfully</h2>
         <p className="text-center text-sm text-gray-600">Your provider has been confirmed register.</p>
     </>
