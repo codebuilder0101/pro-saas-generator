@@ -4,7 +4,7 @@ import { useEffect, useReducer } from "react";
 
 import BackLink from "@/app/(auth)/_components/BackLink";
 import Spinner from "@/components/Spinner";
-import { supabase } from "@/lib/supabase/client";
+import { supabase } from "@/libs/supabase/client";
 import AuthService from "@/services/auth";
 
 

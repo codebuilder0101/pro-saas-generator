@@ -1,4 +1,4 @@
-import { createClient } from "@/lib/supabase/server";
+import { createClient } from "@/libs/supabase/server";
 import AuthService from "@/services/auth";
 
 import SettingsOptions from "../_components/SettingsOptions";

@@ -1,6 +1,6 @@
 import { useContext } from "react";
 
-import { ToastContext, ToastContextType } from "@/context/ToastContext";
+import { ToastContext, ToastContextType } from "@/contexts/ToastContext";
 
 export const useToast = (): ToastContextType => {
     const context = useContext(ToastContext);

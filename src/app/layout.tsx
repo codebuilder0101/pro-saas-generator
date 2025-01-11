@@ -1,7 +1,7 @@
 import localFont from 'next/font/local'
 
 import Toast from '@/components/Toast';
-import { ToastProvider } from '@/context/ToastContext';
+import { ToastProvider } from '@/contexts/ToastContext';
 
 
 import "@/styles/globals.css";

@@ -1,6 +1,6 @@
 import { redirect } from 'next/navigation';
 
-import { createClient } from '@/lib/supabase/server';
+import { createClient } from '@/libs/supabase/server';
 import AuthService from '@/services/auth';
 
 type Props = {
@@ -8,7 +8,6 @@ type Props = {
 }
 
 export default async function AuthLayout({ children }: Props) {
-
     const supabase = await createClient();
     const AuthServiceInstance = new AuthService(supabase);
 

@@ -8,7 +8,7 @@ import BackLinkComponent from "@/app/(auth)/_components/BackLink";
 import PasswordStrengthIndicator from "@/app/(auth)/_components/PasswordStrength";
 import ButtonComponent from "@/components/Button";
 import InputComponent from "@/components/Input";
-import { supabase } from "@/lib/supabase/client";
+import { supabase } from "@/libs/supabase/client";
 import AuthService from "@/services/auth";
 
 

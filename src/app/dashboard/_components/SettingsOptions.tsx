@@ -4,7 +4,7 @@ import { useState } from "react";
 
 import ButtonComponent from "@/components/Button";
 import { useToast } from "@/hooks/useToast";
-import { supabase } from "@/lib/supabase/client";
+import { supabase } from "@/libs/supabase/client";
 import AuthService from "@/services/auth";
 
 type SettingsOptionsProps = {

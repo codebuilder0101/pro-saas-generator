@@ -1,18 +1,17 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import Stripe from 'stripe';
 
-import { stripe } from '@/lib/stripe';
-import PurchasePlanDTO, { InputData } from '@/pages/_dtos/PurchasePlanDTO';
+import { stripe } from '@/libs/stripe';
+import PaymentService from '@/services/payment';
+import PurchasePlanDTO, { InputData } from '@/utils/PurchasePlanDTO';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'GET') {
     try {
-      const prices = await stripe.prices.list({
-        active: true,
-        expand: ['data.product'],
-      });
+      const PaymentServiceInstance = new PaymentService(stripe);
+      const prices = await PaymentServiceInstance.listActivePrices();
 
-      const response = prices?.data?.map((price) => {
+      const response = prices?.map((price) => {
         const product = price.product as Stripe.Product;
         return {
           id: price.id,

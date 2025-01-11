@@ -8,7 +8,7 @@ import PasswordStrengthIndicator from "@/app/(auth)/_components/PasswordStrength
 import ToggleScreenComponent from "@/app/(auth)/_components/ToggleScreen";
 import ButtonComponent from "@/components/Button";
 import InputComponent from "@/components/Input";
-import { supabase } from "@/lib/supabase/client";
+import { supabase } from "@/libs/supabase/client";
 import AuthService from "@/services/auth";
 import RegexValidation from "@/utils/RegexValidation";
 

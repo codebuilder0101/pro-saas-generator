@@ -1,4 +1,4 @@
-import { supabase } from "@/lib/supabase/client";
+import { supabase } from "@/libs/supabase/client";
 import AuthService from "@/services/auth";
 
 export default function OAuth() {

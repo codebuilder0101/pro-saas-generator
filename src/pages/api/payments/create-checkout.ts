@@ -1,6 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 
-import { stripe } from '@/lib/stripe';
+import { stripe } from '@/libs/stripe';
+import PaymentService from '@/services/payment';
 
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -8,19 +9,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const { priceId } = req.body;
 
     try {
-
-      const session = await stripe.checkout.sessions.create({
-        payment_method_types: ['card'],
-        line_items: [
-          {
-            price: priceId,
-            quantity: 1,
-          },
-        ],
-        mode: 'subscription',
-        success_url: `${req.headers.origin}/payments?status=success`,
-        cancel_url: `${req.headers.origin}/payments?status=cancel`,
-      });
+      const PaymentServiceInstance = new PaymentService(stripe);
+      const session = await PaymentServiceInstance.createCheckoutSession(priceId, req.headers.origin as string);
 
       res.status(200).json({ id: session.id });
     } catch (error) {
