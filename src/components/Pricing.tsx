@@ -142,8 +142,10 @@ export default function Pricing({ selectedOption }: PricingProps) {
                 ? <Spinner />
                 : <div className="mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                     {plans.map((plan) => {
-                        const isSelected = selectedOption === plan.id;
-                        const isMostPopular = plan.id === 'creator';
+                        if (!plan?.id) return;
+
+                        const isSelected = selectedOption === plan?.id;
+                        const isMostPopular = plan?.id === 'creator';
 
                         const bgColor = isSelected
                             ? 'bg-gray-50'
@@ -156,7 +158,7 @@ export default function Pricing({ selectedOption }: PricingProps) {
                             : isMostPopular
                                 ? 'border-indigo-600'
                                 : 'border-gray-200';
-
+                        
                         return (
                             <div
                                 key={plan.id}

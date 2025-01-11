@@ -12,7 +12,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         expand: ['data.product'],
       });
 
-      const response = prices.data.map((price) => {
+      const response = prices?.data?.map((price) => {
         const product = price.product as Stripe.Product;
         return {
           id: price.id,
