@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 
-import ButtonComponent from "@/components/ui/Button";
-import { useToast } from "@/context/ToastContext";
+import ButtonComponent from "@/components/Button";
+import { useToast } from "@/hooks/useToast";
 import { supabase } from "@/lib/supabase/client";
 import AuthService from "@/services/auth";
 

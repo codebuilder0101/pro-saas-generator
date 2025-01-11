@@ -18,8 +18,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           },
         ],
         mode: 'subscription',
-        success_url: `${req.headers.origin}/payment-status?status=success`,
-        cancel_url: `${req.headers.origin}/payment-status?status=cancel`,
+        success_url: `${req.headers.origin}/payments?status=success`,
+        cancel_url: `${req.headers.origin}/payments?status=cancel`,
       });
 
       res.status(200).json({ id: session.id });

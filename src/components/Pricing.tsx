@@ -5,12 +5,12 @@ import { redirect } from 'next/navigation';
 import { loadStripe } from '@stripe/stripe-js';
 import { useEffect, useState } from 'react';
 
-import { useToast } from '@/context/ToastContext';
+import { useToast } from "@/hooks/useToast";
 import { supabase } from '@/lib/supabase/client';
 import AuthService from '@/services/auth';
 
 import Spinner from './Spinner';
-import ButtonComponent from './ui/Button';
+import ButtonComponent from './Button';
 
 
 

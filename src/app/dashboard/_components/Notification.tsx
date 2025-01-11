@@ -3,6 +3,7 @@
 import { BellIcon } from '@heroicons/react/24/outline';
 import { useState } from 'react';
 
+import '@/styles/scroll-bar.css'
 
 function Notification() {
     const [notificationsOpen, setNotificationsOpen] = useState(false);

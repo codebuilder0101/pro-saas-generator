@@ -6,8 +6,8 @@ import { useReducer, useEffect } from "react";
 
 import BackLinkComponent from "@/app/(auth)/_components/BackLink";
 import PasswordStrengthIndicator from "@/app/(auth)/_components/PasswordStrength";
-import ButtonComponent from "@/components/ui/Button";
-import InputComponent from "@/components/ui/Input";
+import ButtonComponent from "@/components/Button";
+import InputComponent from "@/components/Input";
 import { supabase } from "@/lib/supabase/client";
 import AuthService from "@/services/auth";
 
