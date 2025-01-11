@@ -1,4 +1,3 @@
-// services/paymentService.ts
 import { redirect } from 'next/navigation';
 
 import { Plan } from '@/components/Pricing/PlanCard';
@@ -16,6 +15,10 @@ interface CheckoutProps {
     setIsLoading: (isLoading: boolean) => void;
 }
 
+interface FetchPlansProps {
+    setIsLoading: (isLoading: boolean) => void;
+    setPlans: (plans: Plan[] | ((prev: Plan[]) => Plan[])) => void;
+}
 
 export async function handleCheckout({ plan, isAnnual, addToast, setIsLoading }: CheckoutProps): Promise<void> {
     setIsLoading(true);
@@ -65,11 +68,6 @@ export async function handleCheckout({ plan, isAnnual, addToast, setIsLoading }:
         setIsLoading(false);
 
     }
-}
-
-interface FetchPlansProps {
-    setIsLoading: (isLoading: boolean) => void;
-    setPlans: (plans: Plan[] | ((prev: Plan[]) => Plan[])) => void;
 }
 
 export async function fetchPlans({ setIsLoading, setPlans }: FetchPlansProps): Promise<void> {

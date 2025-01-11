@@ -4,9 +4,7 @@ import { useEffect, useReducer } from "react";
 
 import BackLink from "@/app/(auth)/_components/BackLink";
 import Spinner from "@/components/Spinner";
-import { supabase } from "@/libs/supabase/client";
-import AuthService from "@/services/auth";
-
+import { handleConfirmSignup } from "@/handlers/auth";
 
 type State = {
     isLoading: boolean;
@@ -15,13 +13,13 @@ type State = {
     isConfirmedOAuh: boolean;
 };
 
-type Action =
+export type ConfirmSignupAction =
     | { type: "CONFIRMATION_OAUTH" }
     | { type: "CONFIRMATION_SUCCESS" }
     | { type: "CONFIRMATION_FAILURE"; error: string }
     | { type: "SET_LOADING"; isLoading: boolean };
 
-function confirmationReducer(state: State, action: Action): State {
+function confirmationReducer(state: State, action: ConfirmSignupAction): State {
     switch (action.type) {
         case "CONFIRMATION_SUCCESS":
             return { ...state, isLoading: false, isConfirmed: true, isConfirmedOAuh: true, error: null };
@@ -49,9 +47,8 @@ export default function ConfirmSignUp() {
         const token = queryParams.get("token");
         const oauth = queryParams.get("oauth");
 
-
         if (token) {
-            confirmEmailToken(token);
+            handleConfirmSignup({ token, dispatch });
         } else if (!token && oauth) {
             dispatch({ type: "CONFIRMATION_OAUTH" });
         } else {
@@ -59,25 +56,7 @@ export default function ConfirmSignUp() {
         }
     }, []);
 
-    const confirmEmailToken = async (token: string) => {
-        dispatch({ type: "SET_LOADING", isLoading: true });
-        const AuthServiceInstance = new AuthService(supabase);
 
-        try {
-            const response = await AuthServiceInstance.confirmEmail(token, 'signup');
-            if (response?.id) {
-                dispatch({ type: "CONFIRMATION_SUCCESS" });
-            } else {
-                throw new Error("Email confirmation failed. Please try again.");
-            }
-        } catch (error: unknown) {
-            if (error instanceof Error) {
-                dispatch({ type: "CONFIRMATION_FAILURE", error: error.message });
-            } else {
-                dispatch({ type: "CONFIRMATION_FAILURE", error: "An unexpected error occurred." });
-            }
-        }
-    };
 
     const { isLoading, error, isConfirmed, isConfirmedOAuh } = state;
 

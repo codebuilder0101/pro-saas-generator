@@ -5,10 +5,7 @@ import { useReducer } from "react";
 import BackLinkComponent from "@/app/(auth)/_components/BackLink";
 import ButtonComponent from "@/components/Button";
 import InputComponent from "@/components/Input";
-import { supabase } from "@/libs/supabase/client";
-import AuthService from "@/services/auth"
-import RegexValidation from "@/utils/RegexValidation";
-
+import { handleForgotPassword } from "@/handlers/auth";
 
 const initialState = {
     isLoading: false,
@@ -22,13 +19,15 @@ const initialState = {
     },
 };
 
-type Action =
+export type ForgotPasswordStateType = typeof initialState;
+
+export type ForgotPasswordAction =
     | { type: "SET_LOADING"; payload: boolean }
     | { type: "SET_INPUT_VALUE"; payload: { email?: string } }
     | { type: "SET_ERRORS"; payload: { email?: string; general?: string } }
     | { type: "SET_SUCCESS"; payload: boolean };
 
-function reducer(state: typeof initialState, action: Action) {
+function reducer(state: ForgotPasswordStateType, action: ForgotPasswordAction) {
     switch (action.type) {
         case "SET_LOADING":
             return { ...state, isLoading: action.payload };
@@ -46,40 +45,6 @@ function reducer(state: typeof initialState, action: Action) {
 export default function ForgotPassword() {
     const [state, dispatch] = useReducer(reducer, initialState);
 
-    async function handleSubmit() {
-        try {
-            dispatch({ type: "SET_LOADING", payload: true });
-            dispatch({ type: "SET_ERRORS", payload: { email: "", general: "" } });
-
-            const isValidEmail = RegexValidation.validateEmail(state.inputValue.email);
-
-            if (!isValidEmail) {
-                dispatch({
-                    type: "SET_ERRORS",
-                    payload: {
-                        email: "Invalid email format.",
-                    },
-                });
-                throw new Error("Validation Error");
-            }
-
-            const AuthServiceInstance = new AuthService(supabase);
-            const response = await AuthServiceInstance.forgotPassword(state.inputValue.email);
-
-            if (response) {
-                dispatch({ type: "SET_SUCCESS", payload: true });
-            } else {
-                dispatch({ type: "SET_ERRORS", payload: { general: "Something went wrong. Please try again." } });
-            }
-        } catch (err) {
-            if (err instanceof Error && err.message !== "Validation Error") {
-                dispatch({ type: "SET_ERRORS", payload: { general: "Something went wrong. Please try again." } });
-            }
-        } finally {
-            dispatch({ type: "SET_LOADING", payload: false });
-        }
-    }
-    
     if (state.isSuccess) {
         return (
             <>
@@ -95,7 +60,12 @@ export default function ForgotPassword() {
             <BackLinkComponent href='/signin' label='Back To Login' />
             <h2 className="text-2xl font-semibold text-center text-gray-900">Forgot Password</h2>
             <p className="text-center text-sm text-gray-600">Enter your email to receive a password reset link.</p>
-            <form className="mt-8 space-y-6" onSubmit={(e) => { e.preventDefault(); handleSubmit(); }}>
+            <form
+                className="mt-8 space-y-6"
+                onSubmit={(e) => {
+                    e.preventDefault();
+                    handleForgotPassword({ dispatch, state });
+                }}>
                 <div>
                     <InputComponent
                         type="email"

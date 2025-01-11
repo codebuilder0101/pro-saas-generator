@@ -8,9 +8,7 @@ import BackLinkComponent from "@/app/(auth)/_components/BackLink";
 import PasswordStrengthIndicator from "@/app/(auth)/_components/PasswordStrength";
 import ButtonComponent from "@/components/Button";
 import InputComponent from "@/components/Input";
-import { supabase } from "@/libs/supabase/client";
-import AuthService from "@/services/auth";
-
+import { handleNewPassword } from "@/handlers/auth";
 
 const initialState = {
     isLoading: false,
@@ -28,7 +26,9 @@ const initialState = {
     },
 };
 
-type Action =
+export type NewPasswordStateType = typeof initialState;
+
+export type NewPasswordAction =
     | { type: "SET_LOADING"; payload: boolean }
     | { type: "SET_INPUT_VALUE"; payload: { password?: string; confirmPassword?: string } }
     | { type: "SET_ERRORS"; payload: { password?: string; confirmPassword?: string; general?: string } }
@@ -36,7 +36,7 @@ type Action =
     | { type: "SET_TOKEN_VALUE"; payload: string }
     | { type: "SET_TOKEN_ERROR"; payload: string };
 
-function reducer(state: typeof initialState, action: Action) {
+function reducer(state: NewPasswordStateType, action: NewPasswordAction) {
     switch (action.type) {
         case "SET_LOADING":
             return { ...state, isLoading: action.payload };
@@ -68,44 +68,6 @@ export default function NewPassword() {
         }
     }, []);
 
-    async function handleSubmit() {
-        try {
-            dispatch({ type: "SET_LOADING", payload: true });
-            dispatch({ type: "SET_ERRORS", payload: { password: "", confirmPassword: "", general: "" } });
-
-            const isPasswordValid = state.inputValue.password.length >= 6;
-            const isPasswordsMatch = state.inputValue.password === state.inputValue.confirmPassword;
-
-            if (!isPasswordValid || !isPasswordsMatch) {
-                dispatch({
-                    type: "SET_ERRORS",
-                    payload: {
-                        password: isPasswordValid ? "" : "Password must be at least 6 characters long.",
-                        confirmPassword: isPasswordsMatch ? "" : "Passwords do not match.",
-                    },
-                });
-                throw new Error("Validation Error");
-            }
-
-            const AuthServiceInstance = new AuthService(supabase);
-
-            const response = await AuthServiceInstance.newPassword(state.inputValue.password);
-            
-            if (response) {
-                dispatch({ type: "SET_PASSWORD_CHANGED", payload: true });
-            } else {
-                dispatch({ type: "SET_ERRORS", payload: { general: "Failed to change the password. Please try again." } });
-            }
-        } catch (err) {
-            console.log("Error", err);
-            if (err instanceof Error && err.message !== "Validation Error") {
-                dispatch({ type: "SET_ERRORS", payload: { general: "Something went wrong. Please try again." } });
-            }
-        } finally {
-            dispatch({ type: "SET_LOADING", payload: false });
-        }
-    }
-
     return (
         <>
             {state.tokenError ? (
@@ -123,7 +85,12 @@ export default function NewPassword() {
                 <>
                     <h2 className="text-2xl font-semibold text-center text-gray-900">Create a New Password</h2>
                     <p className="text-center text-sm text-gray-600">Set your new password to continue</p>
-                    <form className="mt-8 space-y-6" onSubmit={(e) => { e.preventDefault(); handleSubmit(); }}>
+                    <form
+                        className="mt-8 space-y-6"
+                        onSubmit={(e) => {
+                            e.preventDefault();
+                            handleNewPassword({ dispatch, state });
+                        }}>
                         <div>
                             <InputComponent
                                 type="password"

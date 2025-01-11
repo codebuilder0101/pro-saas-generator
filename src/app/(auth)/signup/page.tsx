@@ -8,9 +8,7 @@ import PasswordStrengthIndicator from "@/app/(auth)/_components/PasswordStrength
 import ToggleScreenComponent from "@/app/(auth)/_components/ToggleScreen";
 import ButtonComponent from "@/components/Button";
 import InputComponent from "@/components/Input";
-import { supabase } from "@/libs/supabase/client";
-import AuthService from "@/services/auth";
-import RegexValidation from "@/utils/RegexValidation";
+import { handleSignUp } from "@/handlers/auth";
 
 
 const initialState = {
@@ -31,14 +29,16 @@ const initialState = {
   },
 };
 
-type Action =
+export type SignUpStateType = typeof initialState;
+
+export type SignUpAction =
   | { type: "SET_LOADING"; payload: boolean }
   | { type: "SET_INPUT_VALUE"; payload: { email?: string; password?: string; confirmPassword?: string } }
   | { type: "SET_ERRORS"; payload: { email?: string; password?: string; confirmPassword?: string; general?: string; terms?: string } }
   | { type: "SET_TERMS_ACCEPTED"; payload: boolean }
   | { type: "SET_REGISTRATION_COMPLETE"; payload: boolean };
 
-function reducer(state: typeof initialState, action: Action) {
+function reducer(state: SignUpStateType, action: SignUpAction) {
   switch (action.type) {
     case "SET_LOADING":
       return { ...state, isLoading: action.payload };
@@ -58,52 +58,6 @@ function reducer(state: typeof initialState, action: Action) {
 export default function SignUp() {
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  async function handleSubmit() {
-    try {
-      dispatch({ type: "SET_LOADING", payload: true });
-      dispatch({ type: "SET_ERRORS", payload: { email: "", password: "", confirmPassword: "", general: "", terms: "" } });
-
-      const isValidEmail = RegexValidation.validateEmail(state.inputValue.email);
-      const isPasswordValid = state.inputValue.password.length >= 6;
-      const isPasswordsMatch = state.inputValue.password === state.inputValue.confirmPassword;
-
-      if (!isValidEmail || !isPasswordValid || !isPasswordsMatch) {
-        dispatch({
-          type: "SET_ERRORS",
-          payload: {
-            email: isValidEmail ? "" : "Invalid email format.",
-            password: isPasswordValid ? "" : "Password must be at least 6 characters long.",
-            confirmPassword: isPasswordsMatch ? "" : "Passwords do not match.",
-          },
-        });
-        throw new Error("Validation Error");
-      }
-
-      if (!state.isTermsAccepted) {
-        dispatch({
-          type: "SET_ERRORS",
-          payload: { terms: "You must accept the terms and conditions." },
-        });
-        throw new Error("Terms not accepted");
-      }
-
-      const AuthServiceInstance = new AuthService(supabase);
-      const response = await AuthServiceInstance.signUp(state.inputValue.email, state.inputValue.password);
-
-      if (response?.id) {
-        dispatch({ type: "SET_REGISTRATION_COMPLETE", payload: true });
-      } else {
-        dispatch({ type: "SET_ERRORS", payload: { general: "Failed to create an account. Please try again." } });
-      }
-    } catch (err) {
-      console.log("Error", err);
-      if (err instanceof Error && err.message !== "Validation Error" && err.message !== "Terms not accepted") {
-        dispatch({ type: "SET_ERRORS", payload: { general: "Something went wrong. Please try again." } });
-      }
-    } finally {
-      dispatch({ type: "SET_LOADING", payload: false });
-    }
-  }
 
   return (
     <>
@@ -118,7 +72,12 @@ export default function SignUp() {
         <>
           <h2 className="text-2xl font-semibold text-center text-gray-900">Sign Up</h2>
           <p className="text-center text-sm text-gray-600">Create your account to get started</p>
-          <form className="mt-8 space-y-6" onSubmit={(e) => { e.preventDefault(); handleSubmit(); }}>
+          <form
+            className="mt-8 space-y-6"
+            onSubmit={(e) => {
+              e.preventDefault();
+              handleSignUp({ dispatch, state });
+            }}> 
             <div>
               <InputComponent
                 type="email"
