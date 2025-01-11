@@ -1,10 +1,10 @@
 import { ActionDispatch } from "react";
 
-import { ConfirmSignupAction } from "@/app/(auth)/confirm-signup/page";
-import { ForgotPasswordAction, ForgotPasswordStateType } from "@/app/(auth)/forgot-password/page";
-import { NewPasswordAction, NewPasswordStateType } from "@/app/(auth)/new-password/page";
-import { SignInAction, SignInStateType, } from "@/app/(auth)/signin/page";
-import { SignUpAction, SignUpStateType } from "@/app/(auth)/signup/page";
+import { ConfirmSignupAction } from "@/app/(domains)/(auth)/confirm-signup/page";
+import { ForgotPasswordAction, ForgotPasswordStateType } from "@/app/(domains)/(auth)/forgot-password/page";
+import { NewPasswordAction, NewPasswordStateType } from "@/app/(domains)/(auth)/new-password/page";
+import { SignInAction, SignInStateType, } from "@/app/(domains)/(auth)/signin/page";
+import { SignUpAction, SignUpStateType } from "@/app/(domains)/(auth)/signup/page";
 import { supabase } from "@/libs/supabase/client";
 import AuthService from "@/services/auth";
 import RegexValidation from "@/utils/RegexValidation";

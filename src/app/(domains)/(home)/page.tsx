@@ -2,6 +2,7 @@ import HeroSection from "@/components/HeroSection";
 import HowItWorksSection from "@/components/HowItWorksSection";
 import Navbar from "@/components/Navbar";
 import PricingSection from "@/components/Pricing";
+import { Routes } from "@/constants/Routes";
 
 export default function Home() {
   return (
@@ -108,7 +109,7 @@ export default function Home() {
         <HowItWorksSection />
 
         <section id="pricing" className="bg-gray-100 py-20">
-          <PricingSection selectedOption="preview"/>
+          <PricingSection selectedOption="preview" />
         </section>
 
         {/* <section id="features" className="py-20 bg-white">
@@ -254,7 +255,9 @@ export default function Home() {
           <div className="text-center">
             <h2 className="text-4xl font-bold">Ready to Get Started?</h2>
             <button className="mt-6 py-3 px-6 bg-white text-indigo-600 rounded-lg hover:bg-gray-100">
-              Join Sassy Today
+              <a href={Routes.signin}>
+                Join Sassy Today
+              </a>
             </button>
           </div>
         </section>

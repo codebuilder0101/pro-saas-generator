@@ -1,7 +1,7 @@
 import { createClient } from "@/libs/supabase/server";
 import AuthService from "@/services/auth";
 
-import SettingsOptions from "../../../components/SettingsOptions";
+import SettingsOptions from "../../../../components/SettingsOptions";
 
 
 export default async function Settings() {
