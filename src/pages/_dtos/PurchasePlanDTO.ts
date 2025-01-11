@@ -58,30 +58,39 @@ export default function transformPlans(data: InputData[]): Plan[] {
 
     const plansMap: Record<string, Plan> = {};
 
-    data.forEach(item => {
-        const planName = item.productName.split(" - ")[1];
-        if (!plansMap[planName]) {
-            plansMap[planName] = {
-                id: planDetails[planName].id,
-                name: planDetails[planName].name,
-                priceMonthly: "",
-                priceAnnual: "",
-                idMonthly: "",
-                idAnnual: "",
-                description: planDetails[planName].description,
-                features: planDetails[planName].features,
-                extraFeatures: planDetails[planName].extraFeatures
-            };
-        }
+    if (Array.isArray(data)) {
+        data.forEach(item => {
+            const planName = item.productName.split(" - ")[1];
+            if (!planName || !planDetails[planName]) {
+                console.warn(`Invalid plan name: ${item.productName}`);
+                return;
+            }
 
-        if (item.interval === "month") {
-            plansMap[planName].priceMonthly = `$${item.amount}/month`;
-            plansMap[planName].idMonthly = item.id;
-        } else if (item.interval === "year") {
-            plansMap[planName].priceAnnual = `$${item.amount}/year`;
-            plansMap[planName].idAnnual = item.id;
-        }
-    });
+            if (!plansMap[planName]) {
+                plansMap[planName] = {
+                    id: planDetails[planName].id,
+                    name: planDetails[planName].name,
+                    priceMonthly: "",
+                    priceAnnual: "",
+                    idMonthly: "",
+                    idAnnual: "",
+                    description: planDetails[planName].description,
+                    features: planDetails[planName].features,
+                    extraFeatures: planDetails[planName].extraFeatures
+                };
+            }
+
+            if (plansMap[planName]) {
+                if (item.interval === "month") {
+                    plansMap[planName].priceMonthly = `$${item.amount}/month`;
+                    plansMap[planName].idMonthly = item.id;
+                } else if (item.interval === "year") {
+                    plansMap[planName].priceAnnual = `$${item.amount}/year`;
+                    plansMap[planName].idAnnual = item.id;
+                }
+            }
+        });
+    }
 
     return ["Starter", "Creator", "Pro"].map(planName => plansMap[planName]);
 }

@@ -60,7 +60,7 @@ export default function NewPassword() {
     const searchParams = useSearchParams();
 
     useEffect(() => {
-        const token = searchParams.get("code");
+        const token = searchParams?.get("code");
         if (!token) {
             dispatch({ type: "SET_TOKEN_ERROR", payload: "Invalid or missing token." });
         } else {
