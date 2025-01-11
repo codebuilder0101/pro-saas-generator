@@ -1,5 +1,5 @@
-import MyAccount from "./_components/MyAccount";
-import Notification from "./_components/Notification";
+import MyAccount from "../../components/MyAccount";
+import Notification from "../../components/Notification";
 
 type Props = {
     children: React.ReactNode;

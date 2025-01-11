@@ -1,7 +1,7 @@
 'use client';
 import { useSearchParams } from 'next/navigation';
 
-import BackLink from "@/app/(auth)/_components/BackLink";
+import BackLink from "@/components/BackLink";
 
 const PaymentStatus = () => {
     const searchParams = useSearchParams();

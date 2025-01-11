@@ -2,10 +2,10 @@
 
 import { useReducer } from "react";
 
-import BackLinkComponent from "@/app/(auth)/_components/BackLink";
-import OAuth from "@/app/(auth)/_components/OAuth";
-import PasswordStrengthIndicator from "@/app/(auth)/_components/PasswordStrength";
-import ToggleScreenComponent from "@/app/(auth)/_components/ToggleScreen";
+import BackLinkComponent from "@/components/BackLink";
+import OAuth from "@/components/OAuth";
+import PasswordStrengthIndicator from "@/components/PasswordStrength";
+import ToggleScreenComponent from "@/components/ToggleScreen";
 import ButtonComponent from "@/components/Button";
 import InputComponent from "@/components/Input";
 import { handleSignUp } from "@/handlers/auth";

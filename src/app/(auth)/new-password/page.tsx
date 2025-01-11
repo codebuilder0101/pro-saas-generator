@@ -4,8 +4,8 @@ import { useSearchParams } from "next/navigation";
 
 import { useReducer, useEffect } from "react";
 
-import BackLinkComponent from "@/app/(auth)/_components/BackLink";
-import PasswordStrengthIndicator from "@/app/(auth)/_components/PasswordStrength";
+import BackLinkComponent from "@/components/BackLink";
+import PasswordStrengthIndicator from "@/components/PasswordStrength";
 import ButtonComponent from "@/components/Button";
 import InputComponent from "@/components/Input";
 import { handleNewPassword } from "@/handlers/auth";

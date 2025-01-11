@@ -2,7 +2,7 @@
 
 import { useEffect, useReducer } from "react";
 
-import BackLink from "@/app/(auth)/_components/BackLink";
+import BackLink from "@/components/BackLink";
 import Spinner from "@/components/Spinner";
 import { handleConfirmSignup } from "@/handlers/auth";
 

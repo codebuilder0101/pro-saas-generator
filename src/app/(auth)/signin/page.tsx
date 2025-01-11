@@ -4,9 +4,9 @@ import { useRouter } from 'next/navigation';
 
 import { useReducer } from "react";
 
-import BackLinkComponent from "@/app/(auth)/_components/BackLink";
-import OAuth from "@/app/(auth)/_components/OAuth";
-import ToggleScreenComponent from "@/app/(auth)/_components/ToggleScreen";
+import BackLinkComponent from "@/components/BackLink";
+import OAuth from "@/components/OAuth";
+import ToggleScreenComponent from "@/components/ToggleScreen";
 import ButtonComponent from "@/components/Button";
 import InputComponent from "@/components/Input";
 import { handleSignIn } from '@/handlers/auth';

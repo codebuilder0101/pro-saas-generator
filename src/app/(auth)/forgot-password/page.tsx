@@ -2,7 +2,7 @@
 
 import { useReducer } from "react";
 
-import BackLinkComponent from "@/app/(auth)/_components/BackLink";
+import BackLinkComponent from "@/components/BackLink";
 import ButtonComponent from "@/components/Button";
 import InputComponent from "@/components/Input";
 import { handleForgotPassword } from "@/handlers/auth";
