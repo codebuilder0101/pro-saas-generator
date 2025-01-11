@@ -5,10 +5,10 @@ import { useRouter } from 'next/navigation';
 import { useReducer } from "react";
 
 import BackLinkComponent from "@/components/BackLink";
-import OAuth from "@/components/OAuth";
-import ToggleScreenComponent from "@/components/ToggleScreen";
 import ButtonComponent from "@/components/Button";
 import InputComponent from "@/components/Input";
+import OAuth from "@/components/OAuth";
+import ToggleScreenComponent from "@/components/ToggleScreen";
 import { handleSignIn } from '@/handlers/auth';
 
 const initialState = {

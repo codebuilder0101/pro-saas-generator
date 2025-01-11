@@ -5,9 +5,9 @@ import { useSearchParams } from "next/navigation";
 import { useReducer, useEffect } from "react";
 
 import BackLinkComponent from "@/components/BackLink";
-import PasswordStrengthIndicator from "@/components/PasswordStrength";
 import ButtonComponent from "@/components/Button";
 import InputComponent from "@/components/Input";
+import PasswordStrengthIndicator from "@/components/PasswordStrength";
 import { handleNewPassword } from "@/handlers/auth";
 
 const initialState = {
