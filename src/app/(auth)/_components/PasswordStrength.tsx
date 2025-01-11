@@ -1,37 +1,34 @@
-export default function PasswordStrengthIndicator({ password }: { password: string }) {
-  const getPasswordStrength = (password: string) => {
-    let strength = 0;
-    
-    if (password.length >= 6) strength += 1;
-    if (password.length >= 10) strength += 1;
-    
-    if (/[0-9]/.test(password)) strength += 1;
-    
-    if (/[!@#$%^&*(),.?":{}|<>]/.test(password)) strength += 1;
-    
-    if (/[A-Z]/.test(password)) strength += 1;
-    
-    if (/[a-z]/.test(password)) strength += 1;
-    
-    return strength;
-  };
+type PasswordStrengthProps = {
+  password: string;
+};
 
-  const getStrengthLabel = (strength: number) => {
-    switch (strength) {
-      case 1:
-      case 2:
-        return "Weak";
-      case 3:
-      case 4:
-        return "Medium";
-      case 5:
-        return "Strong";
-      default:
-        return "Weak";
-    }
-  };
+function calculatePasswordStrength(password: string): number {
+  let strength = 0;
+  if (password.length > 5) strength += 1;
+  if (password.length > 8) strength += 1;
+  if (/[A-Z]/.test(password)) strength += 1;
+  if (/[0-9]/.test(password)) strength += 1;
+  if (/[^A-Za-z0-9]/.test(password)) strength += 1;
+  return strength;
+}
 
-  const strength = getPasswordStrength(password);
+function getStrengthLabel(strength: number): string {
+  switch (strength) {
+    case 1:
+    case 2:
+      return "Weak";
+    case 3:
+    case 4:
+      return "Medium";
+    case 5:
+      return "Strong";
+    default:
+      return "Weak";
+  }
+}
+
+function PasswordStrength({ password }: PasswordStrengthProps) {
+  const strength = calculatePasswordStrength(password);
   const strengthLabel = getStrengthLabel(strength);
 
   return (
@@ -60,3 +57,5 @@ export default function PasswordStrengthIndicator({ password }: { password: stri
     </div>
   );
 }
+
+export default PasswordStrength;
