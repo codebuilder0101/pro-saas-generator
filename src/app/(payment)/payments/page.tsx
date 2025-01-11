@@ -5,7 +5,7 @@ import BackLink from "@/app/(auth)/_components/BackLink";
 
 const PaymentStatus = () => {
     const searchParams = useSearchParams();
-    const status = searchParams ? searchParams.get('status') : null;
+    const status = searchParams && searchParams.get('status');
 
     return (
         <div className="flex items-center justify-center min-h-screen bg-gray-100 px-4 sm:px-6 lg:px-8">

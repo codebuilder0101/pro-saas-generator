@@ -4,9 +4,6 @@ import Navbar from "@/app/(home)/_components/Navbar";
 import PricingSection from "@/components/Pricing";
 
 export default function Home() {
-  // const [isMenuOpen, setIsMenuOpen] = useState(false);
-  // const [currentSlide, setCurrentSlide] = useState(0);
-
   return (
     <div className="bg-white">
       <Navbar />
@@ -253,14 +250,14 @@ export default function Home() {
           </div>
         </section> */}
 
-        {/* <section id="call-to-value" className="py-20 bg-indigo-600 text-white">
+        <section id="call-to-value" className="py-20 bg-indigo-600 text-white">
           <div className="text-center">
             <h2 className="text-4xl font-bold">Ready to Get Started?</h2>
             <button className="mt-6 py-3 px-6 bg-white text-indigo-600 rounded-lg hover:bg-gray-100">
               Join Sassy Today
             </button>
           </div>
-        </section> */}
+        </section>
       </main>
     </div>
   );

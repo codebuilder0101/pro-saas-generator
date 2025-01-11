@@ -21,7 +21,7 @@ export default function Subscription() {
           </div>
         </div>
         <div className="mt-12">
-          <PricingSection selectedOption="free"/>
+          <PricingSection selectedOption="free" />
         </div>
       </div>
     </div>

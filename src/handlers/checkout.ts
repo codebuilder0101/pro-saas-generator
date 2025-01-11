@@ -21,14 +21,14 @@ interface FetchPlansProps {
 }
 
 export async function handleCheckout({ plan, isAnnual, addToast, setIsLoading }: CheckoutProps): Promise<void> {
-    setIsLoading(true);
-    const AuthServiceInstance = new AuthService(supabase);
-    const user = await AuthServiceInstance.getUserId();
-
     if (plan.id === 'free') {
         console.log('Free plan selected');
         return;
     }
+    
+    setIsLoading(true);
+    const AuthServiceInstance = new AuthService(supabase);
+    const user = await AuthServiceInstance.getUserId();
 
     if (!user) {
         return redirect('/signin');
