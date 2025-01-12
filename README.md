@@ -1,96 +1,52 @@
-# **Sassy: Micro-SaaS Template Generator**
+# Sassy: Micro-SaaS Template Generator
 
-Welcome to **Sassy**, a powerful micro-SaaS template generator designed to streamline your SaaS development process. Built with the latest web technologies, Sassy integrates **Supabase** for database management, **Stripe** for payment processing, and offers a highly customizable and user-friendly front-end built using **Next.js**, **TypeScript**, and **TailwindCSS**.
+Welcome to **Sassy**, a powerful template generator designed to accelerate the development of Micro-SaaS applications. Built with **Next.js 15**, **TypeScript**, **TailwindCSS**, **Supabase**, and **Stripe**, Sassy provides a robust foundation for building subscription-based services with integrated authentication, subscription management, and payment processing.
 
-This project provides a clean and efficient starting point for building subscription-based services with seamless authentication, plan management, and payment flows.
+| **Feature**                                   | **Status** |
+|-----------------------------------------------|------------|
+| **OAuth Authentication (Google)**             | ✅         |
+| **OAuth Authentication (Facebook)**           | ✅         |
+| **OAuth Authentication (Twitter)**            | ✅         |
+| **Monthly Subscription Payments (Stripe)**    | ✅         |
+| **Annual Subscription Payments (Stripe)**     | ✅         |
+| **User Authentication with Supabase**         | ✅         |
+| **Subscription Management (Stripe Integration)** | ✅         |
+| **Responsive Design (TailwindCSS)**           | ✅         |
+| **API Routes for Subscription Handling**      | ✅         |
+| **Billing Portal (Stripe)**                   | ✅         |
+| **Webhooks for Stripe Events**                | ✅         |
 
-## **Tech Stack**
 
-### **1. Next.js 15**
-Next.js is a React-based framework that provides excellent developer experience with built-in server-side rendering, API routes, and automatic static optimization. It helps us build SEO-friendly and fast web applications with minimal setup.
 
-- **Server-Side Rendering (SSR)**: Improve performance and SEO by rendering pages on the server before they are sent to the client.
-- **API Routes**: Handle backend logic like Stripe and Supabase interactions directly within the Next.js app.
-- **File-based Routing**: Automatically generates routes based on the file structure.
+## Architecture and Structure
 
-### **2. TypeScript**
-TypeScript is a superset of JavaScript that adds static types to the language. It improves code quality and developer productivity by catching errors at compile time rather than run time.
+Sassy's architecture is designed to streamline the rapid development of Micro-SaaS applications by providing essential features like user authentication, subscription management, and seamless payment processing. The project structure is clean and organized to help developers get started quickly while maintaining flexibility and scalability.
 
-- **Type Safety**: TypeScript prevents many common bugs by ensuring that variables, functions, and objects are used correctly.
-- **IDE Support**: Excellent auto-completion and error checking in IDEs, making development smoother and faster.
-
-### **3. TailwindCSS**
-TailwindCSS is a utility-first CSS framework that allows us to create fully customizable, responsive designs without writing a single line of custom CSS.
-
-- **Customizable**: Tailwind is easily configurable to match your project's design system.
-- **Responsive Design**: Built-in responsive utilities ensure that your app looks great on any device.
-- **Quick Styling**: Focus on writing HTML and applying utility classes, reducing the need for additional stylesheets.
-
-### **4. Supabase**
-Supabase is an open-source alternative to Firebase, providing real-time databases, authentication, storage, and more. It's built on top of PostgreSQL and integrates seamlessly with the Sassy template for user management and subscription data.
-
-- **Real-time Database**: Provides real-time sync with the database, perfect for subscription tracking.
-- **Authentication**: Easily manage user accounts with email, password, and OAuth logins.
-- **PostgreSQL**: Reliable, scalable, and easy-to-use SQL database.
-
-### **5. Stripe**
-Stripe is a global payment processor that allows us to handle payments and subscriptions. With its simple API, we can integrate payment functionality quickly and securely.
-
-- **Subscription Billing**: Easily handle subscription-based models and manage customer plans.
-- **Stripe Checkout**: A fully customizable payment page hosted by Stripe to handle transactions securely.
-- **Webhooks**: Handle events like successful payments, cancellations, and more.
-
-## **Features**
-
-- **Authentication**: Secure login system with Supabase Auth.
-- **Subscription Plans**: Create and manage user subscription plans (`free`, `starter`, `creator`, `pro`).
-- **Stripe Integration**: Seamless integration for processing payments and managing subscriptions.
-- **Responsive UI**: Build with TailwindCSS to look great on any device.
-- **Server-Side Logic**: All backend logic handled via Next.js API Routes.
-
-## **How to Get Started**
-
-### 1. Clone the repository
-First, clone the repository to your local machine:
+### Project Structure:
 
 ```bash
-git clone https://github.com/your-username/sassy.git
-cd sassy
+src/
+├── app/                # Main logic and core functionality of the application
+├── components/         # Reusable UI components
+├── constants/           # Global constants and configurations
+├── contexts/            # React contexts for global state management
+├── handlers/            # Event handlers and backend logic
+├── hooks/               # Custom React hooks
+├── libs/                # Third-party libraries and utilities
+├── pages/               # Next.js pages corresponding to routes
+│   └── api/             # API routes for backend functionality
+├── services/            # External API integrations and services
+├── styles/              # TailwindCSS configuration and custom styles
+├── utils/               # Utility functions and helpers
+└── middleware.ts        # Middleware for request processing
 ```
 
-### 2. Install dependencies
-Install the required dependencies using **pnpm**:
+### Integration with Supabase and Stripe:
 
-```bash
-pnpm install
-```
+- **Supabase** is used for user authentication and real-time database management. The `subscriptions` table is created to store subscription-related data for each user.
+- **Stripe** is integrated to handle payment processing and subscription plan management.
 
-### 3. Set up environment variables
-Create a `.env.local` file in the root directory and add your Supabase and Stripe credentials:
-
-```env
-NEXT_PUBLIC_PROJECT_URL=http://localhost:3000
-
-NEXT_PUBLIC_SUPABASE_ANON_KEY=<your-supabase-anon-key>
-NEXT_PUBLIC_SUPABASE_URL=<your-supabase-url>
-NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=<your-stripe-publishable-key>
-
-SUPABASE_SECRET_KEY=<your-supabase-secret-key>
-STRIPE_SECRET_KEY=<your-stripe-secret-key>
-STRIPE_WEBHOOK_SECRET=<your-stripe-webhook-secret>
-```
-
-### 4. Run the project
-To start the development server, run:
-
-```bash
-pnpm dev
-```
-
-Visit `http://localhost:3000` to view the app.
-
-### 5. Set up Supabase Database
-Execute the following SQL query in your Supabase dashboard to set up the subscriptions table:
+### SQL Script for Creating the `subscriptions` Table in Supabase:
 
 ```sql
 create table subscriptions (
@@ -105,30 +61,119 @@ create table subscriptions (
 );
 ```
 
-**Important**: Remove **Row Level Security (RLS)** for unrestricted access to the subscription data.
+> **Note:** Since subscription data is sensitive, ensure that **Row Level Security (RLS)** is disabled for the `subscriptions` table.
 
-### 6. Set up Stripe
-To fully integrate Stripe, you will need to:
+### Environment Configuration:
 
-- Set up a **Stripe account** and get your API keys.
-- Configure Stripe's webhook to listen for events related to subscriptions.
+The environment variables are configured to integrate Sassy with Supabase and Stripe. Make sure to update the values accordingly.
 
-## **Security Considerations**
+```env
+NEXT_PUBLIC_PROJECT_URL=http://localhost:3000
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+NEXT_PUBLIC_SUPABASE_URL=https://your_supabase_url
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=your_stripe_publishable_key
+SUPABASE_SECRET_KEY=your_supabase_secret_key
+STRIPE_SECRET_KEY=your_stripe_secret_key
+STRIPE_WEBHOOK_SECRET=your_stripe_webhook_secret
+```
 
-- **Keep your secrets safe**: Never expose the `SUPABASE_SECRET_KEY`, `STRIPE_SECRET_KEY`, or any other sensitive credentials in your client-side code. These should only be used on the server-side.
-- **Enable HTTPS**: Always use HTTPS in production to secure your users' data.
-- **Stripe Webhooks**: Ensure that you validate Stripe webhook events securely using the webhook secret key.
+> **Note:** Replace the above values with your own Supabase and Stripe keys.
 
-## **Contributing**
+## Key Features
 
-We welcome contributions to the project! If you want to improve or add new features, feel free to open an issue or a pull request.
+- **Authentication with Supabase:** Utilize Supabase for user authentication, providing a secure and scalable login system.
+- **Subscription Management with Stripe:** Easily manage different subscription plans, handle payments, and track user subscriptions with Stripe integration.
+- **Responsive Design with TailwindCSS:** The application uses TailwindCSS for styling, ensuring a modern and responsive design out of the box.
+- **Built-in API Routes:** Ready-to-use API routes for managing subscriptions, payments, and user data.
+- **OAuth Support:** The app supports OAuth login via **Google**, **Facebook**, and **Twitter**, providing users with a seamless authentication experience.
 
-### Guidelines:
-- Fork the repository.
-- Create a new branch.
-- Add your changes and tests.
-- Submit a pull request.
+---
 
-## **License**
+## Webhook Listener for Stripe
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
+To handle incoming webhooks from Stripe (such as subscription updates, payment failures, etc.), Sassy includes a script for listening to Stripe webhooks:
+
+```bash
+pnpm stripe:listen
+```
+
+This script connects your local environment to Stripe and listens for events like **invoice.payment_succeeded**, **invoice.payment_failed**, and more. It will automatically trigger the corresponding handler in your application to process the events.
+
+> **Note:** When using this in your development environment, make sure you have the Stripe secret key and webhook secret configured in your `.env.local` file.
+
+---
+
+## OAuth Authentication
+
+Sassy comes with built-in OAuth authentication support for popular platforms such as **Google**, **Facebook**, and **Twitter**. The authentication flow is fully integrated with Supabase, ensuring a secure and seamless experience for users.
+
+### Dependencies:
+
+- `@supabase/auth-ui-react` for handling OAuth flows.
+- OAuth SDKs for Google, Facebook, and Twitter to provide login functionality.
+
+With **OAuth**, users can authenticate with their preferred social media accounts, reducing friction in the signup/login process. OAuth tokens are securely managed by Supabase, and user data is synchronized across both Supabase and your application.
+
+> **Note:** The OAuth login functionality is already set up and fully supported out of the box. If you're using different authentication providers, you can easily extend this functionality by following the Supabase OAuth documentation.
+
+---
+
+## Setup Instructions
+
+### 1. Install Dependencies
+
+Ensure that you have **pnpm** installed. If not, install it globally:
+
+```bash
+npm install -g pnpm
+```
+
+Then, install the project dependencies:
+
+```bash
+pnpm install
+```
+
+### 2. Set Up Environment Variables
+
+Create a `.env.local` file in the root directory of the project and add the necessary environment variables (as provided in the **Environment Configuration** section).
+
+### 3. Run the Development Server
+
+Once the environment is set up, start the development server:
+
+```bash
+pnpm dev
+```
+
+The application will be available at `http://localhost:3000`.
+
+### 4. Database Configuration
+
+To set up your Supabase project, run the provided SQL script to create the `subscriptions` table in your Supabase database.
+
+### 5. Stripe Integration
+
+Make sure your Stripe API keys are correctly set up. You can test the payment processing using Stripe’s test keys in a sandbox environment.
+
+---
+
+## Development vs Production Environments
+
+For **development** and **production**, Sassy uses separate Supabase projects to ensure a clean and isolated environment. This allows you to safely test changes in the development environment without affecting live data in production.
+
+> **Note:** Ensure that you configure your `.env.local` with the correct Supabase project URL and keys for each environment.
+
+---
+
+## Conclusion
+
+Sassy provides a solid foundation for developing subscription-based Micro-SaaS applications. By leveraging the power of **Next.js**, **Supabase**, **Stripe**, **OAuth**, and **TailwindCSS**, you can rapidly build and deploy secure and scalable applications. Whether you're just starting a new SaaS product or iterating on an existing idea, Sassy makes it easy to focus on what matters most: delivering value to your users.
+
+---
+
+For more information on integrating **Stripe**, **Supabase**, and **OAuth**, refer to the official documentation:
+
+- [Stripe Documentation](https://stripe.com/docs)
+- [Supabase Documentation](https://supabase.com/docs)
+- [OAuth Integration Guide](https://supabase.com/docs/guides/auth/auth-helpers/oauth)
