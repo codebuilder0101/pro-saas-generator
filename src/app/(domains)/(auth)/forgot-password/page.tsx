@@ -86,7 +86,7 @@ export default function ForgotPassword() {
                     <p className="text-sm text-red-500 text-center mt-1">{state.errors.general}</p>
                 )}
 
-                <ButtonComponent isLoading={state.isLoading} type="submit">
+                <ButtonComponent isLoading={state.isLoading} type="submit" className="w-full">
                     Send Reset Link
                 </ButtonComponent>
             </form>

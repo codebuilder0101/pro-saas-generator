@@ -152,7 +152,7 @@ export default function SignUp() {
               <p className="text-sm text-red-500 mt-1">{state.errors.terms}</p>
             )}
 
-            <ButtonComponent isLoading={state.isLoading} type="submit">
+            <ButtonComponent isLoading={state.isLoading} type="submit" className="w-full">
               Sign Up
             </ButtonComponent>
 

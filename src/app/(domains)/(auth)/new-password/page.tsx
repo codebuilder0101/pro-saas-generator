@@ -128,7 +128,7 @@ export default function NewPassword() {
                             <p className="text-sm text-red-500 text-center mt-1">{state.errors.general}</p>
                         )}
 
-                        <ButtonComponent isLoading={state.isLoading} type="submit">
+                        <ButtonComponent isLoading={state.isLoading} type="submit" className="w-full">
                             Change Password
                         </ButtonComponent>
                     </form>
