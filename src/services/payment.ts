@@ -8,13 +8,14 @@ export default class PaymentService {
     this.stripe = stripe;
   }
 
-  async createCheckoutSession(priceId: string, origin: string): Promise<Stripe.Checkout.Session> {
+  async createCheckoutSession(priceId: string, plan: string, userId: string, origin: string): Promise<Stripe.Checkout.Session> {
     const session = await this.stripe.checkout.sessions.create({
       payment_method_types: ['card'],
       line_items: [{ price: priceId, quantity: 1 }],
       mode: 'subscription',
       success_url: `${origin}/payments?status=success`,
       cancel_url: `${origin}/payments?status=cancel`,
+      metadata: { userId, plan },
     });
     return session;
   }

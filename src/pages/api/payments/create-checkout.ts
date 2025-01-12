@@ -6,11 +6,11 @@ import PaymentService from '@/services/payment';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'POST') {
-    const { priceId } = req.body;
+    const { priceId, plan, userId } = req.body;
 
     try {
       const PaymentServiceInstance = new PaymentService(stripe);
-      const session = await PaymentServiceInstance.createCheckoutSession(priceId, req.headers.origin as string);
+      const session = await PaymentServiceInstance.createCheckoutSession(priceId, plan, userId, req.headers.origin as string);
 
       res.status(200).json({ id: session.id });
     } catch (error) {

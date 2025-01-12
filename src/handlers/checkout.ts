@@ -40,7 +40,7 @@ export async function handleCheckout({ plan, isAnnual, addToast, setIsLoading }:
         const response = await fetch('/api/payments/create-checkout', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ priceId }),
+            body: JSON.stringify({ priceId, plan: plan.id, userId: user  }),
         });
 
         const jsonResponse = await response.json();
