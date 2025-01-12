@@ -8,9 +8,9 @@ type Tab = {
 };
 
 const tabs: Tab[] = [
-  { name: "Feature 1", href: "/feature1" },
-  { name: "Feature 2", href: "/feature2" },
-  { name: "Feature 3", href: "/feature3" },
+  { name: "Free", href: "/feature1" },
+  { name: "Starter/Creator", href: "/feature2" },
+  { name: "Pro", href: "/feature3" },
 ];
 
 export default function Dashboard() {

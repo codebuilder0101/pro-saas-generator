@@ -9,9 +9,10 @@ import AuthService from "@/services/auth";
 
 type SettingsOptionsProps = {
     userEmail?: string;
+    currentPlan: string;
 }
 
-function SettingsOptions({ userEmail }: SettingsOptionsProps) {
+function SettingsOptions({ userEmail, currentPlan }: SettingsOptionsProps) {
     const AuthServiceInstance = new AuthService(supabase);
     const { addToast } = useToast();
     const [isLoading, setIsLoading] = useState({
@@ -54,7 +55,7 @@ function SettingsOptions({ userEmail }: SettingsOptionsProps) {
             <div className="flex justify-between items-start">
                 <div className="max-w-md">
                     <h2 className="text-lg font-medium text-gray-700">Current Plan</h2>
-                    <p className="text-gray-700">Free</p>
+                    <p className="text-gray-700">{currentPlan}</p>
                 </div>
                 <a href="/dashboard/subscription">
                     <ButtonComponent type="button" variant="filled">Manage Subscription</ButtonComponent>

@@ -12,7 +12,7 @@ import PlanCard, { Plan } from './PlanCard';
 import Toggle from '../Toggle';
 
 
-type PricingProps = {
+export type PricingProps = {
     selectedOption: 'preview' | 'free' | 'starter' | 'creator' | 'pro';
 };
 

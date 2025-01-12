@@ -32,6 +32,24 @@ export default class PaymentService {
     return this.stripe.webhooks.constructEvent(rawBody, sig, endpointSecret);
   }
 
+  async getCustomerIdFromSubscription(subscriptionId: string): Promise<string | null> {
+    try {
+      const subscription = await this.stripe.subscriptions.retrieve(subscriptionId);
+      return subscription.customer as string;
+    } catch (error) {
+      console.error('Erro ao buscar assinatura:', error);
+      return null;
+    }
+  };
+  
+  async createBillingPortalSession(customerId: string) {
+    const portal = await this.stripe.billingPortal.sessions.create({
+      customer: customerId,
+      return_url: `${process.env.NEXT_PUBLIC_PROJECT_URL}/dashboard/subscription`,
+    });
+
+    return portal;
+  }
   static redirectToCheckout(sessionId: string): void {
     loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!).then((clientStripe) => {
       if (clientStripe) {

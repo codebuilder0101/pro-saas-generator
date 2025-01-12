@@ -1,4 +1,4 @@
-import { EmailOtpType, Provider, User } from '@supabase/supabase-js';
+import { EmailOtpType, Provider, User, Session } from '@supabase/supabase-js';
 import { SupabaseClient } from '@supabase/supabase-js';
 
 export default class AuthService {
@@ -13,9 +13,14 @@ export default class AuthService {
         return data?.id || null;
     }
 
-    async getUser(): Promise<User | null> {
-        const { data } = await this.supabase.auth.getUser();
+    async getUser(accessToken?: string): Promise<User | null> {
+        const { data } = await this.supabase.auth.getUser(accessToken);
         return data?.user || null;
+    }
+
+    async getSession(): Promise<Session | null> {
+        const { data } = await this.supabase.auth.getSession();
+        return data?.session || null;
     }
 
     async signUp(email: string, password: string): Promise<User | null> {

@@ -1,13 +1,19 @@
+import SettingsOptions from "@/components/SettingsOptions";
+import { handleFetchSubscription } from "@/handlers/subscription";
 import { createClient } from "@/libs/supabase/server";
 import AuthService from "@/services/auth";
-
-import SettingsOptions from "../../../../components/SettingsOptions";
-
+import { capitalize } from "@/utils/capitalize";
 
 export default async function Settings() {
     const supabase = await createClient();
     const AuthServiceInstance = new AuthService(supabase);
     const data = await AuthServiceInstance.getUser();
+    const subscription = data?.id && await handleFetchSubscription(data?.id);
+    const plan = subscription &&
+        subscription?.status === 'active'
+        ? capitalize(subscription.plan)
+        : 'Free'
+
 
     return (
         <>
@@ -18,7 +24,7 @@ export default async function Settings() {
                             <label className="block text-sm font-medium text-gray-700">Name</label>
                             <input
                                 type="text"
-                                value={data?.user_metadata?.name || ''}	
+                                value={data?.user_metadata?.name || ''}
                                 readOnly
                                 className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-100 text-gray-700 focus:outline-none sm:text-sm"
                             />
@@ -35,7 +41,7 @@ export default async function Settings() {
                         </div>
                     </div>
 
-                    <SettingsOptions userEmail={data?.email} /> 
+                    <SettingsOptions currentPlan={plan} userEmail={data?.email} />
                 </div>
             </main>
         </>

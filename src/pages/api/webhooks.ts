@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 
 import { stripe } from '@/libs/stripe';
-import { supabase } from '@/libs/supabase/client';
+import { supabaseSecretServer } from '@/libs/supabase/server';
 import PaymentService from '@/services/payment';
 import SubscriptionService from '@/services/subscription';
 
@@ -25,7 +25,7 @@ async function getRawBody(req: NextApiRequest): Promise<string> {
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'POST') {
     const PaymentServiceInstance = new PaymentService(stripe);
-    const SubscriptionServiceInstance = new SubscriptionService(supabase);
+    const SubscriptionServiceInstance = new SubscriptionService(supabaseSecretServer);
 
     const sig = req.headers['stripe-signature'];
     const rawBody = await getRawBody(req);
