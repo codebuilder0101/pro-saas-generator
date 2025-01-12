@@ -1,5 +1,4 @@
 import FaqSection from "@/app/(domains)/(home)/_sections/FaqSection";
-import Footer from "@/app/(domains)/(home)/_sections/Footer";
 import HeroSection from "@/app/(domains)/(home)/_sections/HeroSection";
 import HowItWorksSection from "@/app/(domains)/(home)/_sections/HowItWorksSection";
 import TestimonialSection from "@/app/(domains)/(home)/_sections/TestimonialSection";
@@ -20,7 +19,6 @@ export default function Home() {
         <FeaturesSection />
         <TestimonialSection />
         <FaqSection />
-        <Footer />
       </main>
     </div>
   );

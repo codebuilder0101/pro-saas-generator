@@ -1,6 +1,5 @@
 
 
-import Footer from "../(home)/_sections/Footer";
 import MyAccount from "../../../components/MyAccount";
 import Notification from "../../../components/Notification";
 
@@ -23,7 +22,7 @@ export default async function DashboardLayout({ children }: Props) {
                                 </div>
                                 <div className="flex items-center space-x-4">
                                     <MyAccount />
-                                    <Notification />
+                                    {/* <Notification /> */}
                                 </div>
                             </div>
                         </div>
@@ -31,7 +30,6 @@ export default async function DashboardLayout({ children }: Props) {
                     {children}
                 </div>
             </div>
-            <Footer isDashboard />
         </>
     );
 }

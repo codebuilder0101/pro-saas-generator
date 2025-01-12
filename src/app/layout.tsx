@@ -5,6 +5,7 @@ import { ToastProvider } from '@/contexts/ToastContext';
 
 
 import "@/styles/globals.css";
+import Footer from './(domains)/(home)/_sections/Footer';
 
 
 const myFont = localFont({ src: '../../public/Satoshi.ttf' })
@@ -20,6 +21,7 @@ export default function RootLayout({ children }: Props) {
           {children}
           <Toast />
         </ToastProvider>
+        <Footer />
       </body>
     </html>
   );
