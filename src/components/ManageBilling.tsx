@@ -44,7 +44,6 @@ export default function ManageBilling({ accessToken }: Props) {
                     async () => {
                         setIsLoading(true)
                         await handleManageBilling(router.push, accessToken)
-                        setIsLoading(false);
                     }
                 }
                 type="button"

@@ -6,9 +6,11 @@ import { useEffect, useState } from "react";
 
 import { supabase } from '@/libs/supabase/client';
 import AuthService from '@/services/auth';
+import Spinner from "./Spinner";
 
 
 export default function Navbar() {
+    const [isLoading, setIsLoading] = useState(true);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isLogged, setIsLogged] = useState(false);
 
@@ -21,7 +23,7 @@ export default function Navbar() {
             } else {
                 setIsLogged(false);
             }
-
+            setIsLoading(false);
         };
         getUserSession();
     }, []);
@@ -53,19 +55,22 @@ export default function Navbar() {
                 </nav>
 
                 <div className="hidden md:flex items-center space-x-4 flex-shrink-0">
-                    {!isLogged ? (
-                        <>
-                            <a href="/signin" className="py-2 px-4 border border-indigo-600 text-indigo-600 rounded hover:bg-indigo-100" >
-                                Sign In
-                            </a>
-                            <a href="/signup" className="py-2 px-4 bg-indigo-600 text-white rounded hover:bg-indigo-700">
-                                Try For Free
-                            </a>
-                        </>
-                    ) :
-                        <a href="/dashboard" className="py-2 px-4 bg-indigo-600 text-white rounded hover:bg-indigo-700">
-                            Dashboard
-                        </a>
+                    {
+                        isLoading
+                            ? <div className="mr-12"><Spinner /></div>
+                            : !isLogged ? (
+                                <>
+                                    <a href="/signin" className="py-2 px-4 border border-indigo-600 text-indigo-600 rounded hover:bg-indigo-100" >
+                                        Sign In
+                                    </a>
+                                    <a href="/signup" className="py-2 px-4 bg-indigo-600 text-white rounded hover:bg-indigo-700">
+                                        Try For Free
+                                    </a>
+                                </>
+                            ) :
+                                <a href="/dashboard" className="py-2 px-4 bg-indigo-600 text-white rounded hover:bg-indigo-700">
+                                    Dashboard
+                                </a>
                     }
 
                 </div>
@@ -105,29 +110,31 @@ export default function Navbar() {
                         </a>
                     </nav>
                     <div className="flex flex-col space-y-4 p-4">
-                        {!isLogged ? (
-                            <>
+                        {isLoading
+                            ? <Spinner />
+                            : !isLogged ? (
+                                <>
+                                    <a
+                                        href="/signin"
+                                        className="py-2 px-4 border border-indigo-600 text-indigo-600 rounded hover:bg-indigo-100"
+                                    >
+                                        Sign In
+                                    </a>
+                                    <a
+                                        href="/signup"
+                                        className="py-2 px-4 bg-indigo-600 text-white rounded hover:bg-indigo-700"
+                                    >
+                                        Try For Free
+                                    </a>
+                                </>
+                            ) : (
                                 <a
-                                    href="/signin"
-                                    className="py-2 px-4 border border-indigo-600 text-indigo-600 rounded hover:bg-indigo-100"
-                                >
-                                    Sign In
-                                </a>
-                                <a
-                                    href="/signup"
+                                    href="/dashboard"
                                     className="py-2 px-4 bg-indigo-600 text-white rounded hover:bg-indigo-700"
                                 >
-                                    Try For Free
+                                    Dashboard
                                 </a>
-                            </>
-                        ) : (
-                            <a
-                                href="/dashboard"
-                                className="py-2 px-4 bg-indigo-600 text-white rounded hover:bg-indigo-700"
-                            >
-                                Dashboard
-                            </a>
-                        )}
+                            )}
                     </div>
                 </div>
             )}

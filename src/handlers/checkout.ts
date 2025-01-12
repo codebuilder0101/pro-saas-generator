@@ -64,9 +64,6 @@ export async function handleCheckout({ plan, isAnnual, addToast, setIsLoading }:
             description: 'An error occurred while processing your request. Please try again later.',
             type: 'error',
         });
-    } finally {
-        setIsLoading(false);
-
     }
 }
 

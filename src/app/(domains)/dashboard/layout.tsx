@@ -1,3 +1,5 @@
+
+
 import MyAccount from "../../../components/MyAccount";
 // import Notification from "../../../components/Notification";
 
@@ -7,6 +9,7 @@ type Props = {
 
 export default async function DashboardLayout({ children }: Props) {
     return (
+
         <div className="flex h-screen bg-gray-100">
             <div className="flex-1 flex flex-col">
                 <header className="bg-white border-b border-gray-200 shadow-sm">
