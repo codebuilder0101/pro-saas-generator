@@ -1,5 +1,6 @@
 'use client';
 
+import { ArrowRightEndOnRectangleIcon } from '@heroicons/react/24/solid';
 import { useState, useEffect, useRef } from 'react';
 
 import { supabase } from '@/libs/supabase/client';
@@ -44,22 +45,23 @@ function MyAccount() {
                         Profile
                     </a>
                     <hr />
-                    <a href="/dashboard/subscription" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                    <a href="/dashboard/subscription" className="block px-4 py-2 text-gray-500 hover:bg-gray-100">
                         Subscription
                     </a>
                     <hr />
-                    <a href="/terms-and-privacy" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                    <a href="/terms-and-privacy" className="block px-4 py-2 text-gray-500 hover:bg-gray-100">
                         Terms and Privacy
                     </a>
                     <hr />
                     <a
-                        className="block px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer"
+                        className="block px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer flex items-center justify-between"
                         onClick={async () => {
                             await AuthServiceInstance.signOut();
                             window.location.reload();
                         }}
                     >
-                        Sign Out
+                        <p>Sign Out</p>
+                        <ArrowRightEndOnRectangleIcon className="h-5 w-5 text-gray-500" />
                     </a>
                 </div>
             )}
