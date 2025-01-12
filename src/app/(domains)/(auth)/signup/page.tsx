@@ -7,7 +7,7 @@ import ButtonComponent from "@/components/Button";
 import InputComponent from "@/components/Input";
 import OAuth from "@/components/OAuth";
 import PasswordStrengthIndicator from "@/components/PasswordStrength";
-import ToggleScreenComponent from "@/components/ToggleScreen";
+import FooterAuthScreenComponent from "@/components/FooterAuthScreen";
 import { handleSignUp } from "@/handlers/auth";
 
 
@@ -160,7 +160,7 @@ export default function SignUp() {
         </>
       )}
       <OAuth />
-      <ToggleScreenComponent screen="signup" />
+      <FooterAuthScreenComponent screen="signup" />
     </>
   );
 }

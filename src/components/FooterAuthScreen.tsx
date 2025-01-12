@@ -1,10 +1,10 @@
 import { Routes } from "@/constants/Routes";
 
-type ToggleScreenProps = {
+type FooterAuthScreenProps = {
     screen: 'signin' | 'signup';
 }
 
-export default function ToggleScreen({ screen }: ToggleScreenProps) {
+export default function FooterAuthScreen({ screen }: FooterAuthScreenProps) {
     return (
         <div className="mt-4 text-center text-sm text-gray-600">
             {screen === 'signin' ? (

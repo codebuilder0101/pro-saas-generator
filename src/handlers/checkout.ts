@@ -25,7 +25,7 @@ export async function handleCheckout({ plan, isAnnual, addToast, setIsLoading }:
         console.log('Free plan selected');
         return;
     }
-    
+
     setIsLoading(true);
     const AuthServiceInstance = new AuthService(supabase);
     const user = await AuthServiceInstance.getUserId();
@@ -40,7 +40,7 @@ export async function handleCheckout({ plan, isAnnual, addToast, setIsLoading }:
         const response = await fetch('/api/payments/create-checkout', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ priceId, plan: plan.id, userId: user  }),
+            body: JSON.stringify({ priceId, plan: plan.id, userId: user }),
         });
 
         const jsonResponse = await response.json();
@@ -74,7 +74,10 @@ export async function fetchPlans({ setIsLoading, setPlans }: FetchPlansProps): P
         const data: Plan[] = await response.json();
         setPlans((prev: Plan[]) => {
             if (!prev) {
-            return data;
+                return data;
+            }
+            if (prev.length >= 4) {
+                return [...prev]
             }
             return [...prev, ...data];
         });

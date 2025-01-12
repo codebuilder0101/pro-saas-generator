@@ -8,7 +8,7 @@ import BackLinkComponent from "@/components/BackLink";
 import ButtonComponent from "@/components/Button";
 import InputComponent from "@/components/Input";
 import OAuth from "@/components/OAuth";
-import ToggleScreenComponent from "@/components/ToggleScreen";
+import FooterAuthScreenComponent from "@/components/FooterAuthScreen";
 import { handleSignIn } from '@/handlers/auth';
 
 const initialState = {
@@ -108,7 +108,7 @@ export default function SignIn() {
         </ButtonComponent>
       </form>
       <OAuth />
-      <ToggleScreenComponent screen="signin" />
+      <FooterAuthScreenComponent screen="signin" />
     </>
   );
 }

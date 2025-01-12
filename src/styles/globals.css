@@ -18,19 +18,3 @@ body {
   color: var(--foreground);
   background: var(--background);
 }
-
-@keyframes scroll {
-  0% {
-    transform: translateX(0%);
-  }
-  100% {
-    transform: translateX(-100%);
-  }
-}
-/* TODO: Need Refactor */
-.animate-slide {
-  display: flex;
-  flex-wrap: nowrap;
-  animation: scroll 30s linear infinite;
-  will-change: transform;
-}
