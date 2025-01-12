@@ -6,9 +6,9 @@ import { useReducer } from "react";
 
 import BackLinkComponent from "@/components/BackLink";
 import ButtonComponent from "@/components/Button";
+import FooterAuthScreenComponent from "@/components/FooterAuthScreen";
 import InputComponent from "@/components/Input";
 import OAuth from "@/components/OAuth";
-import FooterAuthScreenComponent from "@/components/FooterAuthScreen";
 import { handleSignIn } from '@/handlers/auth';
 
 const initialState = {

@@ -4,10 +4,10 @@ import { useReducer } from "react";
 
 import BackLinkComponent from "@/components/BackLink";
 import ButtonComponent from "@/components/Button";
+import FooterAuthScreenComponent from "@/components/FooterAuthScreen";
 import InputComponent from "@/components/Input";
 import OAuth from "@/components/OAuth";
 import PasswordStrengthIndicator from "@/components/PasswordStrength";
-import FooterAuthScreenComponent from "@/components/FooterAuthScreen";
 import { handleSignUp } from "@/handlers/auth";
 
 
