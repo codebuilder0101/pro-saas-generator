@@ -51,7 +51,7 @@ function Notification() {
             </div>
 
             {notificationsOpen && (
-                <div className="absolute right-0 mt-2 w-64 bg-white border border-gray-200 rounded-md shadow-lg p-4">
+                <div className="absolute right-0 mt-2 w-64 bg-white border border-gray-200 rounded-md shadow-lg p-4 z-10">
                     <h2 className="text-lg font-semibold text-gray-800 mb-2">Notifications</h2>
                     <ul className="max-h-64 overflow-y-auto custom-scrollbar">
                         {notifications.map(notification => (
