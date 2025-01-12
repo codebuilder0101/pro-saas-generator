@@ -1,9 +1,9 @@
 import FaqSection from "@/app/(domains)/(home)/_sections/FaqSection";
-import FeaturesSection from "@/components/FeaturesSection";
 import Footer from "@/app/(domains)/(home)/_sections/Footer";
 import HeroSection from "@/app/(domains)/(home)/_sections/HeroSection";
 import HowItWorksSection from "@/app/(domains)/(home)/_sections/HowItWorksSection";
 import TestimonialSection from "@/app/(domains)/(home)/_sections/TestimonialSection";
+import FeaturesSection from "@/components/FeaturesSection";
 import Navbar from "@/components/Navbar";
 import PricingSection from "@/components/Pricing";
 

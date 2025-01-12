@@ -1,9 +1,9 @@
 "use client";
 
 import { BellIcon } from '@heroicons/react/24/outline';
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
-import '@/styles/scroll-bar.css'
+import '@/styles/scroll-bar.css';
 
 function Notification() {
     const [notificationsOpen, setNotificationsOpen] = useState(false);
@@ -14,6 +14,7 @@ function Notification() {
     ]);
 
     const unreadCount = notifications.filter(notification => !notification.read).length;
+    const notificationsRef = useRef<HTMLDivElement>(null);
 
     const toggleNotifications = () => setNotificationsOpen(!notificationsOpen);
 
@@ -21,13 +22,32 @@ function Notification() {
         setNotifications(notifications.map(n => n.id === id ? { ...n, read: true } : n));
     };
 
+    const handleClickOutside = (event: { target: unknown; }) => {
+        if (notificationsRef.current && !notificationsRef.current.contains(event.target as Node)) {
+            setNotificationsOpen(false);
+        }
+    };
+
+    useEffect(() => {
+        if (notificationsOpen) {
+            document.addEventListener('mousedown', handleClickOutside);
+        } else {
+            document.removeEventListener('mousedown', handleClickOutside);
+        }
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, [notificationsOpen]);
+
     return (
-        <div className="relative cursor-pointer">
+        <div className="relative cursor-pointer" ref={notificationsRef}>
             <div onClick={toggleNotifications}>
                 <BellIcon className="h-6 w-6 text-gray-700 hover:text-indigo-600" />
-                <span className="absolute bottom-3 left-3 inline-flex items-center justify-center px-1 py-0.5 text-xs font-bold leading-none text-white bg-red-600 rounded-full">
-                    {unreadCount}
-                </span>
+                {unreadCount > 0 && (
+                    <span className="absolute bottom-3 left-3 inline-flex items-center justify-center px-1 py-0.5 text-xs font-bold leading-none text-white bg-red-600 rounded-full">
+                        {unreadCount}
+                    </span>
+                )}
             </div>
 
             {notificationsOpen && (
@@ -37,7 +57,7 @@ function Notification() {
                         {notifications.map(notification => (
                             <li
                                 key={notification.id}
-                                className={`mt-2 p-2 rounded-md ${notification.read ? 'bg-white' : 'bg-gray-50'} hover:bg-gray-200 cursor-pointer flex justify-between items-center`}
+                                className={`mt-2 p-2 rounded-md ${notification.read ? 'bg-white' : 'bg-gray-50'} hover:bg-gray-200 cursor-pointer flex justify-between`}
                                 onClick={() => markAsRead(notification.id)}
                             >
                                 <div>
@@ -54,6 +74,6 @@ function Notification() {
             )}
         </div>
     );
-};
+}
 
 export default Notification;
