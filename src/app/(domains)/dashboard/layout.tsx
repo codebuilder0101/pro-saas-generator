@@ -1,7 +1,7 @@
 
 
 import MyAccount from "../../../components/MyAccount";
-import Notification from "../../../components/Notification";
+// import Notification from "../../../components/Notification";
 
 type Props = {
     children: React.ReactNode;
