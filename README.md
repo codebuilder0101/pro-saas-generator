@@ -4,17 +4,17 @@ Welcome to **Sassy**, a powerful template generator designed to accelerate the d
 
 | **Feature**                                   | **Status** |
 |-----------------------------------------------|------------|
-| **OAuth Authentication (Google)**             | ✅         |
-| **OAuth Authentication (Facebook)**           | ✅         |
-| **OAuth Authentication (Twitter)**            | ✅         |
-| **Monthly Subscription Payments (Stripe)**    | ✅         |
-| **Annual Subscription Payments (Stripe)**     | ✅         |
-| **User Authentication with Supabase**         | ✅         |
-| **Subscription Management (Stripe Integration)** | ✅         |
-| **Responsive Design (TailwindCSS)**           | ✅         |
-| **API Routes for Subscription Handling**      | ✅         |
-| **Billing Portal (Stripe)**                   | ✅         |
+| **(Google) OAuth Authentication**             | ✅         |
+| **(Facebook) OAuth Authentication**           | ✅         |
+| **(Twitter) OAuth Authentication**            | ✅         |
+| **(Stripe) Monthly Subscription Payments**    | ✅         |
+| **(Stripe) Annual Subscription Payments**     | ✅         |
+| **(Stripe Integration) Subscription Management** | ✅         |
+| **(Stripe) Billing Portal**                   | ✅         |
 | **Webhooks for Stripe Events**                | ✅         |
+| **API Routes for Subscription Handling**      | ✅         |
+| **User Authentication with Supabase**         | ✅         |
+| **(TailwindCSS) Responsive Design**           | ✅         |
 
 
 
