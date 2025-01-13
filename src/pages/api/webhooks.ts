@@ -1,9 +1,9 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 
 import { stripe } from '@/libs/stripe';
-import { supabaseSecretServer } from '@/libs/supabase/server';
+import { supabaseApiSecretServer } from '@/libs/supabase/server';
 import StripeService from '@/services/stripeService';
-import SubscriptionService from '@/services/subscription';
+import SupabaseService from '@/services/supabaseService';
 
 const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET;
 
@@ -25,7 +25,7 @@ async function getRawBody(req: NextApiRequest): Promise<string> {
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'POST') {
     const StripeServiceInstance = new StripeService(stripe);
-    const SubscriptionServiceInstance = new SubscriptionService(supabaseSecretServer);
+    const SupabaseServiceInstance = new SupabaseService(supabaseApiSecretServer);
 
     const sig = req.headers['stripe-signature'];
     const rawBody = await getRawBody(req);
@@ -50,7 +50,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           const session = event.data.object as any;
           const { userId, plan } = session.metadata;
 
-          await SubscriptionServiceInstance.upsertSubscription({
+          await SupabaseServiceInstance.upsertSubscription({
             user_id: userId,
             stripe_subscription_id: session.subscription,
             plan,
@@ -65,13 +65,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           const subscription = event.data.object as any;
 
-          await SubscriptionServiceInstance.updateSubscriptionPeriod(
+          await SupabaseServiceInstance.updateSubscriptionPeriod(
             subscription.id,
             new Date(subscription.current_period_start * 1000),
             new Date(subscription.current_period_end * 1000)
           );
 
-          await SubscriptionServiceInstance.updateSubscriptionStatus(
+          await SupabaseServiceInstance.updateSubscriptionStatus(
             subscription.id,
             subscription.status
           );
@@ -81,7 +81,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         case 'customer.subscription.deleted': {
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           const subscription = event.data.object as any;
-          await SubscriptionServiceInstance.cancelSubscription(subscription.id);
+          await SupabaseServiceInstance.cancelSubscription(subscription.id);
           break;
         }
 

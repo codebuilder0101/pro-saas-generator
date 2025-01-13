@@ -6,9 +6,6 @@ import { createClient } from "@/libs/supabase/server";
 import SupabaseService from "@/services/supabaseService";
 import { capitalize } from "@/utils/capitalize";
 
-
-
-
 export default async function Subscription() {
   const supabase = await createClient();
   const SupabaseServiceInstance = new SupabaseService(supabase);
