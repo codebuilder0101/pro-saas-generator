@@ -1,4 +1,5 @@
 import { ClientDashboard } from "@/components/ClientDashboard";
+import { ModalProvider } from "@/contexts/ModalContext";
 import { handleFetchSubscription } from "@/handlers/subscription";
 import { createClient } from "@/libs/supabase/server";
 import AuthService from "@/services/auth";
@@ -15,12 +16,12 @@ export default async function Dashboard() {
     ? subscription.plan as 'starter' | 'creator' | 'pro'
     : 'free'
 
-
-
   return (
-    <div className="bg-white border-b border-gray-200">
-      <ClientDashboard plan={plan} />
-    </div>
+    <ModalProvider>
+      <div className="bg-white border-b border-gray-200">
+        <ClientDashboard plan={plan} />
+      </div>
+    </ModalProvider>
   );
 }
 

@@ -6,6 +6,8 @@ import TestimonialSection from "@/app/(domains)/(home)/_sections/TestimonialSect
 import Navbar from "@/components/Navbar";
 import PricingSection from "@/components/Pricing";
 
+import Footer from "./_sections/Footer";
+
 export default function Home() {
   return (
     <div className="bg-white">
@@ -19,6 +21,7 @@ export default function Home() {
         <FeaturesSection />
         <TestimonialSection />
         <FaqSection />
+        <Footer />
       </main>
     </div>
   );

@@ -34,8 +34,7 @@ export default async function Subscription() {
             </div>
             {subscription && subscription?.id && session?.access_token && (
               <ManageBilling accessToken={session?.access_token} />
-            )
-            }
+            )}
           </div>
         </div>
         <div className="mt-12">

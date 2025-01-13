@@ -3,6 +3,8 @@
 import { LockClosedIcon } from "@heroicons/react/24/solid";
 import { useEffect, useState } from "react";
 
+import { useModal } from "@/hooks/useModal";
+
 type Tab = {
     name: string;
     href: string;
@@ -10,17 +12,19 @@ type Tab = {
 };
 
 const tabs: Tab[] = [
-    { name: "Starter", href: "/feature1", requiredPlan: "starter" },
-    { name: "Creator", href: "/feature2", requiredPlan: "creator" },
+    { name: "Free", href: "/feature1", requiredPlan: "free" },
+    { name: "Starter/Creator", href: "/feature2", requiredPlan: "starter" },
     { name: "Pro", href: "/feature3", requiredPlan: "pro" },
 ];
 type FeatureMenuProps = {
     activePlan: "free" | "starter" | "creator" | "pro";
-    onTabChange: (activeTab: string) => void; 
+    onTabChange: (activeTab: string) => void;
 }
 
 export default function FeatureMenu({ activePlan, onTabChange }: FeatureMenuProps) {
     const [activeTab, setActiveTab] = useState("");
+    const { openModal } = useModal();
+
 
     const isTabAvailable = (requiredPlan: string): boolean => {
         if (requiredPlan === "free") return true;
@@ -39,9 +43,11 @@ export default function FeatureMenu({ activePlan, onTabChange }: FeatureMenuProp
         if (availableTabs.length > 0 && !activeTab) {
             setActiveTab(availableTabs[0].href);
         } else if (availableTabs.length === 0) {
+            openModal();
+
             console.log("No options available for the current plan.");
         }
-    }, [availableTabs, activeTab]);
+    }, [availableTabs, activeTab, openModal]);
 
     useEffect(() => {
         if (activeTab) {
@@ -58,11 +64,11 @@ export default function FeatureMenu({ activePlan, onTabChange }: FeatureMenuProp
                         <li key={tab.name} className="relative group">
                             <button
                                 onClick={() => available && setActiveTab(tab.href)}
-                                className="flex items-center rounded-md hover:bg-gray-200"
+                                className="flex items-center rounded-md"
                                 disabled={!available}
                             >
                                 <p
-                                    className={`px-4 py-2 text-sm font-medium rounded-md transition ${activeTab === tab.href ? "bg-indigo-600 text-white" : "text-gray-700"} ${!available ? "cursor-not-allowed opacity-50" : ""}`}
+                                    className={`text-sm font-medium rounded-md transition ${activeTab === tab.href ? "text-indigo-600 font-extrabold" : "text-gray-700"} ${!available ? "cursor-not-allowed opacity-50" : ""}`}
                                 >
                                     {tab.name}
                                 </p>

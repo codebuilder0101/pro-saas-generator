@@ -1,6 +1,7 @@
 import React from "react";
 
 import Navbar from "../../../../components/Navbar";
+import Footer from "../_sections/Footer";
 
 function TermsAndPrivacy() {
   return (
@@ -48,6 +49,8 @@ function TermsAndPrivacy() {
         </section>
       </div>
       <br />
+      <Footer />
+
     </div>
   );
 }
