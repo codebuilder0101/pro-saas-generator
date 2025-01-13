@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="https://bun.sh"><img src="https://raw.githubusercontent.com/marcelodosreis/sassy/refs/heads/main/public/logo.ico" alt="Logo" height=170></a>
+  <a href="https://github.com/marcelodosreis/sassy"><img src="https://raw.githubusercontent.com/marcelodosreis/sassy/refs/heads/main/public/logo.ico" alt="Logo" height=170></a>
 </p>
 <h1 align="center">Sassy</h1>
 
