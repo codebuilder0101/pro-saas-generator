@@ -9,7 +9,9 @@ import ButtonComponent from "@/components/Button";
 import FooterAuthScreenComponent from "@/components/FooterAuthScreen";
 import InputComponent from "@/components/Input";
 import OAuth from "@/components/OAuth";
-import { handleSignIn } from '@/handlers/auth';
+import { supabase } from '@/libs/supabase/client';
+import AuthService from '@/services/auth';
+import RegexValidation from '@/utils/RegexValidation';
 
 const initialState = {
   isLoading: false,
@@ -48,6 +50,43 @@ export default function SignIn() {
   const [state, dispatch] = useReducer(reducer, initialState);
   const router = useRouter();
 
+  async function handleSignIn() {
+      try {
+          dispatch({ type: "SET_LOADING", payload: true });
+          dispatch({ type: "SET_ERRORS", payload: { email: "", password: "", general: "" } });
+  
+          const isValidEmail = RegexValidation.validateEmail(state.inputValue.email);
+          const isPasswordValid = state.inputValue.password.length >= 6;
+  
+          if (!isValidEmail || !isPasswordValid) {
+              dispatch({
+                  type: "SET_ERRORS",
+                  payload: {
+                      email: isValidEmail ? "" : "Invalid email format.",
+                      password: isPasswordValid ? "" : "Password must be at least 6 characters long.",
+                  },
+              });
+              throw new Error("Validation Error");
+          }
+  
+          const AuthServiceInstance = new AuthService(supabase);
+  
+          const response = await AuthServiceInstance.signIn(state.inputValue.email, state.inputValue.password);
+  
+          if (response?.id) {
+              router.push("/dashboard");
+          } else {
+              dispatch({ type: "SET_ERRORS", payload: { general: "Invalid email or password." } });
+          }
+      } catch (err) {
+          console.log("Error", err);
+          if (err instanceof Error && err.message !== "Validation Error") {
+              dispatch({ type: "SET_ERRORS", payload: { general: "Something went wrong. Please try again." } });
+          }
+      } finally {
+          dispatch({ type: "SET_LOADING", payload: false });
+      }
+  }
 
   return (
     <>
@@ -58,7 +97,7 @@ export default function SignIn() {
         className="mt-8 space-y-6"
         onSubmit={(e) => {
           e.preventDefault();
-          handleSignIn({ state, dispatch, router });
+          handleSignIn();
         }}>
         <div>
           <InputComponent

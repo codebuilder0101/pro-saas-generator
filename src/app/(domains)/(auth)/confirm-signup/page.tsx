@@ -4,7 +4,8 @@ import { useEffect, useReducer } from "react";
 
 import BackLink from "@/components/BackLink";
 import Spinner from "@/components/Spinner";
-import { handleConfirmSignup } from "@/handlers/auth";
+import { supabase } from "@/libs/supabase/client";
+import AuthService from "@/services/auth";
 
 type State = {
     isLoading: boolean;
@@ -48,7 +49,7 @@ export default function ConfirmSignUp() {
         const oauth = queryParams.get("oauth");
 
         if (token) {
-            handleConfirmSignup({ token, dispatch });
+            handleConfirmSignup(token);
         } else if (!token && oauth) {
             dispatch({ type: "CONFIRMATION_OAUTH" });
         } else {
@@ -56,7 +57,25 @@ export default function ConfirmSignUp() {
         }
     }, []);
 
-
+    async function handleConfirmSignup(token: string) {
+        dispatch({ type: "SET_LOADING", isLoading: true });
+        const AuthServiceInstance = new AuthService(supabase);
+    
+        try {
+            const response = await AuthServiceInstance.confirmEmail(token, 'signup');
+            if (response?.id) {
+                dispatch({ type: "CONFIRMATION_SUCCESS" });
+            } else {
+                throw new Error("Email confirmation failed. Please try again.");
+            }
+        } catch (error: unknown) {
+            if (error instanceof Error) {
+                dispatch({ type: "CONFIRMATION_FAILURE", error: error.message });
+            } else {
+                dispatch({ type: "CONFIRMATION_FAILURE", error: "An unexpected error occurred." });
+            }
+        }
+    };
 
     const { isLoading, error, isConfirmed, isConfirmedOAuh } = state;
 

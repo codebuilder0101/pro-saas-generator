@@ -5,7 +5,9 @@ import { useReducer } from "react";
 import BackLinkComponent from "@/components/BackLink";
 import ButtonComponent from "@/components/Button";
 import InputComponent from "@/components/Input";
-import { handleForgotPassword } from "@/handlers/auth";
+import { supabase } from "@/libs/supabase/client";
+import AuthService from "@/services/auth";
+import RegexValidation from "@/utils/RegexValidation";
 
 const initialState = {
     isLoading: false,
@@ -45,6 +47,40 @@ function reducer(state: ForgotPasswordStateType, action: ForgotPasswordAction) {
 export default function ForgotPassword() {
     const [state, dispatch] = useReducer(reducer, initialState);
 
+    async function handleForgotPassword() {
+        try {
+            dispatch({ type: "SET_LOADING", payload: true });
+            dispatch({ type: "SET_ERRORS", payload: { email: "", general: "" } });
+
+            const isValidEmail = RegexValidation.validateEmail(state.inputValue.email);
+
+            if (!isValidEmail) {
+                dispatch({
+                    type: "SET_ERRORS",
+                    payload: {
+                        email: "Invalid email format.",
+                    },
+                });
+                throw new Error("Validation Error");
+            }
+
+            const AuthServiceInstance = new AuthService(supabase);
+            const response = await AuthServiceInstance.forgotPassword(state.inputValue.email);
+
+            if (response) {
+                dispatch({ type: "SET_SUCCESS", payload: true });
+            } else {
+                dispatch({ type: "SET_ERRORS", payload: { general: "Something went wrong. Please try again." } });
+            }
+        } catch (err) {
+            if (err instanceof Error && err.message !== "Validation Error") {
+                dispatch({ type: "SET_ERRORS", payload: { general: "Something went wrong. Please try again." } });
+            }
+        } finally {
+            dispatch({ type: "SET_LOADING", payload: false });
+        }
+    }
+
     if (state.isSuccess) {
         return (
             <>
@@ -64,7 +100,7 @@ export default function ForgotPassword() {
                 className="mt-8 space-y-6"
                 onSubmit={(e) => {
                     e.preventDefault();
-                    handleForgotPassword({ dispatch, state });
+                    handleForgotPassword();
                 }}>
                 <div>
                     <InputComponent

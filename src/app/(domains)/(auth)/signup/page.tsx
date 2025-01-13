@@ -8,7 +8,9 @@ import FooterAuthScreenComponent from "@/components/FooterAuthScreen";
 import InputComponent from "@/components/Input";
 import OAuth from "@/components/OAuth";
 import PasswordStrengthIndicator from "@/components/PasswordStrength";
-import { handleSignUp } from "@/handlers/auth";
+import { supabase } from "@/libs/supabase/client";
+import AuthService from "@/services/auth";
+import RegexValidation from "@/utils/RegexValidation";
 
 
 const initialState = {
@@ -59,6 +61,54 @@ export default function SignUp() {
   const [state, dispatch] = useReducer(reducer, initialState);
 
 
+  async function handleSignUp() {
+    try {
+      dispatch({ type: "SET_LOADING", payload: true });
+      dispatch({ type: "SET_ERRORS", payload: { email: "", password: "", confirmPassword: "", general: "", terms: "" } });
+
+      const isValidEmail = RegexValidation.validateEmail(state.inputValue.email);
+      const isPasswordValid = state.inputValue.password.length >= 6;
+      const isPasswordsMatch = state.inputValue.password === state.inputValue.confirmPassword;
+
+      if (!isValidEmail || !isPasswordValid || !isPasswordsMatch) {
+        dispatch({
+          type: "SET_ERRORS",
+          payload: {
+            email: isValidEmail ? "" : "Invalid email format.",
+            password: isPasswordValid ? "" : "Password must be at least 6 characters long.",
+            confirmPassword: isPasswordsMatch ? "" : "Passwords do not match.",
+          },
+        });
+        throw new Error("Validation Error");
+      }
+
+      if (!state.isTermsAccepted) {
+        dispatch({
+          type: "SET_ERRORS",
+          payload: { terms: "You must accept the terms and conditions." },
+        });
+        throw new Error("Terms not accepted");
+      }
+
+      const AuthServiceInstance = new AuthService(supabase);
+      const response = await AuthServiceInstance.signUp(state.inputValue.email, state.inputValue.password);
+
+      if (response?.id) {
+        dispatch({ type: "SET_REGISTRATION_COMPLETE", payload: true });
+      } else {
+        dispatch({ type: "SET_ERRORS", payload: { general: "Failed to create an account. Please try again." } });
+      }
+    } catch (err) {
+      console.log("Error", err);
+      if (err instanceof Error && err.message !== "Validation Error" && err.message !== "Terms not accepted") {
+        dispatch({ type: "SET_ERRORS", payload: { general: "Something went wrong. Please try again." } });
+      }
+    } finally {
+      dispatch({ type: "SET_LOADING", payload: false });
+    }
+  }
+
+
   return (
     <>
       {state.isRegistrationComplete ? (
@@ -76,8 +126,8 @@ export default function SignUp() {
             className="mt-8 space-y-6"
             onSubmit={(e) => {
               e.preventDefault();
-              handleSignUp({ dispatch, state });
-            }}> 
+              handleSignUp();
+            }}>
             <div>
               <InputComponent
                 type="email"

@@ -12,12 +12,12 @@ export type Plan = {
     extraFeatures: string;
 };
 
-export default function PlanCard({ plan, isAnnual, isSelected, isMostPopular, handleCheckout }: {
+export default function PlanCard({ plan, isAnnual, isSelected, isMostPopular, handle }: {
     plan: Plan;
     isAnnual: boolean;
     isSelected: boolean;
     isMostPopular: boolean;
-    handleCheckout: (plan: Plan) => Promise<void>;
+    handle: (plan: Plan) => Promise<void>;
 }) {
     const bgColor = isSelected
         ? 'bg-gray-50'
@@ -55,7 +55,7 @@ export default function PlanCard({ plan, isAnnual, isSelected, isMostPopular, ha
                 disabled={isSelected}
                 type="button"
                 className="mt-6"
-                onClick={() => handleCheckout(plan)}
+                onClick={() => handle(plan)}
             >
                 {isSelected ? 'Current Plan' : 'Subscribe'}
             </ButtonComponent>

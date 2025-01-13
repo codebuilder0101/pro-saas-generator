@@ -17,8 +17,7 @@ export async function handleFetchSubscription(userId: string): Promise<Subscript
     });
 
     if (!res.ok) {
-        // console.error('Failed to fetch subscription:', res.statusText);
-        return null;
+        console.log('Failed to fetch subscription:', res.statusText);
     }
 
     const data = await res.json();

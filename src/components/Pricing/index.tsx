@@ -1,11 +1,15 @@
 'use client';
 
+import { redirect } from 'next/navigation';
+
 import { useEffect, useState } from 'react';
 
 import { PlanBase } from '@/constants/Plan';
-import { fetchPlans, handleCheckout } from '@/handlers/checkout';
+import { Toast } from '@/contexts/ToastContext';
 import { useToast } from "@/hooks/useToast";
-
+import { supabase } from '@/libs/supabase/client';
+import AuthService from '@/services/auth';
+import PaymentService from '@/services/payment';
 
 import Spinner from '../Spinner';
 import PlanCard, { Plan } from './PlanCard';
@@ -17,6 +21,12 @@ export type PricingProps = {
     hasFreeplan?: boolean;
 };
 
+interface CheckoutProps {
+    plan: Plan;
+    isAnnual: boolean;
+    addToast: (toast: Toast) => void;
+    setIsLoading: (isLoading: boolean) => void;
+}
 
 export default function Pricing({ selectedOption, hasFreeplan = true }: PricingProps) {
     const { addToast } = useToast();
@@ -25,8 +35,77 @@ export default function Pricing({ selectedOption, hasFreeplan = true }: PricingP
     const [plans, setPlans] = useState<Plan[]>(hasFreeplan ? PlanBase : []);
 
     useEffect(() => {
-        fetchPlans({ setIsLoading, setPlans });
+        fetchPlans();
     }, []);
+
+
+    async function fetchPlans(): Promise<void> {
+        try {
+            setIsLoading(true);
+            const response = await fetch('/api/payments/get-plans');
+            const data: Plan[] = await response.json();
+            setPlans((prev: Plan[]) => {
+                if (!prev) {
+                    return data;
+                }
+                if (prev.length >= 4) {
+                    return [...prev]
+                }
+                return [...prev, ...data];
+            });
+        } catch (error) {
+            console.error('Erro ao buscar planos:', error);
+        }
+        setIsLoading(false);
+    };
+
+    async function handleCheckout({ plan, isAnnual, addToast, setIsLoading }: CheckoutProps): Promise<void> {
+        if (plan.id === 'free') {
+            console.log('Free plan selected');
+            return;
+        }
+
+        setIsLoading(true);
+        const AuthServiceInstance = new AuthService(supabase);
+        const user = await AuthServiceInstance.getUserId();
+
+
+        if (!user) {
+            return redirect('/signin');
+        }
+
+        try {
+            const priceId = isAnnual ? plan.idAnnual : plan.idMonthly;
+
+            const response = await fetch('/api/payments/create-checkout', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ priceId, plan: plan.id, userId: user }),
+            });
+
+            const jsonResponse = await response.json();
+            const sessionId = jsonResponse.id;
+
+            if (sessionId) {
+                await PaymentService.redirectToCheckout(sessionId);
+            } else {
+                addToast({
+                    id: Date.now().toString(),
+                    message: 'Error during Checkout',
+                    description: 'An error occurred while processing your request. Please try again later.',
+                    type: 'error',
+                });
+            }
+        } catch (error) {
+            console.error('Error during payment checkout:', error);
+            addToast({
+                id: Date.now().toString(),
+                message: 'Error during Checkout',
+                description: 'An error occurred while processing your request. Please try again later.',
+                type: 'error',
+            });
+        }
+    }
 
     return (
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -56,7 +135,7 @@ export default function Pricing({ selectedOption, hasFreeplan = true }: PricingP
                                 isAnnual={isAnnual}
                                 isSelected={isSelected}
                                 isMostPopular={isMostPopular}
-                                handleCheckout={() => handleCheckout({ plan, isAnnual, addToast, setIsLoading })}
+                                handle={() => handleCheckout({ plan, isAnnual, addToast, setIsLoading })}
                             />
                         );
                     })}

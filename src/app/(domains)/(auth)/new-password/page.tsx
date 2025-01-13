@@ -8,7 +8,8 @@ import BackLinkComponent from "@/components/BackLink";
 import ButtonComponent from "@/components/Button";
 import InputComponent from "@/components/Input";
 import PasswordStrengthIndicator from "@/components/PasswordStrength";
-import { handleNewPassword } from "@/handlers/auth";
+import { supabase } from "@/libs/supabase/client";
+import AuthService from "@/services/auth";
 
 const initialState = {
     isLoading: false,
@@ -66,7 +67,46 @@ export default function NewPassword() {
         } else {
             dispatch({ type: "SET_TOKEN_VALUE", payload: token });
         }
-    }, []);
+    }, [searchParams]);
+
+    async function handleNewPassword() {
+        try {
+            dispatch({ type: "SET_LOADING", payload: true });
+            dispatch({ type: "SET_ERRORS", payload: { password: "", confirmPassword: "", general: "" } });
+    
+            const isPasswordValid = state.inputValue.password.length >= 6;
+            const isPasswordsMatch = state.inputValue.password === state.inputValue.confirmPassword;
+    
+            if (!isPasswordValid || !isPasswordsMatch) {
+                dispatch({
+                    type: "SET_ERRORS",
+                    payload: {
+                        password: isPasswordValid ? "" : "Password must be at least 6 characters long.",
+                        confirmPassword: isPasswordsMatch ? "" : "Passwords do not match.",
+                    },
+                });
+                throw new Error("Validation Error");
+            }
+    
+            const AuthServiceInstance = new AuthService(supabase);
+    
+            const response = await AuthServiceInstance.newPassword(state.inputValue.password);
+    
+            if (response) {
+                dispatch({ type: "SET_PASSWORD_CHANGED", payload: true });
+            } else {
+                dispatch({ type: "SET_ERRORS", payload: { general: "Failed to change the password. Please try again." } });
+            }
+        } catch (err) {
+            console.log("Error", err);
+            if (err instanceof Error && err.message !== "Validation Error") {
+                dispatch({ type: "SET_ERRORS", payload: { general: "Something went wrong. Please try again." } });
+            }
+        } finally {
+            dispatch({ type: "SET_LOADING", payload: false });
+        }
+    }
+    
 
     return (
         <>
@@ -89,7 +129,7 @@ export default function NewPassword() {
                         className="mt-8 space-y-6"
                         onSubmit={(e) => {
                             e.preventDefault();
-                            handleNewPassword({ dispatch, state });
+                            handleNewPassword();
                         }}>
                         <div>
                             <InputComponent
