@@ -1,4 +1,12 @@
-# Sassy: Micro-SaaS Template Generator
+<p align="center">
+  <a href="https://bun.sh"><img src="https://raw.githubusercontent.com/marcelodosreis/sassy/refs/heads/main/public/logo.ico" alt="Logo" height=170></a>
+</p>
+<h1 align="center">Sassy</h1>
+
+<p align="center">
+<img src="https://img.shields.io/github/stars/marcelodosreis/sassy" alt="stars">
+<a><img src="https://img.shields.io/static/v1?label=speed&message=fast&color=success" /></a>
+</p>
 
 Welcome to **Sassy**, a powerful template generator designed to accelerate the development of Micro-SaaS applications. Built with **Next.js 15**, **TypeScript**, **TailwindCSS**, **Supabase**, and **Stripe**, Sassy provides a robust foundation for building subscription-based services with integrated authentication, subscription management, and payment processing.
 
