@@ -15,6 +15,7 @@ type Props = {
 export default function RootLayout({ children }: Props) {
   return (
     <html lang="en">
+      <meta name="google-site-verification" content="hOwFMK8Nm7tKqU6eOyDCH3EUk6u6kht_Zpzqoucazgw" />
       <body className={myFont.className}>
         <ToastProvider>
           {children}
