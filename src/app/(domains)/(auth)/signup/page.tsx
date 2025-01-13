@@ -9,8 +9,8 @@ import InputComponent from "@/components/Input";
 import OAuth from "@/components/OAuth";
 import PasswordStrengthIndicator from "@/components/PasswordStrength";
 import { supabase } from "@/libs/supabase/client";
-import AuthService from "@/services/auth";
-import RegexValidation from "@/utils/RegexValidation";
+import SupabaseService from "@/services/supabaseService";
+import { isValidEmail } from "@/utils/isValidEmail";
 
 
 const initialState = {
@@ -66,15 +66,15 @@ export default function SignUp() {
       dispatch({ type: "SET_LOADING", payload: true });
       dispatch({ type: "SET_ERRORS", payload: { email: "", password: "", confirmPassword: "", general: "", terms: "" } });
 
-      const isValidEmail = RegexValidation.validateEmail(state.inputValue.email);
+      const isValidEmailResponse = isValidEmail(state.inputValue.email);
       const isPasswordValid = state.inputValue.password.length >= 6;
       const isPasswordsMatch = state.inputValue.password === state.inputValue.confirmPassword;
 
-      if (!isValidEmail || !isPasswordValid || !isPasswordsMatch) {
+      if (!isValidEmailResponse || !isPasswordValid || !isPasswordsMatch) {
         dispatch({
           type: "SET_ERRORS",
           payload: {
-            email: isValidEmail ? "" : "Invalid email format.",
+            email: isValidEmailResponse ? "" : "Invalid email format.",
             password: isPasswordValid ? "" : "Password must be at least 6 characters long.",
             confirmPassword: isPasswordsMatch ? "" : "Passwords do not match.",
           },
@@ -90,8 +90,8 @@ export default function SignUp() {
         throw new Error("Terms not accepted");
       }
 
-      const AuthServiceInstance = new AuthService(supabase);
-      const response = await AuthServiceInstance.signUp(state.inputValue.email, state.inputValue.password);
+      const SupabaseServiceInstance = new SupabaseService(supabase);
+      const response = await SupabaseServiceInstance.signUp(state.inputValue.email, state.inputValue.password);
 
       if (response?.id) {
         dispatch({ type: "SET_REGISTRATION_COMPLETE", payload: true });

@@ -2,7 +2,7 @@ import { NextApiRequest, NextApiResponse } from 'next';
 
 import { stripe } from '@/libs/stripe';
 import { supabaseSecretServer } from '@/libs/supabase/server';
-import PaymentService from '@/services/payment';
+import StripeService from '@/services/stripeService';
 import SubscriptionService from '@/services/subscription';
 
 const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET;
@@ -24,7 +24,7 @@ async function getRawBody(req: NextApiRequest): Promise<string> {
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'POST') {
-    const PaymentServiceInstance = new PaymentService(stripe);
+    const StripeServiceInstance = new StripeService(stripe);
     const SubscriptionServiceInstance = new SubscriptionService(supabaseSecretServer);
 
     const sig = req.headers['stripe-signature'];
@@ -37,7 +37,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     let event;
 
     try {
-      event = PaymentServiceInstance.constructWebhookEvent(rawBody, sig, endpointSecret);
+      event = StripeServiceInstance.constructWebhookEvent(rawBody, sig, endpointSecret);
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : 'Erro desconhecido';
       console.error('Erro ao verificar a assinatura do webhook:', errorMessage);

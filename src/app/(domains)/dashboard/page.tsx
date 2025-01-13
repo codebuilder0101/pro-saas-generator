@@ -2,13 +2,13 @@ import { ClientDashboard } from "@/components/ClientDashboard";
 import { ModalProvider } from "@/contexts/ModalContext";
 import { handleFetchSubscription } from "@/handlers/subscription";
 import { createClient } from "@/libs/supabase/server";
-import AuthService from "@/services/auth";
+import SupabaseService from "@/services/supabaseService";
 
 
 export default async function Dashboard() {
   const supabase = await createClient();
-  const AuthServiceInstance = new AuthService(supabase);
-  const user = await AuthServiceInstance.getUser();
+  const SupabaseServiceInstance = new SupabaseService(supabase);
+  const user = await SupabaseServiceInstance.getUser();
 
   const subscription = user?.id && await handleFetchSubscription(user?.id);
   const plan = subscription &&

@@ -3,7 +3,7 @@ import type { NextRequest } from 'next/server';
 
 import { updateSession } from './libs/supabase/middleware';
 import { createClient } from './libs/supabase/server';
-import AuthService from './services/auth';
+import SupabaseService from './services/supabaseService';
 
 export async function middleware(request: NextRequest) {
   await updateSession(request);
@@ -11,9 +11,9 @@ export async function middleware(request: NextRequest) {
 
   if (url.pathname.startsWith('/dashboard')) {
     const supabase = await createClient();
-    const AuthServiceInstance = new AuthService(supabase);
+    const SupabaseServiceInstance = new SupabaseService(supabase);
 
-    const userId = await AuthServiceInstance.getUserId();
+    const userId = await SupabaseServiceInstance.getUserId();
 
     if (!userId) {
       const redirectUrl = new URL('/signin', request.url);

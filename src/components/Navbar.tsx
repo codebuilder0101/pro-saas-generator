@@ -5,7 +5,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 
 import { supabase } from '@/libs/supabase/client';
-import AuthService from '@/services/auth';
+import SupabaseService from '@/services/supabaseService';
 
 import Spinner from "./Spinner";
 
@@ -17,8 +17,8 @@ export default function Navbar() {
 
     useEffect(() => {
         const getUserSession = async () => {
-            const AuthServiceInstance = new AuthService(supabase);
-            const user = await AuthServiceInstance.getUserId();
+            const SupabaseServiceInstance = new SupabaseService(supabase);
+            const user = await SupabaseServiceInstance.getUserId();
             if (!!user) {
                 setIsLogged(true);
             } else {

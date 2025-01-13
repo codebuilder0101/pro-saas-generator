@@ -2,9 +2,9 @@ import { NextApiRequest, NextApiResponse } from 'next';
 
 import { stripe } from '@/libs/stripe';
 import { supabaseSecretServer } from '@/libs/supabase/server';
-import AuthService from '@/services/auth';
-import PaymentService from '@/services/payment';
+import StripeService from '@/services/stripeService';
 import SubscriptionService from '@/services/subscription';
+import SupabaseService from '@/services/supabaseService';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     if (req.method !== 'POST') {
@@ -19,12 +19,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         }
 
 
-        const AuthServiceInstance = new AuthService(supabaseSecretServer);
+        const SupabaseServiceInstance = new SupabaseService(supabaseSecretServer);
         const SubscriptionServiceInstance = new SubscriptionService(supabaseSecretServer);
-        const PaymentServiceInstance = new PaymentService(stripe);
+        const StripeServiceInstance = new StripeService(stripe);
 
 
-        const user = await AuthServiceInstance.getUser(token);
+        const user = await SupabaseServiceInstance.getUser(token);
 
 
         if (!user) {
@@ -36,13 +36,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         if (!subscription) {
             return res.status(404).json({ error: 'No subscription found for user' });
         }
-        const customerId = await PaymentServiceInstance.getCustomerIdFromSubscription(subscription.stripe_subscription_id);
+        const customerId = await StripeServiceInstance.getCustomerIdFromSubscription(subscription.stripe_subscription_id);
 
         if (!customerId) {
             return res.status(404).json({ error: 'No customerId found for subscription' });
         }
 
-        const portalSession = await PaymentServiceInstance.createBillingPortalSession(customerId);
+        const portalSession = await StripeServiceInstance.createBillingPortalSession(customerId);
 
         return res.status(200).json({ url: portalSession.url });
     } catch (error) {

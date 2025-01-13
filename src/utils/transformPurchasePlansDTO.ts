@@ -19,7 +19,7 @@ interface Plan {
     extraFeatures: string;
 }
 
-export default function transformPlans(data: InputData[]): Plan[] {
+export function transformPurchasePlansDTO(data: InputData[]): Plan[] {
     const planDetails: Record<string, Omit<Plan, 'priceMonthly' | 'priceAnnual' | 'idMonthly' | 'idAnnual'>> = {
         "Starter": {
             id: "starter",

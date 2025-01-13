@@ -10,8 +10,8 @@ import FooterAuthScreenComponent from "@/components/FooterAuthScreen";
 import InputComponent from "@/components/Input";
 import OAuth from "@/components/OAuth";
 import { supabase } from '@/libs/supabase/client';
-import AuthService from '@/services/auth';
-import RegexValidation from '@/utils/RegexValidation';
+import SupabaseService from '@/services/supabaseService';
+import { isValidEmail } from '@/utils/isValidEmail';
 
 const initialState = {
   isLoading: false,
@@ -55,23 +55,22 @@ export default function SignIn() {
           dispatch({ type: "SET_LOADING", payload: true });
           dispatch({ type: "SET_ERRORS", payload: { email: "", password: "", general: "" } });
   
-          const isValidEmail = RegexValidation.validateEmail(state.inputValue.email);
+          const isValidEmailResponse = isValidEmail(state.inputValue.email);
           const isPasswordValid = state.inputValue.password.length >= 6;
   
-          if (!isValidEmail || !isPasswordValid) {
+          if (!isValidEmailResponse || !isPasswordValid) {
               dispatch({
                   type: "SET_ERRORS",
                   payload: {
-                      email: isValidEmail ? "" : "Invalid email format.",
+                      email: isValidEmailResponse ? "" : "Invalid email format.",
                       password: isPasswordValid ? "" : "Password must be at least 6 characters long.",
                   },
               });
               throw new Error("Validation Error");
           }
   
-          const AuthServiceInstance = new AuthService(supabase);
-  
-          const response = await AuthServiceInstance.signIn(state.inputValue.email, state.inputValue.password);
+          const SupabaseServiceInstance = new SupabaseService(supabase);
+          const response = await SupabaseServiceInstance.signIn(state.inputValue.email, state.inputValue.password);
   
           if (response?.id) {
               router.push("/dashboard");

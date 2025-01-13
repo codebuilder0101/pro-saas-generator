@@ -6,8 +6,8 @@ import BackLinkComponent from "@/components/BackLink";
 import ButtonComponent from "@/components/Button";
 import InputComponent from "@/components/Input";
 import { supabase } from "@/libs/supabase/client";
-import AuthService from "@/services/auth";
-import RegexValidation from "@/utils/RegexValidation";
+import SupabaseService from "@/services/supabaseService";
+import { isValidEmail } from "@/utils/isValidEmail";
 
 const initialState = {
     isLoading: false,
@@ -52,9 +52,9 @@ export default function ForgotPassword() {
             dispatch({ type: "SET_LOADING", payload: true });
             dispatch({ type: "SET_ERRORS", payload: { email: "", general: "" } });
 
-            const isValidEmail = RegexValidation.validateEmail(state.inputValue.email);
+            const isValidEmailResponse = isValidEmail(state.inputValue.email);
 
-            if (!isValidEmail) {
+            if (!isValidEmailResponse) {
                 dispatch({
                     type: "SET_ERRORS",
                     payload: {
@@ -64,8 +64,8 @@ export default function ForgotPassword() {
                 throw new Error("Validation Error");
             }
 
-            const AuthServiceInstance = new AuthService(supabase);
-            const response = await AuthServiceInstance.forgotPassword(state.inputValue.email);
+            const SupabaseServiceInstance = new SupabaseService(supabase);
+            const response = await SupabaseServiceInstance.forgotPassword(state.inputValue.email);
 
             if (response) {
                 dispatch({ type: "SET_SUCCESS", payload: true });

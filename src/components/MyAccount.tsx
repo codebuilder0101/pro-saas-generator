@@ -4,9 +4,9 @@ import { ArrowRightEndOnRectangleIcon } from '@heroicons/react/24/solid';
 import { useState, useEffect, useRef } from 'react';
 
 import { supabase } from '@/libs/supabase/client';
-import AuthService from '@/services/auth';
+import SupabaseService from '@/services/supabaseService';
 
-const AuthServiceInstance = new AuthService(supabase);
+const SupabaseServiceInstance = new SupabaseService(supabase);
 
 function MyAccount() {
     const [isOpen, setIsOpen] = useState(false);
@@ -56,7 +56,7 @@ function MyAccount() {
                     <a
                         className="block px-4 py-2 text-gray-700 hover:bg-gray-100 cursor-pointer flex items-center justify-between"
                         onClick={async () => {
-                            await AuthServiceInstance.signOut();
+                            await SupabaseServiceInstance.signOut();
                             window.location.reload();
                         }}
                     >

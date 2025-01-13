@@ -8,8 +8,8 @@ import { PlanBase } from '@/constants/Plan';
 import { Toast } from '@/contexts/ToastContext';
 import { useToast } from "@/hooks/useToast";
 import { supabase } from '@/libs/supabase/client';
-import AuthService from '@/services/auth';
-import PaymentService from '@/services/payment';
+import SupabaseService from '@/services/supabaseService';
+import StripeService from '@/services/stripeService';
 
 import Spinner from '../Spinner';
 import PlanCard, { Plan } from './PlanCard';
@@ -66,8 +66,8 @@ export default function Pricing({ selectedOption, hasFreeplan = true }: PricingP
         }
 
         setIsLoading(true);
-        const AuthServiceInstance = new AuthService(supabase);
-        const user = await AuthServiceInstance.getUserId();
+        const SupabaseServiceInstance = new SupabaseService(supabase);
+        const user = await SupabaseServiceInstance.getUserId();
 
 
         if (!user) {
@@ -87,7 +87,7 @@ export default function Pricing({ selectedOption, hasFreeplan = true }: PricingP
             const sessionId = jsonResponse.id;
 
             if (sessionId) {
-                await PaymentService.redirectToCheckout(sessionId);
+                await StripeService.redirectToCheckout(sessionId);
             } else {
                 addToast({
                     id: Date.now().toString(),

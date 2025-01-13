@@ -5,7 +5,7 @@ import { useEffect, useReducer } from "react";
 import BackLink from "@/components/BackLink";
 import Spinner from "@/components/Spinner";
 import { supabase } from "@/libs/supabase/client";
-import AuthService from "@/services/auth";
+import SupabaseService from "@/services/supabaseService";
 
 type State = {
     isLoading: boolean;
@@ -59,10 +59,10 @@ export default function ConfirmSignUp() {
 
     async function handleConfirmSignup(token: string) {
         dispatch({ type: "SET_LOADING", isLoading: true });
-        const AuthServiceInstance = new AuthService(supabase);
+        const SupabaseServiceInstance = new SupabaseService(supabase);
     
         try {
-            const response = await AuthServiceInstance.confirmEmail(token, 'signup');
+            const response = await SupabaseServiceInstance.confirmEmail(token, 'signup');
             if (response?.id) {
                 dispatch({ type: "CONFIRMATION_SUCCESS" });
             } else {

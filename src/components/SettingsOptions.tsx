@@ -5,7 +5,7 @@ import { useState } from "react";
 import ButtonComponent from "@/components/Button";
 import { useToast } from "@/hooks/useToast";
 import { supabase } from "@/libs/supabase/client";
-import AuthService from "@/services/auth";
+import SupabaseService from "@/services/supabaseService";
 
 type SettingsOptionsProps = {
     userEmail?: string;
@@ -13,7 +13,7 @@ type SettingsOptionsProps = {
 }
 
 function SettingsOptions({ userEmail, currentPlan }: SettingsOptionsProps) {
-    const AuthServiceInstance = new AuthService(supabase);
+    const SupabaseServiceInstance = new SupabaseService(supabase);
     const { addToast } = useToast();
     const [isLoading, setIsLoading] = useState({
         forgotPassword: false,
@@ -21,7 +21,7 @@ function SettingsOptions({ userEmail, currentPlan }: SettingsOptionsProps) {
 
     const handleForgotPassword = async (userEmail: string) => {
         setIsLoading((data) => ({ ...data, forgotPassword: true }));
-        const response = await AuthServiceInstance.forgotPassword(userEmail);
+        const response = await SupabaseServiceInstance.forgotPassword(userEmail);
 
         if (response) {
             await addToast({

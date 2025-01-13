@@ -3,7 +3,7 @@ import ManageBilling from "@/components/ManageBilling";
 import PricingSection from "@/components/Pricing";
 import { handleFetchSubscription } from "@/handlers/subscription";
 import { createClient } from "@/libs/supabase/server";
-import AuthService from "@/services/auth";
+import SupabaseService from "@/services/supabaseService";
 import { capitalize } from "@/utils/capitalize";
 
 
@@ -11,9 +11,9 @@ import { capitalize } from "@/utils/capitalize";
 
 export default async function Subscription() {
   const supabase = await createClient();
-  const AuthServiceInstance = new AuthService(supabase);
-  const user = await AuthServiceInstance.getUser();
-  const session = await AuthServiceInstance.getSession();
+  const SupabaseServiceInstance = new SupabaseService(supabase);
+  const user = await SupabaseServiceInstance.getUser();
+  const session = await SupabaseServiceInstance.getSession();
   const subscription = user?.id && await handleFetchSubscription(user?.id);
 
   const plan = subscription &&

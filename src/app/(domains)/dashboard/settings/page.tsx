@@ -1,13 +1,13 @@
 import SettingsOptions from "@/components/SettingsOptions";
 import { handleFetchSubscription } from "@/handlers/subscription";
 import { createClient } from "@/libs/supabase/server";
-import AuthService from "@/services/auth";
+import SupabaseService from "@/services/supabaseService";
 import { capitalize } from "@/utils/capitalize";
 
 export default async function Settings() {
     const supabase = await createClient();
-    const AuthServiceInstance = new AuthService(supabase);
-    const data = await AuthServiceInstance.getUser();
+    const SupabaseServiceInstance = new SupabaseService(supabase);
+    const data = await SupabaseServiceInstance.getUser();
     const subscription = data?.id && await handleFetchSubscription(data?.id);
     const plan = subscription &&
         subscription?.status === 'active'

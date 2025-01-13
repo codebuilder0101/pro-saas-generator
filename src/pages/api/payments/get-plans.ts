@@ -2,14 +2,14 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import Stripe from 'stripe';
 
 import { stripe } from '@/libs/stripe';
-import PaymentService from '@/services/payment';
-import PurchasePlanDTO, { InputData } from '@/utils/PurchasePlanDTO';
+import StripeService from '@/services/stripeService';
+import { InputData, transformPurchasePlansDTO } from '@/utils/transformPurchasePlansDTO';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'GET') {
     try {
-      const PaymentServiceInstance = new PaymentService(stripe);
-      const prices = await PaymentServiceInstance.listActivePrices();
+      const StripeServiceInstance = new StripeService(stripe);
+      const prices = await StripeServiceInstance.listActivePrices();
 
       const response = prices?.map((price) => {
         const product = price.product as Stripe.Product;
@@ -23,7 +23,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         };
       });
 
-      const tranform = await PurchasePlanDTO(response as Array<InputData>);
+      const tranform = await transformPurchasePlansDTO(response as Array<InputData>);
       res.status(200).json(tranform);
     } catch (error) {
       console.error(error);

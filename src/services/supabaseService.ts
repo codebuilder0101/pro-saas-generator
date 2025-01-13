@@ -1,7 +1,7 @@
 import { EmailOtpType, Provider, User, Session } from '@supabase/supabase-js';
 import { SupabaseClient } from '@supabase/supabase-js';
 
-export default class AuthService {
+export default class SupabaseService {
     private supabase: SupabaseClient;
 
     constructor(supabase: SupabaseClient) {

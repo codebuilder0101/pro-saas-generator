@@ -1,7 +1,7 @@
 import { loadStripe } from '@stripe/stripe-js';
 import Stripe from 'stripe';
 
-export default class PaymentService {
+export default class StripeService {
   private stripe: Stripe;
 
   constructor(stripe: Stripe) {
