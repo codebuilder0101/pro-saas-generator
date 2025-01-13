@@ -108,8 +108,6 @@ This script connects your local environment to Stripe and listens for events lik
 Sassy comes with built-in OAuth authentication support for popular platforms such as **Google**, **Facebook**, and **Twitter**. The authentication flow is fully integrated with Supabase, ensuring a secure and seamless experience for users.
 
 ### Dependencies:
-
-- `@supabase/auth-ui-react` for handling OAuth flows.
 - OAuth SDKs for Google, Facebook, and Twitter to provide login functionality.
 
 With **OAuth**, users can authenticate with their preferred social media accounts, reducing friction in the signup/login process. OAuth tokens are securely managed by Supabase, and user data is synchronized across both Supabase and your application.
