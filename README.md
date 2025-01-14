@@ -1,4 +1,12 @@
-# Sassy: Micro-SaaS Template Generator
+<p align="center">
+  <a href="https://github.com/marcelodosreis/sassy"><img src="https://raw.githubusercontent.com/marcelodosreis/sassy/refs/heads/main/public/logo.ico" alt="Logo" height=170></a>
+</p>
+<h1 align="center">Sassy</h1>
+
+<p align="center">
+<img src="https://img.shields.io/github/stars/marcelodosreis/sassy" alt="stars">
+<a><img src="https://img.shields.io/static/v1?label=speed&message=fast&color=success" /></a>
+</p>
 
 Welcome to **Sassy**, a powerful template generator designed to accelerate the development of Micro-SaaS applications. Built with **Next.js 15**, **TypeScript**, **TailwindCSS**, **Supabase**, and **Stripe**, Sassy provides a robust foundation for building subscription-based services with integrated authentication, subscription management, and payment processing.
 
@@ -108,8 +116,6 @@ This script connects your local environment to Stripe and listens for events lik
 Sassy comes with built-in OAuth authentication support for popular platforms such as **Google**, **Facebook**, and **Twitter**. The authentication flow is fully integrated with Supabase, ensuring a secure and seamless experience for users.
 
 ### Dependencies:
-
-- `@supabase/auth-ui-react` for handling OAuth flows.
 - OAuth SDKs for Google, Facebook, and Twitter to provide login functionality.
 
 With **OAuth**, users can authenticate with their preferred social media accounts, reducing friction in the signup/login process. OAuth tokens are securely managed by Supabase, and user data is synchronized across both Supabase and your application.
