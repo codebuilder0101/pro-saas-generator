@@ -1,4 +1,4 @@
-import { Routes } from "@/constants/Routes";
+import { ROUTES } from "@/constants/Routes";
 
 
 type FooterProps = {
@@ -12,7 +12,7 @@ export default function Footer({ isDashboard }: FooterProps) {
                     <h2 className="text-4xl font-bold mb-6">Ready to Get Started?</h2>
                     <div className="flex justify-center space-x-4">
                         <a
-                            href={Routes.dashboard}
+                            href={ROUTES.dashboard}
                             className="py-3 px-8 bg-white text-indigo-600 rounded-lg hover:bg-gray-100 transition"
                         >
                             Join Sassy Today

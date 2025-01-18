@@ -4,7 +4,7 @@ import { redirect } from 'next/navigation';
 
 import { useEffect, useState } from 'react';
 
-import { PlanBase } from '@/constants/Plan';
+import { SUBSCRIPTION_PLANS_BASE } from '@/constants/Plan';
 import { Toast } from '@/contexts/ToastContext';
 import { useToast } from "@/hooks/useToast";
 import { supabase } from '@/libs/supabase/client';
@@ -32,7 +32,7 @@ export default function Pricing({ selectedOption, hasFreeplan = true }: PricingP
     const { addToast } = useToast();
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [isAnnual, setIsAnnual] = useState<boolean>(false);
-    const [plans, setPlans] = useState<Plan[]>(hasFreeplan ? PlanBase : []);
+    const [plans, setPlans] = useState<Plan[]>(hasFreeplan ? SUBSCRIPTION_PLANS_BASE : []);
 
     useEffect(() => {
         fetchPlans();

@@ -1,6 +1,6 @@
 import { Plan } from "@/components/Pricing/PlanCard";
 
-export const PlanBase: Plan[] = [
+export const SUBSCRIPTION_PLANS_BASE: Plan[] = [
     {
         id: 'free',
         name: 'Free',
