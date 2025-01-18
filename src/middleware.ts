@@ -4,7 +4,7 @@ import type { NextRequest } from 'next/server';
 import { handleFetchSubscription } from './handlers/subscription';
 import { updateSession } from './libs/supabase/middleware';
 import { createClient } from './libs/supabase/server';
-import SupabaseService from './services/supabaseService';
+import SupabaseService from './services/supabase';
 
 export async function middleware(request: NextRequest) {
   await updateSession(request);

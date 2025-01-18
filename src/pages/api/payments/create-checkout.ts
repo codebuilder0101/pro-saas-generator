@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 
 import { stripe } from '@/libs/stripe';
-import StripeService from '@/services/stripeService';
+import StripeService from '@/services/stripe';
 
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {

@@ -9,7 +9,7 @@ import InputComponent from "@/components/Input";
 import OAuth from "@/components/OAuth";
 import PasswordStrengthIndicator from "@/components/PasswordStrength";
 import { supabase } from "@/libs/supabase/client";
-import SupabaseService from "@/services/supabaseService";
+import SupabaseService from "@/services/supabase";
 import { isValidEmail } from "@/utils/isValidEmail";
 
 

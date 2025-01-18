@@ -4,7 +4,7 @@ import { headers } from "next/headers";
 import ManageBilling from "@/components/ManageBilling";
 import PricingSection from "@/components/Pricing";
 import { createClient } from "@/libs/supabase/server";
-import SupabaseService from "@/services/supabaseService";
+import SupabaseService from "@/services/supabase";
 import { capitalize } from "@/utils/capitalize";
 
 export default async function Subscription() {

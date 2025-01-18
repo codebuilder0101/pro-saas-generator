@@ -1,7 +1,7 @@
 import SettingsOptions from "@/components/SettingsOptions";
 import { handleFetchSubscription } from "@/handlers/subscription";
 import { createClient } from "@/libs/supabase/server";
-import SupabaseService from "@/services/supabaseService";
+import SupabaseService from "@/services/supabase";
 import { capitalize } from "@/utils/capitalize";
 
 export default async function Settings() {

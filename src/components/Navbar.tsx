@@ -5,7 +5,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 
 import { supabase } from '@/libs/supabase/client';
-import SupabaseService from '@/services/supabaseService';
+import SupabaseService from '@/services/supabase';
 
 import Spinner from "./Spinner";
 

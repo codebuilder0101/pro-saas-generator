@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 
 import { supabaseServerClient } from '@/libs/supabase/server';
-import SupabaseService from '@/services/supabaseService';
+import SupabaseService from '@/services/supabase';
 
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {

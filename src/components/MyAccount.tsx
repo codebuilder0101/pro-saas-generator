@@ -4,7 +4,7 @@ import { ArrowRightEndOnRectangleIcon } from '@heroicons/react/24/solid';
 import { useState, useEffect, useRef } from 'react';
 
 import { supabase } from '@/libs/supabase/client';
-import SupabaseService from '@/services/supabaseService';
+import SupabaseService from '@/services/supabase';
 
 const SupabaseServiceInstance = new SupabaseService(supabase);
 

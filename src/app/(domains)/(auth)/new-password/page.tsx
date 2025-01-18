@@ -9,7 +9,7 @@ import ButtonComponent from "@/components/Button";
 import InputComponent from "@/components/Input";
 import PasswordStrengthIndicator from "@/components/PasswordStrength";
 import { supabase } from "@/libs/supabase/client";
-import SupabaseService from "@/services/supabaseService";
+import SupabaseService from "@/services/supabase";
 
 const initialState = {
     isLoading: false,

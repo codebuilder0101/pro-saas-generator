@@ -5,7 +5,7 @@ import { useState } from "react";
 import ButtonComponent from "@/components/Button";
 import { useToast } from "@/hooks/useToast";
 import { supabase } from "@/libs/supabase/client";
-import SupabaseService from "@/services/supabaseService";
+import SupabaseService from "@/services/supabase";
 
 type SettingsOptionsProps = {
     userEmail?: string;

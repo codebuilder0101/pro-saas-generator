@@ -5,7 +5,7 @@ import { useEffect, useReducer } from "react";
 import BackLink from "@/components/BackLink";
 import Spinner from "@/components/Spinner";
 import { supabase } from "@/libs/supabase/client";
-import SupabaseService from "@/services/supabaseService";
+import SupabaseService from "@/services/supabase";
 
 type State = {
     isLoading: boolean;

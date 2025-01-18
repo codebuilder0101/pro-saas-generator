@@ -10,7 +10,7 @@ import FooterAuthScreenComponent from "@/components/FooterAuthScreen";
 import InputComponent from "@/components/Input";
 import OAuth from "@/components/OAuth";
 import { supabase } from '@/libs/supabase/client';
-import SupabaseService from '@/services/supabaseService';
+import SupabaseService from '@/services/supabase';
 import { isValidEmail } from '@/utils/isValidEmail';
 
 const initialState = {
