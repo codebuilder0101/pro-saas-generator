@@ -1,5 +1,6 @@
+import { headers } from "next/headers";
+
 import SettingsOptions from "@/components/SettingsOptions";
-import { handleFetchSubscription } from "@/handlers/subscription";
 import { createClient } from "@/libs/supabase/server";
 import SupabaseService from "@/services/supabase";
 import { capitalize } from "@/utils/capitalize";
@@ -8,12 +9,7 @@ export default async function Settings() {
     const supabase = await createClient();
     const SupabaseServiceInstance = new SupabaseService(supabase);
     const data = await SupabaseServiceInstance.getUser();
-    const subscription = data?.id && await handleFetchSubscription(data?.id);
-    const plan = subscription &&
-        subscription?.status === 'active'
-        ? capitalize(subscription.plan)
-        : 'Free'
-
+    const sharedData = JSON.parse((await headers()).get('x-shared-data') || '{}');
 
     return (
         <>
@@ -43,7 +39,7 @@ export default async function Settings() {
                         </div>
                     </div>
 
-                    <SettingsOptions currentPlan={plan} userEmail={data?.email} />
+                    <SettingsOptions currentPlan={capitalize(sharedData.plan)} userEmail={data?.email} />
                 </div>
             </main>
         </>
