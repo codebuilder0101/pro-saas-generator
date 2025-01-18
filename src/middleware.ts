@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
+import { handleFetchSubscription } from './handlers/subscription';
 import { updateSession } from './libs/supabase/middleware';
 import { createClient } from './libs/supabase/server';
 import SupabaseService from './services/supabaseService';
@@ -19,6 +20,16 @@ export async function middleware(request: NextRequest) {
       const redirectUrl = new URL('/signin', request.url);
       return NextResponse.redirect(redirectUrl);
     }
+
+    const subscription = await handleFetchSubscription(userId);
+    const plan = subscription &&
+      subscription?.status === 'active'
+      ? subscription.plan as 'starter' | 'creator' | 'pro'
+      : 'free'
+
+    const res = NextResponse.next();
+    res.headers.set('x-shared-data', JSON.stringify({ plan }));
+    return res;
   }
   return NextResponse.next();
 }
