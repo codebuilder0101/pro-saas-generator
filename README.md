@@ -18,7 +18,8 @@ Welcome to **Sassy**, a powerful template generator designed to accelerate the d
 | Webhooks for Stripe Events                       | ✅         |
 | API Routes for Subscriptions and Payments        | ✅         |
 | User Authentication (Supabase)                   | ✅         |
-| Responsive Design (TailwindCSS)                  | ✅         |
+| Personalized Dashboard for Users                 | ✅         |
+| Responsive Design + Landing Page (TailwindCSS)   | ✅         |
 
 
 On Progress

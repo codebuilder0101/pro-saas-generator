@@ -7,7 +7,6 @@
 | **Feature**                                        | **Status** |
 |----------------------------------------------------|------------|
 | Trial Periods for Subscription Plans               | ⬜         |
-| Personalized Dashboard for Users                   | ⬜         |
 | Detailed Logs and Monitoring                       | ⬜         |
 | Dark/Light Theme                                   | ⬜         |
 | Translation and Multilingual Support (i18n)        | ⬜         |
