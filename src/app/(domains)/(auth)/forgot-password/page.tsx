@@ -6,7 +6,7 @@ import BackLinkComponent from "@/components/BackLink";
 import ButtonComponent from "@/components/Button";
 import InputComponent from "@/components/Input";
 import { supabase } from "@/libs/supabase/client";
-import SupabaseService from "@/services/supabaseService";
+import SupabaseService from "@/services/supabase";
 import { isValidEmail } from "@/utils/isValidEmail";
 
 const initialState = {

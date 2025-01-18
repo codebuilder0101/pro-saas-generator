@@ -8,8 +8,8 @@ import { PlanBase } from '@/constants/Plan';
 import { Toast } from '@/contexts/ToastContext';
 import { useToast } from "@/hooks/useToast";
 import { supabase } from '@/libs/supabase/client';
-import StripeService from '@/services/stripeService';
-import SupabaseService from '@/services/supabaseService';
+import StripeService from '@/services/stripe';
+import SupabaseService from '@/services/supabase';
 
 import Spinner from '../Spinner';
 import PlanCard, { Plan } from './PlanCard';

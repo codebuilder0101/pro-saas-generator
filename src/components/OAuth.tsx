@@ -1,6 +1,6 @@
 import { ProvidersImageURL } from "@/constants/Url";
 import { supabase } from "@/libs/supabase/client";
-import SupabaseService from "@/services/supabaseService";
+import SupabaseService from "@/services/supabase";
 
 export default function OAuth() {
     const SupabaseServiceInstance = new SupabaseService(supabase);

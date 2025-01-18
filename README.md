@@ -10,20 +10,20 @@
 
 Welcome to **Sassy**, a powerful template generator designed to accelerate the development of Micro-SaaS applications. Built with **Next.js 15**, **TypeScript**, **TailwindCSS**, **Supabase**, and **Stripe**, Sassy provides a robust foundation for building subscription-based services with integrated authentication, subscription management, and payment processing.
 
-| **Feature**                                   | **Status** |
-|-----------------------------------------------|------------|
-| **(Google) OAuth Authentication**             | ✅         |
-| **(Facebook) OAuth Authentication**           | ✅         |
-| **(Twitter) OAuth Authentication**            | ✅         |
-| **(Stripe) Monthly Subscription Payments**    | ✅         |
-| **(Stripe) Annual Subscription Payments**     | ✅         |
-| **(Stripe Integration) Subscription Management** | ✅         |
-| **(Stripe) Billing Portal**                   | ✅         |
-| **Webhooks for Stripe Events**                | ✅         |
-| **API Routes for Subscription Handling**      | ✅         |
-| **User Authentication with Supabase**         | ✅         |
-| **(TailwindCSS) Responsive Design**           | ✅         |
+| **Feature**                                      | **Status** |
+|--------------------------------------------------|------------|
+| OAuth Authentication (Google, Facebook, Twitter) | ✅         |
+| Subscription Management (Stripe)                 | ✅         |
+| Billing Portal (Stripe)                          | ✅         |
+| Webhooks for Stripe Events                       | ✅         |
+| API Routes for Subscriptions and Payments        | ✅         |
+| User Authentication (Supabase)                   | ✅         |
+| Personalized Dashboard for Users                 | ✅         |
+| Responsive Design + Landing Page (TailwindCSS)   | ✅         |
 
+
+On Progress
+We are constantly improving Sassy with new features to make it even more powerful. You can find the current roadmap and planned features on our [Feature Roadmap](https://github.com/marcelodosreis/sassy/blob/develop/docs/feature-roadmap.md)
 
 
 ## Architecture and Structure

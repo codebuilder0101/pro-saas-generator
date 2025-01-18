@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 
-import { supabaseApiSecretServer } from '@/libs/supabase/server';
-import SupabaseService from '@/services/supabaseService';
+import { supabaseServerClient } from '@/libs/supabase/server';
+import SupabaseService from '@/services/supabase';
 
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -13,7 +13,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
 
     try {
-      const SupabaseServiceInstance = new SupabaseService(supabaseApiSecretServer);
+      const SupabaseServiceInstance = new SupabaseService(supabaseServerClient);
       const subscription = await SupabaseServiceInstance.getSubscriptionByUserId(userId);
 
       if (!subscription) {

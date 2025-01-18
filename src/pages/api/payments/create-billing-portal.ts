@@ -1,9 +1,9 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 
 import { stripe } from '@/libs/stripe';
-import { supabaseApiSecretServer } from '@/libs/supabase/server';
-import StripeService from '@/services/stripeService';
-import SupabaseService from '@/services/supabaseService';
+import { supabaseServerClient } from '@/libs/supabase/server';
+import StripeService from '@/services/stripe';
+import SupabaseService from '@/services/supabase';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     if (req.method !== 'POST') {
@@ -18,7 +18,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         }
 
 
-        const SupabaseServiceInstance = new SupabaseService(supabaseApiSecretServer);
+        const SupabaseServiceInstance = new SupabaseService(supabaseServerClient);
         const StripeServiceInstance = new StripeService(stripe);
 
 

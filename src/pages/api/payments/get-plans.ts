@@ -2,7 +2,7 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import Stripe from 'stripe';
 
 import { stripe } from '@/libs/stripe';
-import StripeService from '@/services/stripeService';
+import StripeService from '@/services/stripe';
 import { InputData, transformPurchasePlansDTO } from '@/utils/transformPurchasePlansDTO';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {

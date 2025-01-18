@@ -1,7 +1,7 @@
 import { redirect } from 'next/navigation';
 
 import { createClient } from '@/libs/supabase/server';
-import SupabaseService from '@/services/supabaseService';
+import SupabaseService from '@/services/supabase';
 
 type Props = {
     children: React.ReactNode;

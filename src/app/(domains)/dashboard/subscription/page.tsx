@@ -1,22 +1,18 @@
 
+import { headers } from "next/headers";
+
 import ManageBilling from "@/components/ManageBilling";
 import PricingSection from "@/components/Pricing";
-import { handleFetchSubscription } from "@/handlers/subscription";
 import { createClient } from "@/libs/supabase/server";
-import SupabaseService from "@/services/supabaseService";
+import SupabaseService from "@/services/supabase";
 import { capitalize } from "@/utils/capitalize";
 
 export default async function Subscription() {
+  const sharedData = JSON.parse((await headers()).get('x-shared-data') || '{}');
   const supabase = await createClient();
   const SupabaseServiceInstance = new SupabaseService(supabase);
-  const user = await SupabaseServiceInstance.getUser();
   const session = await SupabaseServiceInstance.getSession();
-  const subscription = user?.id && await handleFetchSubscription(user?.id);
 
-  const plan = subscription &&
-    subscription?.status === 'active'
-    ? subscription.plan as 'starter' | 'creator' | 'pro'
-    : 'free'
 
   return (
     <div className="bg-white">
@@ -26,16 +22,16 @@ export default async function Subscription() {
             <div className="flex justify-between items-center">
               <div>
                 <h2 className="text-2xl font-semibold text-gray-800">Current Plan</h2>
-                <p className="text-lg text-gray-600">You are currently on the <strong>{capitalize(plan)}</strong> plan.</p>
+                <p className="text-lg text-gray-600">You are currently on the <strong>{capitalize(sharedData?.plan)}</strong> plan.</p>
               </div>
             </div>
-            {subscription && subscription?.id && session?.access_token && (
+            {sharedData?.plan !== 'free' && session?.access_token && (
               <ManageBilling accessToken={session?.access_token} />
             )}
           </div>
         </div>
         <div className="mt-12">
-          <PricingSection selectedOption={plan} />
+          <PricingSection selectedOption={sharedData?.plan} />
         </div>
       </div>
     </div>

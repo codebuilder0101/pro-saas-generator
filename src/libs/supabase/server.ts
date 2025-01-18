@@ -7,7 +7,7 @@ const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
 const supabaseSecretKey = process.env.SUPABASE_SECRET_KEY!;
 
-export const supabaseApiSecretServer = supabaseCreateClient(supabaseUrl, supabaseSecretKey);
+export const supabaseServerClient = supabaseCreateClient(supabaseUrl, supabaseSecretKey);
 
 export async function createClient() {
   const cookieStore = await cookies();
