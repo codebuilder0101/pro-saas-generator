@@ -20,15 +20,17 @@ export default async function Settings() {
             <main className="flex-1 flex justify-center p-6 bg-white pt-18">
                 <div className="w-full max-w-3xl space-y-6">
                     <div className="space-y-4">
-                        <div>
-                            <label className="block text-sm font-medium text-gray-700">Name</label>
-                            <input
-                                type="text"
-                                value={data?.user_metadata?.name || ''}
-                                readOnly
-                                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-100 text-gray-700 focus:outline-none sm:text-sm"
-                            />
-                        </div>
+                        {data?.user_metadata?.name && (
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700">Name</label>
+                                <input
+                                    type="text"
+                                    value={data?.user_metadata?.name}
+                                    readOnly
+                                    className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-100 text-gray-700 focus:outline-none sm:text-sm"
+                                />
+                            </div>
+                        )}
 
                         <div>
                             <label className="block text-sm font-medium text-gray-700">Email</label>
