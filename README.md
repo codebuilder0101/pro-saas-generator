@@ -22,7 +22,7 @@ Welcome to **Sassy**, a powerful template generator designed to accelerate the d
 
 
 On Progress
-We are constantly improving Sassy with new features to make it even more powerful. You can find the current roadmap and planned features on our [Feature Roadmap](https://github.com/marcelodosreis/sassy/tree/main/docs/feature-roadmap.md)
+We are constantly improving Sassy with new features to make it even more powerful. You can find the current roadmap and planned features on our [Feature Roadmap](https://github.com/marcelodosreis/sassy/blob/develop/docs/feature-roadmap.md)
 
 
 ## Architecture and Structure
