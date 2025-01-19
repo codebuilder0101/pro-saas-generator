@@ -19,6 +19,7 @@ import Toggle from '../Toggle';
 export type PricingProps = {
     selectedOption: 'preview' | 'free' | 'starter' | 'creator' | 'pro';
     hasFreeplan?: boolean;
+    hasFreeTrial?: '7d' | '14d'
 };
 
 interface CheckoutProps {
@@ -28,11 +29,11 @@ interface CheckoutProps {
     setIsLoading: (isLoading: boolean) => void;
 }
 
-export default function Pricing({ selectedOption, hasFreeplan = true }: PricingProps) {
+export default function Pricing({ selectedOption, hasFreeplan = true, hasFreeTrial }: PricingProps) {
     const { addToast } = useToast();
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [isAnnual, setIsAnnual] = useState<boolean>(false);
-    const [plans, setPlans] = useState<Plan[]>(hasFreeplan ? SUBSCRIPTION_PLANS_BASE : []);
+    const [plans, setPlans] = useState<Plan[]>(hasFreeplan && !hasFreeTrial ? SUBSCRIPTION_PLANS_BASE : []);
 
     useEffect(() => {
         fetchPlans();
@@ -80,7 +81,7 @@ export default function Pricing({ selectedOption, hasFreeplan = true }: PricingP
             const response = await fetch('/api/payments/create-checkout', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ priceId, plan: plan.id, userId: user }),
+                body: JSON.stringify({ priceId, plan: plan.id, userId: user, hasFreeTrial }),
             });
 
             const jsonResponse = await response.json();

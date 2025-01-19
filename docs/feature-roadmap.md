@@ -8,8 +8,9 @@
 |----------------------------------------------------|------------|
 | Trial Periods for Subscription Plans               | ⬜         |
 | Detailed Logs and Monitoring                       | ⬜         |
-| Dark/Light Theme                                   | ⬜         |
 | Translation and Multilingual Support (i18n)        | ⬜         |
+| Dark/Light Theme                                   | ⬜         |
+
 
 ---
 

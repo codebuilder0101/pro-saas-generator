@@ -7,6 +7,7 @@ import StripeService from '@/services/stripe';
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'POST') {
     const { priceId, plan, userId } = req.body;
+    const freeTrial = req?.body?.hasFreeTrial;
 
     try {
       const StripeServiceInstance = new StripeService(stripe);

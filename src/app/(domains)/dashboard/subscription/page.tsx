@@ -31,7 +31,7 @@ export default async function Subscription() {
           </div>
         </div>
         <div className="mt-12">
-          <PricingSection selectedOption={sharedData?.plan} />
+          <PricingSection hasFreeTrial="7d" selectedOption={sharedData?.plan} />
         </div>
       </div>
     </div>
