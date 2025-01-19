@@ -8,15 +8,24 @@ export default class StripeService {
     this.stripe = stripe;
   }
 
-  async createCheckoutSession(priceId: string, plan: string, userId: string, origin: string): Promise<Stripe.Checkout.Session> {
-    const session = await this.stripe.checkout.sessions.create({
+  async createCheckoutSession(priceId: string, plan: string, userId: string, origin: string, freeTrial?: number): Promise<Stripe.Checkout.Session> {
+    const sessionData: Stripe.Checkout.SessionCreateParams = {
       payment_method_types: ['card'],
       line_items: [{ price: priceId, quantity: 1 }],
       mode: 'subscription',
       success_url: `${origin}/payments?status=success`,
       cancel_url: `${origin}/payments?status=cancel`,
       metadata: { userId, plan },
-    });
+    };
+  
+
+    if (freeTrial) {
+      sessionData.subscription_data = {
+        trial_period_days: freeTrial,
+      };
+    }
+  
+    const session = await this.stripe.checkout.sessions.create(sessionData);
     return session;
   }
 

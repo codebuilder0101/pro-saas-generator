@@ -15,11 +15,9 @@ import Spinner from '../Spinner';
 import PlanCard, { Plan } from './PlanCard';
 import Toggle from '../Toggle';
 
-
 export type PricingProps = {
     selectedOption: 'preview' | 'free' | 'starter' | 'creator' | 'pro';
     hasFreeplan?: boolean;
-    hasFreeTrial?: '7d' | '14d'
 };
 
 interface CheckoutProps {
@@ -29,16 +27,18 @@ interface CheckoutProps {
     setIsLoading: (isLoading: boolean) => void;
 }
 
-export default function Pricing({ selectedOption, hasFreeplan = true, hasFreeTrial }: PricingProps) {
+export default function Pricing({ selectedOption, hasFreeplan = true }: PricingProps) {
+    // const HAS_FREE_TRIAL = '7d';
+    const HAS_FREE_TRIAL = false;
+
     const { addToast } = useToast();
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [isAnnual, setIsAnnual] = useState<boolean>(false);
-    const [plans, setPlans] = useState<Plan[]>(hasFreeplan && !hasFreeTrial ? SUBSCRIPTION_PLANS_BASE : []);
+    const [plans, setPlans] = useState<Plan[]>(hasFreeplan && !HAS_FREE_TRIAL ? SUBSCRIPTION_PLANS_BASE : []);
 
     useEffect(() => {
         fetchPlans();
     }, []);
-
 
     async function fetchPlans(): Promise<void> {
         try {
@@ -50,7 +50,7 @@ export default function Pricing({ selectedOption, hasFreeplan = true, hasFreeTri
                     return data;
                 }
                 if (prev.length >= 4) {
-                    return [...prev]
+                    return [...prev];
                 }
                 return [...prev, ...data];
             });
@@ -70,7 +70,6 @@ export default function Pricing({ selectedOption, hasFreeplan = true, hasFreeTri
         const SupabaseServiceInstance = new SupabaseService(supabase);
         const user = await SupabaseServiceInstance.getUserId();
 
-
         if (!user) {
             return redirect('/signin');
         }
@@ -81,7 +80,7 @@ export default function Pricing({ selectedOption, hasFreeplan = true, hasFreeTri
             const response = await fetch('/api/payments/create-checkout', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ priceId, plan: plan.id, userId: user, hasFreeTrial }),
+                body: JSON.stringify({ priceId, plan: plan.id, userId: user, hasFreeTrial: HAS_FREE_TRIAL }),
             });
 
             const jsonResponse = await response.json();
@@ -114,12 +113,21 @@ export default function Pricing({ selectedOption, hasFreeplan = true, hasFreeTri
             <p className="mt-4 text-lg text-gray-600">
                 Simple and transparent pricing to suit your needs.
             </p>
+            {HAS_FREE_TRIAL && (
+                <div className="mt-4 bg-indigo-100 p-4 rounded-md text-gray-800">
+                    <p className="text-lg font-bold">
+                        You have a free trial for {HAS_FREE_TRIAL}!
+                    </p>
+                    <p>Try our service with no commitment.</p>
+                </div>
+            )}
 
             <Toggle
                 labels={{ off: 'Monthly', on: 'Annual' }}
                 initialState={false}
                 onToggle={setIsAnnual}
             />
+
             {isLoading
                 ? <Spinner />
                 : <div className={`mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-${plans.length} gap-8`}>

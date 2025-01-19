@@ -6,12 +6,12 @@ import StripeService from '@/services/stripe';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'POST') {
-    const { priceId, plan, userId } = req.body;
-    const freeTrial = req?.body?.hasFreeTrial;
+    const { priceId, plan, userId, hasFreeTrial } = req.body;
+    const freeTrial: number = hasFreeTrial ? hasFreeTrial?.split('d')?.[0] : 0;
 
     try {
       const StripeServiceInstance = new StripeService(stripe);
-      const session = await StripeServiceInstance.createCheckoutSession(priceId, plan, userId, req.headers.origin as string);
+      const session = await StripeServiceInstance.createCheckoutSession(priceId, plan, userId, req.headers.origin as string, freeTrial);
 
       res.status(200).json({ id: session.id });
     } catch (error) {
