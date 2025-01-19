@@ -14,7 +14,7 @@ Welcome to **Sassy**, a powerful template generator designed to accelerate the d
 |--------------------------------------------------|------------|
 | OAuth Authentication (Google, Facebook, Twitter) | ✅         |
 | Subscription Management (Stripe)                 | ✅         |
-| Trial Periods for Subscription Plans (Stripe)    | ✅         |
+| [Trial Periods](https://github.com/marcelodosreis/sassy/blob/develop/docs/free-triald) for Subscription Plans (Stripe)    | ✅         |
 | Billing Portal (Stripe)                          | ✅         |
 | Webhooks for Stripe Events                       | ✅         |
 | API Routes for Subscriptions and Payments        | ✅         |
