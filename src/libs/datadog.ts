@@ -6,9 +6,10 @@ datadogRum.init({
     // `site` refers to the Datadog site parameter of your organization
     // see https://docs.datadoghq.com/getting_started/site/
     site: 'us5.datadoghq.com',
-    service: 'sassy-frontend',
+    service: 'sassy',
     env: process.env.NODE_ENV,
     version: '1.0.0',
     sessionSampleRate: 100,
-    sessionReplaySampleRate: 20,
+    sessionReplaySampleRate: 100,
+    defaultPrivacyLevel: 'mask-user-input',
 });
