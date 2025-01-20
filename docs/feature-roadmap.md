@@ -34,5 +34,3 @@
 | Admin Dashboard                                    | ⬜         |
 | Plan Customization                                 | ⬜         |
 | Charts and Metrics in Admin Dashboard              | ⬜         |
-
-Let me know if you'd like to make any changes or additions!
