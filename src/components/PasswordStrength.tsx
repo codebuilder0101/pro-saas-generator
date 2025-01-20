@@ -1,4 +1,4 @@
-import { PasswordStrengthOptions } from "@/constants/PasswordStrength";
+import { PASSWORD_STRENGTH_OPTIONS } from "@/constants/PasswordStrength";
 
 type PasswordStrengthProps = {
   password: string;
@@ -18,14 +18,14 @@ function getStrengthLabel(strength: number): string {
   switch (strength) {
     case 1:
     case 2:
-      return PasswordStrengthOptions.Weak;
+      return PASSWORD_STRENGTH_OPTIONS.Weak;
     case 3:
     case 4:
-      return PasswordStrengthOptions.Medium;
+      return PASSWORD_STRENGTH_OPTIONS.Medium;
     case 5:
-      return PasswordStrengthOptions.Strong;
+      return PASSWORD_STRENGTH_OPTIONS.Strong;
     default:
-      return PasswordStrengthOptions.Weak;
+      return PASSWORD_STRENGTH_OPTIONS.Weak;
   }
 }
 

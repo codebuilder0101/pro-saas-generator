@@ -9,6 +9,7 @@ import ButtonComponent from "@/components/Button";
 import FooterAuthScreenComponent from "@/components/FooterAuthScreen";
 import InputComponent from "@/components/Input";
 import OAuth from "@/components/OAuth";
+import { ROUTES } from '@/constants/Routes';
 import { supabase } from '@/libs/supabase/client';
 import SupabaseService from '@/services/supabase';
 import { isValidEmail } from '@/utils/isValidEmail';
@@ -73,7 +74,7 @@ export default function SignIn() {
           const response = await SupabaseServiceInstance.signIn(state.inputValue.email, state.inputValue.password);
   
           if (response?.id) {
-              router.push("/dashboard");
+              router.push(ROUTES.dashboard);
           } else {
               dispatch({ type: "SET_ERRORS", payload: { general: "Invalid email or password." } });
           }
@@ -89,7 +90,7 @@ export default function SignIn() {
 
   return (
     <>
-      <BackLinkComponent href='/' label='Back To Home' />
+      <BackLinkComponent href={ROUTES.home} label='Back To Home' />
       <h2 className="text-2xl font-semibold text-center text-gray-900">Sign In</h2>
       <p className="text-center text-sm text-gray-600">Enter your details to use an account</p>
       <form
@@ -130,9 +131,8 @@ export default function SignIn() {
           )}
         </div>
 
-        {/* Forgot Password Link */}
         <div className="text-right mt-0">
-          <a href="/forgot-password" className="text-sm text-blue-600 hover:text-blue-800">
+          <a href={ROUTES.forgotPassword} className="text-sm text-blue-600 hover:text-blue-800">
             Forgot your password?
           </a>
         </div>

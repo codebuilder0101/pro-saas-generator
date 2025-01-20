@@ -10,19 +10,21 @@
 
 Welcome to **Sassy**, a powerful template generator designed to accelerate the development of Micro-SaaS applications. Built with **Next.js 15**, **TypeScript**, **TailwindCSS**, **Supabase**, and **Stripe**, Sassy provides a robust foundation for building subscription-based services with integrated authentication, subscription management, and payment processing.
 
-| **Feature**                                      | **Status** |
-|--------------------------------------------------|------------|
-| OAuth Authentication (Google, Facebook, Twitter) | ✅         |
-| Subscription Management (Stripe)                 | ✅         |
-| Billing Portal (Stripe)                          | ✅         |
-| Webhooks for Stripe Events                       | ✅         |
-| API Routes for Subscriptions and Payments        | ✅         |
-| User Authentication (Supabase)                   | ✅         |
-| Personalized Dashboard for Users                 | ✅         |
-| Responsive Design + Landing Page (TailwindCSS)   | ✅         |
+| **Feature**                             | **Status** |
+|-----------------------------------------|------------|
+| OAuth Authentication (Google, FB, Twitter) | ✅         |
+| Subscription & Billing (Stripe)         | ✅         |
+| Free Trial Periods (Stripe)             | ✅         |
+| Billing Portal (Stripe)                 | ✅         |
+| Webhooks for Stripe Events              | ✅         |
+| Subscriptions & Payments API Routes     | ✅         |
+| User Authentication (Supabase)          | ✅         |
+| Personalized Dashboard                  | ✅         |
+| Responsive Design + Landing Page        | ✅         |
+| Logs & Monitoring (Datadog)             | ✅         |
 
+You can learn more about the other features by visiting the following documentation page: [Sassy Documentation](https://github.com/marcelodosreis/sassy/blob/develop/docs).
 
-On Progress
 We are constantly improving Sassy with new features to make it even more powerful. You can find the current roadmap and planned features on our [Feature Roadmap](https://github.com/marcelodosreis/sassy/blob/develop/docs/feature-roadmap.md)
 
 
@@ -38,7 +40,6 @@ src/
 ├── components/         # Reusable UI components
 ├── constants/           # Global constants and configurations
 ├── contexts/            # React contexts for global state management
-├── handlers/            # Event handlers and backend logic
 ├── hooks/               # Custom React hooks
 ├── libs/                # Third-party libraries and utilities
 ├── pages/               # Next.js pages corresponding to routes
@@ -76,15 +77,20 @@ create table subscriptions (
 The environment variables are configured to integrate Sassy with Supabase and Stripe. Make sure to update the values accordingly.
 
 ```env
-NEXT_PUBLIC_PROJECT_URL=http://localhost:3000
+NEXT_PUBLIC_PROJECT_URL=
 
-NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
-NEXT_PUBLIC_SUPABASE_URL=https://your_supabase_url
-NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=your_stripe_publishable_key
+NEXT_PUBLIC_SUPABASE_ANON_KEY=
+NEXT_PUBLIC_SUPABASE_URL=
 
-SUPABASE_SECRET_KEY=your_supabase_secret_key
-STRIPE_SECRET_KEY=your_stripe_secret_key
-STRIPE_WEBHOOK_SECRET=your_stripe_webhook_secret
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=
+
+NEXT_PUBLIC_DATADOG_APPLICATION_ID=
+NEXT_PUBLIC_DATADOG_CLIENT_TOKEN=
+
+SUPABASE_SECRET_KEY=
+STRIPE_SECRET_KEY=
+STRIPE_WEBHOOK_SECRET=
+DATADOG_SECRET_KEY=
 ```
 
 > **Note:** Replace the above values with your own Supabase and Stripe keys.

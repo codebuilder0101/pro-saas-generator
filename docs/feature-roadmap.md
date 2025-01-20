@@ -6,10 +6,11 @@
 
 | **Feature**                                        | **Status** |
 |----------------------------------------------------|------------|
-| Trial Periods for Subscription Plans               | ⬜         |
-| Detailed Logs and Monitoring                       | ⬜         |
-| Dark/Light Theme                                   | ⬜         |
+| Trial Periods for Subscription Plans               | ✅         |
+| Detailed Logs and Monitoring                       | ✅         |
 | Translation and Multilingual Support (i18n)        | ⬜         |
+| Dark/Light Theme                                   | ⬜         |
+
 
 ---
 
@@ -17,7 +18,6 @@
 
 | **Feature**                                        | **Status** |
 |----------------------------------------------------|------------|
-| Free Plan with Limitations                         | ⬜         |
 | Team Features                                      | ⬜         |
 | Integration with Transactional Emails              | ⬜         |
 | Multi-Currency Support in Stripe                   | ⬜         |
@@ -34,5 +34,3 @@
 | Admin Dashboard                                    | ⬜         |
 | Plan Customization                                 | ⬜         |
 | Charts and Metrics in Admin Dashboard              | ⬜         |
-
-Let me know if you'd like to make any changes or additions!
