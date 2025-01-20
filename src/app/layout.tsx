@@ -6,7 +6,7 @@ import { ToastProvider } from '@/contexts/ToastContext';
 
 
 import "@/styles/globals.css";
-
+import '@/libs/datadog';
 
 // const myFont = localFont({ src: '../../public/Satoshi.ttf' })
 const poppins = Poppins({
