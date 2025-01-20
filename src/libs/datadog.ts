@@ -9,8 +9,7 @@ export const initDatadogRum = () => {
             // see https://docs.datadoghq.com/getting_started/site/
             site: 'us5.datadoghq.com',
             service: 'sassy',
-            env: 'production',
-            // env: process.env.NODE_ENV,
+            env: process.env.NODE_ENV,
             version: '1.0.0',
             sessionSampleRate: 100,
             sessionReplaySampleRate: 100,

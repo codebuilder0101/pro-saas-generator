@@ -1,17 +1,7 @@
-import tracer from 'dd-trace';
-import { NextConfig } from 'next';
-
-
-tracer.init({
-  service: 'sassy-api',
-  env: process.env.NODE_ENV,
-  version: '1.0.0',
-  logInjection: true,
-});
-
+import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  reactStrictMode: true,
+  /* config options here */
 };
 
 export default nextConfig;
