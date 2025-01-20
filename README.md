@@ -85,6 +85,7 @@ NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=your_stripe_publishable_key
 SUPABASE_SECRET_KEY=your_supabase_secret_key
 STRIPE_SECRET_KEY=your_stripe_secret_key
 STRIPE_WEBHOOK_SECRET=your_stripe_webhook_secret
+DATADOG_SECRET_KEY=your_datadog_secret
 ```
 
 > **Note:** Replace the above values with your own Supabase and Stripe keys.
