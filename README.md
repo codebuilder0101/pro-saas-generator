@@ -39,7 +39,6 @@ src/
 ├── components/         # Reusable UI components
 ├── constants/           # Global constants and configurations
 ├── contexts/            # React contexts for global state management
-├── handlers/            # Event handlers and backend logic
 ├── hooks/               # Custom React hooks
 ├── libs/                # Third-party libraries and utilities
 ├── pages/               # Next.js pages corresponding to routes
