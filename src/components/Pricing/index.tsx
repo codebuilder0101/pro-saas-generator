@@ -4,6 +4,7 @@ import { redirect } from 'next/navigation';
 
 import { useEffect, useState } from 'react';
 
+import { HAS_FREE_TRIAL } from '@/constants/FreeTrial';
 import { SUBSCRIPTION_PLANS_BASE } from '@/constants/Plan';
 import { Toast } from '@/contexts/ToastContext';
 import { useToast } from "@/hooks/useToast";
@@ -28,9 +29,6 @@ interface CheckoutProps {
 }
 
 export default function Pricing({ selectedOption, hasFreeplan = true }: PricingProps) {
-    // const HAS_FREE_TRIAL = '7d';
-    const HAS_FREE_TRIAL = false;
-
     const { addToast } = useToast();
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [isAnnual, setIsAnnual] = useState<boolean>(false);

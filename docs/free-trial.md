@@ -2,27 +2,28 @@
 
 ## Overview
 
-The `Pricing` component, located at `sassy/src/components/Pricing/index.tsx`, includes functionality for enabling a free trial period for users. This feature is controlled via a constant within the component, allowing developers to easily enable or disable the trial based on business requirements. When enabled, users are presented with a message indicating they have access to a free trial.
+The `Pricing` component, located at `sassy/src/components/Pricing/index.tsx`, includes functionality for enabling a free trial period for users. This feature is now controlled via a constant in `sassy/src/constants/FreeTrial.ts`, allowing developers to easily enable or disable the trial and set the trial duration if desired.
 
 ## Enabling/Disabling the Trial Feature
 
-The trial feature is managed by the constant `HAS_FREE_TRIAL` inside the `Pricing` component. This flag is used to determine whether the free trial functionality is active or not. By default, this flag is set to `false`, but it can be changed to `true` to activate the trial.
+The trial feature is managed by the constant `HAS_FREE_TRIAL` in `sassy/src/constants/FreeTrial.ts`. This flag determines whether the free trial functionality is active. By default, this flag is set to `false`, but it can be modified as needed.
 
 ### How to Enable the Trial:
 
-1. Open the `Pricing` component at `sassy/src/components/Pricing/index.tsx`.
+1. Open the `FreeTrial.ts` file at `sassy/src/constants/FreeTrial.ts`.
 2. Locate the constant `HAS_FREE_TRIAL`.
 3. Set the constant to `true` to enable the trial or leave it as `false` to disable it.
 
 ```js
-const HAS_FREE_TRIAL = false; // Trial disabled
+// sassy/src/constants/FreeTrial.ts
+export const HAS_FREE_TRIAL = false; // Trial disabled
 // OR
-const HAS_FREE_TRIAL = true; // Trial enabled
+export const HAS_FREE_TRIAL = '7d'; // Trial enabled for 7 days
 ```
 
 ### Example:
 
-When `HAS_FREE_TRIAL` is set to `true`, a message informing the user about the free trial will be displayed. This message typically says:
+When `HAS_FREE_TRIAL` is set to `'7d'`, a message informing the user about the free trial will be displayed. This message typically says:
 
 ```
 You have a free trial for 7 days!
@@ -35,13 +36,16 @@ This message is shown to the user inside a styled notification.
 
 ### 1. Display of Trial Information
 
-If `HAS_FREE_TRIAL` is set to `true`, the component will display a message in a styled `div` element. This message informs users that they have a trial period available, which is currently set to 7 days.
+If `HAS_FREE_TRIAL` is set to `'7d'`, the component will display a message informing users that they have a trial period available for 7 days.
 
 ```js
+// sassy/src/components/Pricing/index.tsx
+import { HAS_FREE_TRIAL } from '../../constants/FreeTrial';
+
 {HAS_FREE_TRIAL && (
     <div className="mt-4 bg-indigo-100 p-4 rounded-md text-gray-800">
         <p className="text-lg font-bold">
-            You have a free trial for 7 days!
+            You have a free trial for {HAS_FREE_TRIAL}!
         </p>
         <p>Try our service with no commitment.</p>
     </div>
@@ -54,14 +58,13 @@ The trial functionality operates alongside the available pricing plans. If a use
 
 ### 3. Customization of Trial Duration
 
-Currently, the trial duration is hardcoded to "7 days" in the component. If a different duration is required, developers can modify the displayed text in the component or pass the duration as a prop.
+You can customize the duration of the trial by setting the `HAS_FREE_TRIAL` variable to any string value representing the duration (e.g., `'7d'` for 7 days, `'14d'` for 14 days, etc.).
 
-Example of the trial duration hardcoded:
+Example:
 
 ```js
-<p className="text-lg font-bold">
-    You have a free trial for 7 days!
-</p>
+// sassy/src/constants/FreeTrial.ts
+export const HAS_FREE_TRIAL = '14d'; // Trial enabled for 14 days
 ```
 
 ### 4. Checkout Flow
@@ -73,12 +76,11 @@ During the trial period, users are not charged. However, once the trial ends, us
 
 ## Conclusion
 
-The free trial functionality in the `Pricing` component offers a flexible way to give users an initial, risk-free experience with your service. By enabling or disabling the trial through the `HAS_FREE_TRIAL` constant, developers can easily manage the availability of the trial. The trial period does not interfere with the checkout process, allowing users to seamlessly transition from the trial to a paid plan when they're ready.
+The free trial functionality in the `Pricing` component offers a flexible way to give users an initial, risk-free experience with your service. By enabling or disabling the trial through the `HAS_FREE_TRIAL` constant in `FreeTrial.ts`, developers can easily manage the availability of the trial. The trial period does not interfere with the checkout process, allowing users to seamlessly transition from the trial to a paid plan when they're ready.
 
 ### Customization
 
-- Modify the `HAS_FREE_TRIAL` constant to enable or disable the trial.
-- Change the duration of the trial in the displayed message.
+- Modify the `HAS_FREE_TRIAL` constant in `FreeTrial.ts` to enable or disable the trial.
+- Set the trial duration by changing the value of `HAS_FREE_TRIAL` (e.g., `'7d'` for 7 days).
 - Integrate with other components like `Toggle` for monthly/annual billing options.
 
-With these features, the trial period can be tailored to suit the specific needs of your application and business model.
