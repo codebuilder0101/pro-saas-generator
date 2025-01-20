@@ -1,19 +1,13 @@
 'use client';
 
-import { redirect } from 'next/navigation';
-
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import { HAS_FREE_TRIAL } from '@/constants/FreeTrial';
-import { SUBSCRIPTION_PLANS_BASE } from '@/constants/Plan';
-import { Toast } from '@/contexts/ToastContext';
-import { useToast } from "@/hooks/useToast";
-import { supabase } from '@/libs/supabase/client';
-import StripeService from '@/services/stripe';
-import SupabaseService from '@/services/supabase';
+import { useCheckout } from '@/hooks/useCheckout';
+import { useFetchPlans } from '@/hooks/useFetchPlans';
 
 import Spinner from '../Spinner';
-import PlanCard, { Plan } from './PlanCard';
+import PlanCard from './PlanCard';
 import Toggle from '../Toggle';
 
 export type PricingProps = {
@@ -21,89 +15,11 @@ export type PricingProps = {
     hasFreeplan?: boolean;
 };
 
-interface CheckoutProps {
-    plan: Plan;
-    isAnnual: boolean;
-    addToast: (toast: Toast) => void;
-    setIsLoading: (isLoading: boolean) => void;
-}
-
 export default function Pricing({ selectedOption, hasFreeplan = true }: PricingProps) {
-    const { addToast } = useToast();
     const [isLoading, setIsLoading] = useState<boolean>(true);
+    const { plans } = useFetchPlans(hasFreeplan, setIsLoading);
     const [isAnnual, setIsAnnual] = useState<boolean>(false);
-    const [plans, setPlans] = useState<Plan[]>(hasFreeplan && !HAS_FREE_TRIAL ? SUBSCRIPTION_PLANS_BASE : []);
-
-    useEffect(() => {
-        fetchPlans();
-    }, []);
-
-    async function fetchPlans(): Promise<void> {
-        try {
-            setIsLoading(true);
-            const response = await fetch('/api/payments/get-plans');
-            const data: Plan[] = await response.json();
-            setPlans((prev: Plan[]) => {
-                if (!prev) {
-                    return data;
-                }
-                if (prev.length >= 4) {
-                    return [...prev];
-                }
-                return [...prev, ...data];
-            });
-        } catch (error) {
-            console.error('Erro ao buscar planos:', error);
-        }
-        setIsLoading(false);
-    };
-
-    async function handleCheckout({ plan, isAnnual, addToast, setIsLoading }: CheckoutProps): Promise<void> {
-        if (plan.id === 'free') {
-            console.log('Free plan selected');
-            return;
-        }
-
-        setIsLoading(true);
-        const SupabaseServiceInstance = new SupabaseService(supabase);
-        const user = await SupabaseServiceInstance.getUserId();
-
-        if (!user) {
-            return redirect('/signin');
-        }
-
-        try {
-            const priceId = isAnnual ? plan.idAnnual : plan.idMonthly;
-
-            const response = await fetch('/api/payments/create-checkout', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ priceId, plan: plan.id, userId: user, hasFreeTrial: HAS_FREE_TRIAL }),
-            });
-
-            const jsonResponse = await response.json();
-            const sessionId = jsonResponse.id;
-
-            if (sessionId) {
-                await StripeService.redirectToCheckout(sessionId);
-            } else {
-                addToast({
-                    id: Date.now().toString(),
-                    message: 'Error during Checkout',
-                    description: 'An error occurred while processing your request. Please try again later.',
-                    type: 'error',
-                });
-            }
-        } catch (error) {
-            console.error('Error during payment checkout:', error);
-            addToast({
-                id: Date.now().toString(),
-                message: 'Error during Checkout',
-                description: 'An error occurred while processing your request. Please try again later.',
-                type: 'error',
-            });
-        }
-    }
+    const { handleCheckout } = useCheckout();
 
     return (
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -111,11 +27,10 @@ export default function Pricing({ selectedOption, hasFreeplan = true }: PricingP
             <p className="mt-4 text-lg text-gray-600">
                 Simple and transparent pricing to suit your needs.
             </p>
+
             {HAS_FREE_TRIAL && (
                 <div className="mt-4 bg-indigo-100 p-4 rounded-md text-gray-800">
-                    <p className="text-lg font-bold">
-                        You have a free trial for {HAS_FREE_TRIAL}!
-                    </p>
+                    <p className="text-lg font-bold">You have a free trial for {HAS_FREE_TRIAL}!</p>
                     <p>Try our service with no commitment.</p>
                 </div>
             )}
@@ -126,9 +41,8 @@ export default function Pricing({ selectedOption, hasFreeplan = true }: PricingP
                 onToggle={setIsAnnual}
             />
 
-            {isLoading
-                ? <Spinner />
-                : <div className={`mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-${plans.length} gap-8`}>
+            {isLoading ? <Spinner /> : (
+                <div className={`mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-${plans.length} gap-8`}>
                     {plans.map((plan) => {
                         if (!plan?.id) return null;
 
@@ -142,11 +56,12 @@ export default function Pricing({ selectedOption, hasFreeplan = true }: PricingP
                                 isAnnual={isAnnual}
                                 isSelected={isSelected}
                                 isMostPopular={isMostPopular}
-                                handle={() => handleCheckout({ plan, isAnnual, addToast, setIsLoading })}
+                                handle={() => handleCheckout({ plan, isAnnual, setIsLoading })}
                             />
                         );
                     })}
-                </div>}
+                </div>
+            )}
         </div>
     );
 }
