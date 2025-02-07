@@ -1,6 +1,8 @@
 import { loadStripe } from '@stripe/stripe-js';
 import Stripe from 'stripe';
 
+import { calculateCurrencyAmount } from '@/utils/calculateCurrencyAmount';
+
 export default class StripeService {
   private stripe: Stripe;
 
@@ -14,9 +16,9 @@ export default class StripeService {
     userId: string, 
     origin: string, 
     freeTrial?: number, 
+    currency?: string, 
   ): Promise<Stripe.Checkout.Session> {
-    const currency: string = 'usd';
-    // const currency: string = 'brl';
+
     const price = await this.stripe.prices.retrieve(priceId);
     const recurringInterval = price.recurring?.interval;
 
@@ -36,9 +38,9 @@ export default class StripeService {
       metadata: { userId, plan },
     };
   
-    if (currency !== 'usd') {
+    if (currency) {
       const unitAmount = price.unit_amount;
-      const newUnitAmount = unitAmount ? unitAmount * 6 : 0;
+      const newUnitAmount = calculateCurrencyAmount(String(unitAmount), currency);
       
       sessionData.line_items = [{
         price_data: {
