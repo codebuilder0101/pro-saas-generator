@@ -6,7 +6,7 @@ import BackLink from "@/components/BackLink";
 import Spinner from "@/components/Spinner";
 import { useI18n } from '@/hooks/useI18n';
 import { supabase } from "@/libs/supabase/client";
-import SupabaseService from "@/services/supabase";
+import AuthService from "@/services/auth";
 
 type State = {
     isLoading: boolean;
@@ -61,10 +61,10 @@ export default function ConfirmSignUp() {
 
     async function handleConfirmSignup(token: string) {
         dispatch({ type: "SET_LOADING", isLoading: true });
-        const SupabaseServiceInstance = new SupabaseService(supabase);
+        const AuthServiceInstance = new AuthService(supabase);
 
         try {
-            const response = await SupabaseServiceInstance.confirmEmail(token, 'signup');
+            const response = await AuthServiceInstance.confirmEmail(token, 'signup');
             if (response?.id) {
                 dispatch({ type: "CONFIRMATION_SUCCESS" });
             } else {
@@ -103,7 +103,7 @@ const ErrorMessage = ({ message }: { message: string }) => (
 );
 
 const ConfirmationMessage = () => {
-    const { translate } = useI18n();
+    const { translate } = useI18n("pages.confirm-signup");
     return (
         <>
             <BackLink href='/dashboard' label={translate("actions.dashboard")} />
@@ -114,10 +114,10 @@ const ConfirmationMessage = () => {
 };
 
 const ConfirmationOAuthMessage = () => {
-    const { translate } = useI18n();
+    const { translate } = useI18n("pages.confirm-signup");
     return (
         <>
-            <BackLink href='/dashboard' label={translate("go-to-dashboard")} />
+            <BackLink href='/dashboard' label={translate("actions.dashboard")} />
             <h2 className="text-2xl font-semibold text-center text-gray-900">{translate("messages.oauth.title")}</h2>
             <p className="text-center text-sm text-gray-600">{translate("messages.oauth.description")}</p>
         </>

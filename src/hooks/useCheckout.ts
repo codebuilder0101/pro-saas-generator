@@ -1,10 +1,10 @@
 import { Plan } from "@/components/Pricing/PlanCard";
-import { FIXED_CURRENCY } from "@/constants/FIXED_CURRENCY";
-import { HAS_FREE_TRIAL } from "@/constants/HAS_FREE_TRIAL";
+import { FIXED_CURRENCY } from "@/constants/fixed-currency";
+import { HAS_FREE_TRIAL } from "@/constants/has-free-trial";
 import { useToast } from "@/hooks/useToast";
 import { supabase } from '@/libs/supabase/client';
-import StripeService from '@/services/stripe';
-import SupabaseService from '@/services/supabase';
+import AuthService from '@/services/auth';
+import PaymentService from '@/services/payment';
 
 export const useCheckout = () => {
     const { addToast } = useToast();
@@ -15,10 +15,10 @@ export const useCheckout = () => {
         }
 
         setIsLoading(true);
-        const SupabaseServiceInstance = new SupabaseService(supabase);
-        const user = await SupabaseServiceInstance.getUserId();
+        const AuthServiceInstance = new AuthService(supabase);
+        const userId = await AuthServiceInstance.getUserId();
 
-        if (!user) {
+        if (!userId) {
             window.location.href = '/signin';
             return;
         }
@@ -28,14 +28,14 @@ export const useCheckout = () => {
             const response = await fetch('/api/payments/create-checkout', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ priceId, plan: plan.id, userId: user, hasFreeTrial: HAS_FREE_TRIAL, currency: FIXED_CURRENCY }),
+                body: JSON.stringify({ priceId, plan: plan.id, userId: userId, hasFreeTrial: HAS_FREE_TRIAL, currency: FIXED_CURRENCY }),
             });
 
             const jsonResponse = await response.json();
             const sessionId = jsonResponse.id;
 
             if (sessionId) {
-                await StripeService.redirectToCheckout(sessionId);
+                await PaymentService.redirectToCheckout(sessionId);
             } else {
                 addToast({
                     id: Date.now().toString(),

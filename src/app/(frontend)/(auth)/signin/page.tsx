@@ -9,10 +9,10 @@ import ButtonComponent from "@/components/Button";
 import FooterAuthScreenComponent from "@/components/FooterAuthScreen";
 import InputComponent from "@/components/Input";
 import OAuth from "@/components/OAuth";
-import { ROUTES } from '@/constants/ROUTES';
+import { ROUTES } from '@/constants/routes-constants';
 import { useI18n } from '@/hooks/useI18n'; 
 import { supabase } from '@/libs/supabase/client';
-import SupabaseService from '@/services/supabase';
+import AuthService from '@/services/auth';
 import { isValidEmail } from '@/utils/isValidEmail';
 
 const initialState = {
@@ -72,8 +72,8 @@ export default function SignIn() {
               throw new Error("Validation Error");
           }
   
-          const SupabaseServiceInstance = new SupabaseService(supabase);
-          const response = await SupabaseServiceInstance.signIn(state.inputValue.email, state.inputValue.password);
+          const AuthServiceInstance = new AuthService(supabase);
+          const response = await AuthServiceInstance.signIn(state.inputValue.email, state.inputValue.password);
   
           if (response?.id) {
               router.push(ROUTES.dashboard);
